@@ -86,8 +86,7 @@ function navActive(string $page, string $dir = ''): string {
                 </ul>
             </div>
             <?php else: ?>
-            <a href="<?= url('login.php') ?>" class="btn btn-outline-primary btn-sm">Log In</a>
-            <a href="<?= url('register.php') ?>" class="btn btn-primary btn-sm">Register</a>
+            <a href="<?= url('login.php') ?>" class="btn btn-primary btn-sm">Log In / Register</a>
             <?php endif; ?>
         </div>
     </div>

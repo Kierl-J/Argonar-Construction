@@ -25,8 +25,7 @@ require __DIR__ . '/../includes/header.php';
         <i class="fas fa-file-invoice-dollar fa-3x text-muted mb-3"></i>
         <h5 class="fw-bold">BOQ Generator</h5>
         <p class="text-muted mb-4">Create detailed Bill of Quantities with automatic calculations and Excel export.<br>Please log in or register to get started.</p>
-        <a href="<?= url('login.php') ?>" class="btn btn-primary me-2">Log In</a>
-        <a href="<?= url('register.php') ?>" class="btn btn-outline-primary">Register</a>
+        <a href="<?= url('login.php') ?>" class="btn btn-primary">Log In / Register</a>
     </div>
 </div>
 <?php elseif (!$hasAccess): ?>

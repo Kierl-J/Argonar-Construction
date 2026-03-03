@@ -2,38 +2,72 @@
 require __DIR__ . '/includes/db.php';
 require __DIR__ . '/includes/auth.php';
 
-// Already logged in?
 if (is_logged_in()) {
     redirect('index.php');
 }
 
 $errors = [];
+$tab = 'login';
 
-// Handle POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
+    $action = $_POST['action'] ?? 'login';
 
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+    if ($action === 'register') {
+        $tab = 'register';
+        $name     = trim($_POST['name'] ?? '');
+        $email    = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
 
-    if (!$email || !$password) {
-        $errors[] = 'Email and password are required.';
-    } else {
-        $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
+        if (!$name)     $errors[] = 'Name is required.';
+        if (!$email)    $errors[] = 'Email is required.';
+        if (!$password) $errors[] = 'Password is required.';
+        if (strlen($password) < 6) $errors[] = 'Password must be at least 6 characters.';
 
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
+        if (!$errors) {
+            $stmt = $db->prepare('SELECT id FROM users WHERE email = ?');
+            $stmt->execute([$email]);
+            if ($stmt->fetch()) {
+                $errors[] = 'This email is already registered.';
+            }
+        }
+
+        if (!$errors) {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $db->prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)');
+            $stmt->execute([$name, $email, $hash]);
+
+            $_SESSION['user_id'] = $db->lastInsertId();
             session_regenerate_id(true);
 
-            // Redirect to intended URL or homepage
+            flash('success', 'Account created! Welcome to Argonar Construction.');
             $intended = $_SESSION['intended_url'] ?? url('index.php');
             unset($_SESSION['intended_url']);
             header('Location: ' . $intended);
             exit;
+        }
+    } else {
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+
+        if (!$email || !$password) {
+            $errors[] = 'Email and password are required.';
         } else {
-            $errors[] = 'Invalid email or password.';
+            $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
+            $stmt->execute([$email]);
+            $user = $stmt->fetch();
+
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id'];
+                session_regenerate_id(true);
+
+                $intended = $_SESSION['intended_url'] ?? url('index.php');
+                unset($_SESSION['intended_url']);
+                header('Location: ' . $intended);
+                exit;
+            } else {
+                $errors[] = 'Invalid email or password.';
+            }
         }
     }
 }
@@ -57,7 +91,15 @@ $flashMessages = get_flash();
         <div class="auth-logo">
             <img src="<?= asset('images/logo.svg') ?>" alt="<?= APP_NAME ?>">
         </div>
-        <h5 class="text-center fw-bold mb-4">Log In</h5>
+
+        <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item flex-fill text-center">
+                <a class="nav-link <?= $tab === 'login' ? 'active' : '' ?>" data-bs-toggle="tab" href="#loginTab">Log In</a>
+            </li>
+            <li class="nav-item flex-fill text-center">
+                <a class="nav-link <?= $tab === 'register' ? 'active' : '' ?>" data-bs-toggle="tab" href="#registerTab">Register</a>
+            </li>
+        </ul>
 
         <?php if (!empty($flashMessages)): foreach ($flashMessages as $type => $msg): ?>
         <div class="alert alert-<?= $type ?> small"><?= h($msg) ?></div>
@@ -71,23 +113,50 @@ $flashMessages = get_flash();
         </div>
         <?php endif; ?>
 
-        <form method="POST">
-            <?= csrf_field() ?>
-            <div class="mb-3">
-                <label class="form-label" for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email"
-                       value="<?= h($_POST['email'] ?? '') ?>" required autofocus>
+        <div class="tab-content">
+            <!-- Login Tab -->
+            <div class="tab-pane fade <?= $tab === 'login' ? 'show active' : '' ?>" id="loginTab">
+                <form method="POST">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="action" value="login">
+                    <div class="mb-3">
+                        <label class="form-label" for="login-email">Email</label>
+                        <input type="email" class="form-control" id="login-email" name="email"
+                               value="<?= $tab === 'login' ? h($_POST['email'] ?? '') : '' ?>" required <?= $tab === 'login' ? 'autofocus' : '' ?>>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="login-password">Password</label>
+                        <input type="password" class="form-control" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Log In</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+
+            <!-- Register Tab -->
+            <div class="tab-pane fade <?= $tab === 'register' ? 'show active' : '' ?>" id="registerTab">
+                <form method="POST">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="action" value="register">
+                    <div class="mb-3">
+                        <label class="form-label" for="reg-name">Name</label>
+                        <input type="text" class="form-control" id="reg-name" name="name"
+                               value="<?= $tab === 'register' ? h($_POST['name'] ?? '') : '' ?>" required <?= $tab === 'register' ? 'autofocus' : '' ?>>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="reg-email">Email</label>
+                        <input type="email" class="form-control" id="reg-email" name="email"
+                               value="<?= $tab === 'register' ? h($_POST['email'] ?? '') : '' ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="reg-password">Password</label>
+                        <input type="password" class="form-control" id="reg-password" name="password" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
-        </form>
-        <p class="text-center text-muted small mb-0">
-            Don't have an account? <a href="<?= url('register.php') ?>">Register</a>
-        </p>
+        </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
