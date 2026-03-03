@@ -15,9 +15,17 @@ define('APP_NAME', 'Argonar Construction');
 define('APP_URL', '');
 
 // PayRex config
-define('PAYREX_SECRET_KEY', 'sk_live_REPLACE_ME');
-define('PAYREX_PUBLIC_KEY', 'pk_live_Y21WRCgDucP26UEpqtctvYp8MySJ4u5V');
-define('PAYREX_WEBHOOK_SECRET', 'whsk_REPLACE_ME');
+// PayRex keys — loaded from .env file (not committed to git)
+$_envFile = __DIR__ . '/../.env';
+if (file_exists($_envFile)) {
+    foreach (file($_envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $_line) {
+        if (str_starts_with($_line, '#')) continue;
+        if (str_contains($_line, '=')) putenv(trim($_line));
+    }
+}
+define('PAYREX_SECRET_KEY', getenv('PAYREX_SECRET_KEY') ?: '');
+define('PAYREX_PUBLIC_KEY', getenv('PAYREX_PUBLIC_KEY') ?: '');
+define('PAYREX_WEBHOOK_SECRET', getenv('PAYREX_WEBHOOK_SECRET') ?: '');
 
 // Subscription plans (amounts in centavos)
 define('PLANS', [
