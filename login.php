@@ -89,7 +89,14 @@ $flashMessages = get_flash();
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-logo">
-            <img src="<?= asset('images/logo.svg') ?>" alt="<?= APP_NAME ?>">
+            <a href="<?= url('index.php') ?>">
+                <img src="<?= asset('images/logo.svg') ?>" alt="<?= APP_NAME ?>">
+            </a>
+        </div>
+        <div class="text-center mb-3">
+            <a href="<?= url('index.php') ?>" class="text-muted small text-decoration-none">
+                <i class="fas fa-arrow-left me-1"></i> Back to Home
+            </a>
         </div>
 
         <ul class="nav nav-tabs mb-4" role="tablist">

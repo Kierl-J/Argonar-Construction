@@ -4,7 +4,10 @@ require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../includes/subscription.php';
 require __DIR__ . '/../vendor/autoload.php';
 
-$user = require_login();
+$user = current_user();
+if (!$user) {
+    $user = create_guest_user();
+}
 
 // POST only
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

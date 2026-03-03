@@ -51,6 +51,11 @@ function navActive(string $page, string $dir = ''): string {
         <a href="<?= url('payment/history.php') ?>" class="nav-link <?= $currentPage === 'history' ? 'active' : '' ?>">
             <i class="fas fa-receipt"></i> My Subscription
         </a>
+        <?php if (!empty($currentUser['is_guest'])): ?>
+        <a href="<?= url('claim.php') ?>" class="nav-link <?= $currentPage === 'claim' ? 'active' : '' ?>">
+            <i class="fas fa-user-plus"></i> Claim Account
+        </a>
+        <?php endif; ?>
         <a href="<?= url('logout.php') ?>" class="nav-link">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
