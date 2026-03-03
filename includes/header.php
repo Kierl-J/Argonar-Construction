@@ -9,7 +9,7 @@ $currentDir = basename(dirname($_SERVER['SCRIPT_NAME']));
 function navActive(string $page, string $dir = ''): string {
     global $currentPage, $currentDir;
     if ($dir && $currentDir === $dir) return 'active';
-    if (!$dir && $currentPage === $page && $currentDir !== 'boq') return 'active';
+    if (!$dir && $currentPage === $page && !in_array($currentDir, ['boq', 'rebar'])) return 'active';
     return '';
 }
 ?>
@@ -21,6 +21,7 @@ function navActive(string $page, string $dir = ''): string {
     <meta name="csrf-token" content="<?= csrf_token() ?>">
     <title><?= isset($pageTitle) ? h($pageTitle) . ' | ' : '' ?><?= APP_NAME ?></title>
     <link rel="icon" type="image/svg+xml" href="<?= asset('images/favicon.svg') ?>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="<?= asset('css/app.css') ?>" rel="stylesheet">
@@ -44,6 +45,9 @@ function navActive(string $page, string $dir = ''): string {
         <div class="nav-section">Tools</div>
         <a href="<?= url('boq/index.php') ?>" class="nav-link <?= navActive('', 'boq') ?>">
             <i class="fas fa-file-invoice-dollar"></i> BOQ Generator
+        </a>
+        <a href="<?= url('rebar/index.php') ?>" class="nav-link <?= navActive('', 'rebar') ?>">
+            <i class="fas fa-ruler-combined"></i> Rebar Cutting List
         </a>
 
         <?php if ($currentUser): ?>

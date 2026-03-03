@@ -64,6 +64,38 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+-- Rebar Cutting Lists
+CREATE TABLE IF NOT EXISTS rebar_lists (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    project_name VARCHAR(200) DEFAULT NULL,
+    structural_member VARCHAR(200) DEFAULT NULL,
+    prepared_by VARCHAR(100) DEFAULT NULL,
+    checked_by VARCHAR(100) DEFAULT NULL,
+    date_prepared DATE DEFAULT NULL,
+    total_weight DECIMAL(12,3) NOT NULL DEFAULT 0,
+    status ENUM('draft','final') NOT NULL DEFAULT 'draft',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Rebar Items
+CREATE TABLE IF NOT EXISTS rebar_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rebar_list_id INT NOT NULL,
+    item_no INT NOT NULL DEFAULT 0,
+    bar_size VARCHAR(10) NOT NULL DEFAULT '10mm',
+    no_of_pieces INT NOT NULL DEFAULT 0,
+    length_per_pc DECIMAL(8,3) NOT NULL DEFAULT 0,
+    total_length DECIMAL(12,3) NOT NULL DEFAULT 0,
+    weight_per_meter DECIMAL(8,4) NOT NULL DEFAULT 0,
+    total_weight DECIMAL(12,3) NOT NULL DEFAULT 0,
+    description VARCHAR(255) DEFAULT NULL,
+    FOREIGN KEY (rebar_list_id) REFERENCES rebar_lists(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 -- Seed admin user (password: admin123)
 INSERT INTO users (name, email, password, company) VALUES
 ('Admin', 'admin@argonar.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Argonar Construction');
