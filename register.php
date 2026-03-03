@@ -15,15 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name     = trim($_POST['name'] ?? '');
     $email    = trim($_POST['email'] ?? '');
-    $company  = trim($_POST['company'] ?? '');
     $password = $_POST['password'] ?? '';
-    $confirm  = $_POST['password_confirm'] ?? '';
 
     if (!$name)     $errors[] = 'Name is required.';
     if (!$email)    $errors[] = 'Email is required.';
     if (!$password) $errors[] = 'Password is required.';
     if (strlen($password) < 6) $errors[] = 'Password must be at least 6 characters.';
-    if ($password !== $confirm) $errors[] = 'Passwords do not match.';
 
     // Check email uniqueness
     if (!$errors) {
@@ -36,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$errors) {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $db->prepare('INSERT INTO users (name, email, password, company) VALUES (?, ?, ?, ?)');
-        $stmt->execute([$name, $email, $hash, $company ?: null]);
+        $stmt = $db->prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)');
+        $stmt->execute([$name, $email, $hash]);
 
         $_SESSION['user_id'] = $db->lastInsertId();
         session_regenerate_id(true);
@@ -77,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST">
             <?= csrf_field() ?>
             <div class="mb-3">
-                <label class="form-label" for="name">Full Name</label>
+                <label class="form-label" for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name"
                        value="<?= h($_POST['name'] ?? '') ?>" required autofocus>
             </div>
@@ -87,17 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        value="<?= h($_POST['email'] ?? '') ?>" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="company">Company <span class="text-muted">(optional)</span></label>
-                <input type="text" class="form-control" id="company" name="company"
-                       value="<?= h($_POST['company'] ?? '') ?>">
-            </div>
-            <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required minlength="6">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="password_confirm">Confirm Password</label>
-                <input type="password" class="form-control" id="password_confirm" name="password_confirm" required>
             </div>
             <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
         </form>
