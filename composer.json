@@ -1,0 +1,10 @@
+{
+    "name": "argonar/construction",
+    "description": "Argonar Construction Platform",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "phpoffice/phpspreadsheet": "^1.29",
+        "payrex/payrex-php": "^1.8"
+    }
+}

@@ -1,0 +1,16 @@
+# Block direct access to includes/ and vendor/
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block includes directory
+    RewriteRule ^includes/ - [F,L]
+
+    # Block vendor directory
+    RewriteRule ^vendor/ - [F,L]
+
+    # Block .sql files
+    RewriteRule \.sql$ - [F,L]
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
