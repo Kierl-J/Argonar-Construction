@@ -38,7 +38,7 @@ try {
         ],
         'success_url' => 'https://argonar.co/payment/success.php?session_id={id}',
         'cancel_url' => 'https://argonar.co/payment/cancel.php',
-        'billing_details_collection' => 'never',
+        'billing_details_collection' => 'auto',
         'payment_methods' => ['gcash', 'card', 'maya', 'qrph'],
         'metadata' => [
             'user_id' => (string)$user['id'],
