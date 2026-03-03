@@ -33,8 +33,8 @@ try {
                 'quantity' => 1,
             ],
         ],
-        'success_url' => 'http://localhost' . APP_URL . '/payment/success.php?session_id={id}',
-        'cancel_url' => 'http://localhost' . APP_URL . '/payment/cancel.php',
+        'success_url' => 'https://argonar.co/payment/success.php?session_id={id}',
+        'cancel_url' => 'https://argonar.co/payment/cancel.php',
         'payment_methods' => ['gcash', 'card', 'maya', 'qrph'],
         'metadata' => [
             'user_id' => (string)$user['id'],

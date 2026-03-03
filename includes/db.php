@@ -12,7 +12,7 @@ define('DB_PASS', '');
 
 // App config
 define('APP_NAME', 'Argonar Construction');
-define('APP_URL', '/Argonar Construction');
+define('APP_URL', '');
 
 // PayRex config
 define('PAYREX_SECRET_KEY', 'sk_live_REPLACE_ME');
