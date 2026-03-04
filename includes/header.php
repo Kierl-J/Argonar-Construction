@@ -9,7 +9,7 @@ $currentDir = basename(dirname($_SERVER['SCRIPT_NAME']));
 function navActive(string $page, string $dir = ''): string {
     global $currentPage, $currentDir;
     if ($dir && $currentDir === $dir) return 'active';
-    if (!$dir && $currentPage === $page && !in_array($currentDir, ['boq', 'rebar'])) return 'active';
+    if (!$dir && $currentPage === $page && !in_array($currentDir, ['boq', 'rebar', 'structural', 'architectural', 'documents', 'templates'])) return 'active';
     return '';
 }
 ?>
@@ -48,6 +48,18 @@ function navActive(string $page, string $dir = ''): string {
         </a>
         <a href="<?= url('rebar/index.php') ?>" class="nav-link <?= navActive('', 'rebar') ?>">
             <i class="fas fa-ruler-combined"></i> Rebar Cutting List
+        </a>
+        <a href="<?= url('structural/index.php') ?>" class="nav-link <?= navActive('', 'structural') ?>">
+            <i class="fas fa-building"></i> Structural Estimate
+        </a>
+        <a href="<?= url('architectural/index.php') ?>" class="nav-link <?= navActive('', 'architectural') ?>">
+            <i class="fas fa-drafting-compass"></i> Architectural Estimate
+        </a>
+        <a href="<?= url('documents/index.php') ?>" class="nav-link <?= navActive('', 'documents') ?>">
+            <i class="fas fa-file-alt"></i> Document Generator
+        </a>
+        <a href="<?= url('templates/index.php') ?>" class="nav-link <?= navActive('', 'templates') ?>">
+            <i class="fas fa-file-excel"></i> Excel Templates
         </a>
 
         <?php if ($currentUser): ?>

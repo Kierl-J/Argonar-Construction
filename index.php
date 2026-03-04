@@ -46,48 +46,60 @@ require __DIR__ . '/includes/header.php';
         </a>
     </div>
 
-    <!-- Structural Estimate (Coming Soon) -->
+    <!-- Structural Estimate -->
     <div class="col-md-6 col-lg-4">
-        <div class="tool-card" style="opacity: 0.6; cursor: default;">
+        <a href="<?= url('structural/index.php') ?>" class="tool-card">
             <div class="tool-icon" style="background: rgba(39,174,96,0.1); color: #27AE60;">
                 <i class="fas fa-building"></i>
             </div>
-            <h6 class="fw-bold mb-1">Structural Estimate <span class="badge badge-coming-soon">Coming Soon</span></h6>
+            <h6 class="fw-bold mb-1">Structural Estimate</h6>
             <p class="text-muted small mb-0">Quick structural cost estimates for concrete, steel, and formwork.</p>
-        </div>
+            <?php if (!$hasAccess): ?>
+            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <?php endif; ?>
+        </a>
     </div>
 
-    <!-- Architectural Estimate (Coming Soon) -->
+    <!-- Architectural Estimate -->
     <div class="col-md-6 col-lg-4">
-        <div class="tool-card" style="opacity: 0.6; cursor: default;">
+        <a href="<?= url('architectural/index.php') ?>" class="tool-card">
             <div class="tool-icon" style="background: rgba(155,89,182,0.1); color: #9B59B6;">
                 <i class="fas fa-drafting-compass"></i>
             </div>
-            <h6 class="fw-bold mb-1">Architectural Estimate <span class="badge badge-coming-soon">Coming Soon</span></h6>
+            <h6 class="fw-bold mb-1">Architectural Estimate</h6>
             <p class="text-muted small mb-0">Estimate architectural finishes: masonry, tiling, painting, roofing.</p>
-        </div>
+            <?php if (!$hasAccess): ?>
+            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <?php endif; ?>
+        </a>
     </div>
 
-    <!-- Document Generator (Coming Soon) -->
+    <!-- Document Generator -->
     <div class="col-md-6 col-lg-4">
-        <div class="tool-card" style="opacity: 0.6; cursor: default;">
+        <a href="<?= url('documents/index.php') ?>" class="tool-card">
             <div class="tool-icon" style="background: rgba(230,126,34,0.1); color: #E67E22;">
                 <i class="fas fa-file-alt"></i>
             </div>
-            <h6 class="fw-bold mb-1">Document Generator <span class="badge badge-coming-soon">Coming Soon</span></h6>
+            <h6 class="fw-bold mb-1">Document Generator</h6>
             <p class="text-muted small mb-0">Generate construction documents and reports.</p>
-        </div>
+            <?php if (!$hasAccess): ?>
+            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <?php endif; ?>
+        </a>
     </div>
 
-    <!-- Excel Templates (Coming Soon) -->
+    <!-- Excel Templates -->
     <div class="col-md-6 col-lg-4">
-        <div class="tool-card" style="opacity: 0.6; cursor: default;">
+        <a href="<?= url('templates/index.php') ?>" class="tool-card">
             <div class="tool-icon" style="background: rgba(46,204,113,0.1); color: #2ECC71;">
                 <i class="fas fa-file-excel"></i>
             </div>
-            <h6 class="fw-bold mb-1">Excel Templates <span class="badge badge-coming-soon">Coming Soon</span></h6>
+            <h6 class="fw-bold mb-1">Excel Templates</h6>
             <p class="text-muted small mb-0">Download ready-made Excel templates for construction projects.</p>
-        </div>
+            <?php if (!$hasAccess): ?>
+            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <?php endif; ?>
+        </a>
     </div>
 
 </div>
