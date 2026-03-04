@@ -20,6 +20,30 @@ function navActive(string $page, string $dir = ''): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= csrf_token() ?>">
     <title><?= isset($pageTitle) ? h($pageTitle) . ' | ' : '' ?><?= APP_NAME ?></title>
+    <meta name="description" content="<?= h($pageDescription ?? 'Online construction tools for Filipino engineers and contractors. BOQ Generator, Structural & Architectural Estimates, Document Generator, Rebar Cutting List, and Excel Templates.') ?>">
+    <meta name="keywords" content="construction tools, BOQ generator, structural estimate, architectural estimate, rebar cutting list, document generator, Philippines, civil engineering">
+    <meta name="author" content="Argonar Construction">
+    <link rel="canonical" href="https://argonar.co<?= $_SERVER['REQUEST_URI'] ?>">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?= APP_NAME ?>">
+    <meta property="og:title" content="<?= isset($pageTitle) ? h($pageTitle) . ' | ' : '' ?><?= APP_NAME ?>">
+    <meta property="og:description" content="<?= h($pageDescription ?? 'Online construction tools for Filipino engineers and contractors. BOQ, estimates, documents, and more.') ?>">
+    <meta property="og:url" content="https://argonar.co<?= $_SERVER['REQUEST_URI'] ?>">
+    <meta property="og:image" content="https://argonar.co/images/fb/post_tools_1080.png">
+
+    <!-- Google Search Console -->
+    <?php if (GSC_VERIFICATION): ?>
+    <meta name="google-site-verification" content="<?= h(GSC_VERIFICATION) ?>">
+    <?php endif; ?>
+
+    <!-- Google Analytics (GA4) -->
+    <?php if (GA_MEASUREMENT_ID): ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= h(GA_MEASUREMENT_ID) ?>"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','<?= h(GA_MEASUREMENT_ID) ?>');</script>
+    <?php endif; ?>
+
     <link rel="icon" type="image/svg+xml" href="<?= asset('images/favicon.svg') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
