@@ -15,8 +15,8 @@ define('APP_NAME', 'Argonar Construction');
 define('APP_URL', '');
 
 // SEO / Analytics config
-define('GA_MEASUREMENT_ID', getenv('GA_MEASUREMENT_ID') ?: '');           // e.g. G-XXXXXXXXXX
-define('GSC_VERIFICATION',  getenv('GSC_VERIFICATION')  ?: '');           // Google Search Console meta tag content
+define('GA_MEASUREMENT_ID', getenv('GA_MEASUREMENT_ID') ?: 'G-Q5QNWQJ06Y');
+define('GSC_VERIFICATION',  getenv('GSC_VERIFICATION')  ?: '');
 
 // PayRex config
 // PayRex keys — loaded from .env file (not committed to git)
