@@ -186,44 +186,31 @@ Sign up → argonar.co
     </div>
 
     <div style="margin-bottom:1.5rem;">
-        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Interests (Add ALL of these)</strong>
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Interests (type these in the search box)</strong>
         <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
-            <p style="color:var(--text);font-size:.85rem;margin:0 0 .5rem;font-weight:600;">Browse → Additional Interests:</p>
+            <p style="color:var(--muted);font-size:.8rem;margin:0 0 .75rem;">In the Detailed Targeting field, type each one and select it from the dropdown. Add as many as you can find.</p>
+            <p style="color:var(--text);font-size:.85rem;margin:0 0 .5rem;font-weight:600;">Industry & Profession:</p>
             <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+                <code>Construction</code>
                 <code>Civil engineering</code>
-                <code>Structural engineering</code>
-                <code>Construction engineering</code>
-                <code>Construction management</code>
-                <code>Building construction</code>
-                <code>General contractor</code>
+                <code>Engineering</code>
                 <code>Architecture</code>
-                <code>Architectural engineering</code>
-                <code>Quantity surveying</code>
+                <code>Construction engineering</code>
                 <code>Project management</code>
             </div>
-            <p style="color:var(--text);font-size:.85rem;margin:1rem 0 .5rem;font-weight:600;">Browse → Technology → Software:</p>
+            <p style="color:var(--text);font-size:.85rem;margin:1rem 0 .5rem;font-weight:600;">Software:</p>
             <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
                 <code>AutoCAD</code>
                 <code>Microsoft Excel</code>
-                <code>SketchUp</code>
             </div>
-            <p style="color:var(--text);font-size:.85rem;margin:1rem 0 .5rem;font-weight:600;">Browse → Education → Field of Study:</p>
-            <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
-                <code>Civil engineering</code>
-                <code>Architecture</code>
-            </div>
+            <p style="color:var(--muted);font-size:.8rem;margin:1rem 0 0;">Note: Meta consolidated some niche interests in 2025. If an interest doesn't appear when you search, skip it. The ones above are confirmed available as of March 2026.</p>
         </div>
     </div>
 
     <div>
-        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Narrow Audience (better quality)</strong>
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Advantage+ Detailed Targeting</strong>
         <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
-            <p style="color:var(--muted);font-size:.85rem;margin:0;">Click <strong style="color:var(--text);">"Narrow Audience"</strong> and add:</p>
-            <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem;">
-                <code>Small business owners</code>
-                <code>Business page admins</code>
-                <code>Technology early adopters</code>
-            </div>
+            <p style="color:var(--muted);font-size:.85rem;margin:0;">Leave <strong style="color:var(--text);">Advantage+ Detailed Targeting</strong> turned ON. This lets Meta automatically expand your reach to people likely to convert, even beyond the interests you selected.</p>
         </div>
     </div>
 </div>
