@@ -12,6 +12,7 @@ PHP construction tools app (BOQ Generator, Rebar Cutting List). Uses Bootstrap 5
 - GitHub repo: `kierl-j/Argonar-Construction`
 - Commits with `[deploy]` in the message trigger auto-deploy to VPS
 - **Production URL**: https://argonar.co
+- **Always auto-deploy**: Every commit must include `[deploy]` and be pushed immediately. Do not wait to be asked.
 
 ## Database Migrations
 When adding/altering tables:
