@@ -192,6 +192,35 @@ if (empty($_SESSION['strategy_auth'])):
     Post <strong>3-4 times per week</strong>. Best times for Filipino professionals: <strong>12 PM – 1 PM</strong> (lunch break) and <strong>7 PM – 9 PM</strong> (after work). Tuesday, Wednesday, and Thursday perform best.
 </div>
 
+<h3>Ready-Made Post Images (1080x1080)</h3>
+<div class="card-dark">
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+        <div style="text-align:center;">
+            <img src="images/fb/post_tools_1080.png" alt="All Tools Post" style="width:200px;height:200px;border-radius:8px;border:2px solid var(--border);object-fit:cover;">
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">All Tools Overview</div>
+        </div>
+        <div style="text-align:center;">
+            <img src="images/fb/post_boq_1080.png" alt="BOQ Feature Post" style="width:200px;height:200px;border-radius:8px;border:2px solid var(--border);object-fit:cover;">
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">BOQ Feature Spotlight</div>
+        </div>
+        <div style="text-align:center;">
+            <img src="images/fb/post_pricing_1080.png" alt="Pricing Post" style="width:200px;height:200px;border-radius:8px;border:2px solid var(--border);object-fit:cover;">
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Pricing / CTA</div>
+        </div>
+    </div>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+        <a href="images/fb/post_tools_1080.png" download="argonar_post_tools.png" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;display:inline-block;">
+            <i class="fas fa-download me-1"></i> All Tools Post
+        </a>
+        <a href="images/fb/post_boq_1080.png" download="argonar_post_boq.png" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;display:inline-block;">
+            <i class="fas fa-download me-1"></i> BOQ Feature Post
+        </a>
+        <a href="images/fb/post_pricing_1080.png" download="argonar_post_pricing.png" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;display:inline-block;">
+            <i class="fas fa-download me-1"></i> Pricing / CTA Post
+        </a>
+    </div>
+</div>
+
 <h3>Content Mix (Weekly)</h3>
 <div class="stat-grid">
     <div class="stat-card">
