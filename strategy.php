@@ -138,6 +138,24 @@ if (empty($_SESSION['strategy_auth'])):
                 <li><strong>Cover:</strong> Create a 1640x856px banner showing the app dashboard or a hero shot: laptop with BOQ Generator open, overlaid text: <em>"Construction Tools Made Easy — argonar.co"</em></li>
                 <li>Change the cover photo quarterly for a promotional bump</li>
             </ul>
+            <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap;">
+                <a href="images/fb/profile_512.png" download="argonar_profile_512.png" class="btn btn-sm btn-primary" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;">
+                    <i class="fas fa-download me-1"></i> Download Profile Photo (512x512)
+                </a>
+                <a href="images/fb/cover_1640x856.png" download="argonar_cover_1640x856.png" class="btn btn-sm btn-primary" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;">
+                    <i class="fas fa-download me-1"></i> Download Cover Photo (1640x856)
+                </a>
+            </div>
+            <div style="display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;">
+                <div style="text-align:center;">
+                    <img src="images/fb/profile_512.png" alt="Profile" style="width:120px;height:120px;border-radius:12px;border:2px solid var(--border);">
+                    <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Profile Photo</div>
+                </div>
+                <div style="text-align:center;">
+                    <img src="images/fb/cover_1640x856.png" alt="Cover" style="width:320px;height:auto;border-radius:8px;border:2px solid var(--border);">
+                    <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Cover Photo</div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="step">
