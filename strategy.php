@@ -131,12 +131,12 @@ if (empty($_SESSION['strategy_auth'])):
 <div class="post-template">
     <div class="caption">All construction tools. One subscription. 💪
 
-🔹 BOQ Generator — auto-compute quantities, amounts, markup & VAT. Export to Excel.
-🔹 Rebar Cutting List — optimize bar cuts, minimize waste, track stock lengths.
-🔹 Structural Estimate — concrete, steel & formwork cost breakdown with contingency.
-🔹 Architectural Estimate — masonry, tiling, painting, roofing, plastering, ceiling & doors/windows.
-🔹 Document Generator — scope of work, material requisition, progress reports & change orders.
-🔹 Excel Templates — ready-made BOQ, cost estimate, schedule, daily report & requisition sheets.
+🔹 BOQ Generator - auto-compute quantities, amounts, markup & VAT. Export to Excel.
+🔹 Rebar Cutting List - optimize bar cuts, minimize waste, track stock lengths.
+🔹 Structural Estimate - concrete, steel & formwork cost breakdown with contingency.
+🔹 Architectural Estimate - masonry, tiling, painting, roofing, plastering, ceiling & doors/windows.
+🔹 Document Generator - scope of work, material requisition, progress reports & change orders.
+🔹 Excel Templates - ready-made BOQ, cost estimate, schedule, daily report & requisition sheets.
 
 All tools export to Excel. Access from any device — phone, tablet, or laptop.
 
