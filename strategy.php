@@ -98,110 +98,43 @@ if (empty($_SESSION['strategy_auth'])):
 <h1>Argonar Marketing Strategy</h1>
 <p class="subtitle">Facebook Page Setup, Content, & Paid Ads Playbook for the Philippines Construction Market</p>
 
+<div class="card-dark" style="padding:1.5rem;">
+    <h3 style="margin-top:0;color:var(--accent);font-size:1rem;"><i class="fas fa-download me-2"></i>Download All Assets</h3>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:1.25rem;">
+        <div style="text-align:center;">
+            <img src="images/fb/profile_512.png" alt="Profile" style="width:100px;height:100px;border-radius:12px;border:2px solid var(--border);">
+            <div style="font-size:.7rem;color:var(--muted);margin-top:.4rem;">Profile (512x512)</div>
+        </div>
+        <div style="text-align:center;">
+            <img src="images/fb/cover_1640x856.png" alt="Cover" style="width:240px;height:auto;border-radius:8px;border:2px solid var(--border);">
+            <div style="font-size:.7rem;color:var(--muted);margin-top:.4rem;">Cover (1640x856)</div>
+        </div>
+        <div style="text-align:center;">
+            <img src="images/fb/post_tools_1080.png" alt="Post" style="width:100px;height:100px;border-radius:8px;border:2px solid var(--border);object-fit:cover;">
+            <div style="font-size:.7rem;color:var(--muted);margin-top:.4rem;">Post (1080x1080)</div>
+        </div>
+    </div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+        <a href="images/fb/profile_512.png" download="argonar_profile.png" style="background:var(--accent);padding:.45rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;"><i class="fas fa-download me-1"></i> Profile</a>
+        <a href="images/fb/cover_1640x856.png" download="argonar_cover.png" style="background:var(--accent);padding:.45rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;"><i class="fas fa-download me-1"></i> Cover</a>
+        <a href="images/fb/post_tools_1080.png" download="argonar_post.png" style="background:var(--accent);padding:.45rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;"><i class="fas fa-download me-1"></i> Post</a>
+    </div>
+</div>
+
 <div class="card-dark toc">
     <strong style="font-size:.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;">Contents</strong>
-    <a href="#phase1">Phase 1 — Create the Facebook Page</a>
-    <a href="#phase2">Phase 2 — Content Strategy & Post Templates</a>
-    <a href="#phase3">Phase 3 — Boosting Posts & Ads</a>
-    <a href="#phase4">Phase 4 — Budget & Reach Estimates</a>
-    <a href="#phase5">Phase 5 — Growth Playbook</a>
+    <a href="#phase1">Phase 1 — Content Strategy & Post Templates</a>
+    <a href="#phase2">Phase 2 — Boosting Posts & Ads</a>
+    <a href="#phase3">Phase 3 — Budget & Reach Estimates</a>
+    <a href="#phase4">Phase 4 — Growth Playbook</a>
 </div>
 
 <!-- ============================================== -->
-<h2 id="phase1"><i class="fas fa-flag me-2"></i>Phase 1 — Create the Facebook Page</h2>
-
-<div class="card-dark">
-    <div class="step">
-        <span class="step-num">1</span>
-        <div class="step-content">
-            <strong>Create Page</strong>
-            <p>Go to <a href="https://www.facebook.com/pages/create" target="_blank">facebook.com/pages/create</a>. Pick <code>Business or Brand</code>.</p>
-        </div>
-    </div>
-    <div class="step">
-        <span class="step-num">2</span>
-        <div class="step-content">
-            <strong>Page Name & Category</strong>
-            <ul>
-                <li><strong>Name:</strong> <code>Argonar Construction</code></li>
-                <li><strong>Category:</strong> Search "Software" → select <code>Software Company</code>. Also add <code>Construction Company</code> as secondary.</li>
-                <li><strong>Bio:</strong> <em>"Construction tools for Filipino engineers & contractors. BOQ, estimates, cutting lists — all in one app."</em></li>
-            </ul>
-        </div>
-    </div>
-    <div class="step">
-        <span class="step-num">3</span>
-        <div class="step-content">
-            <strong>Profile Photo & Cover</strong>
-            <ul>
-                <li><strong>Profile:</strong> Use the Argonar logo (1:1, 512x512px minimum)</li>
-                <li><strong>Cover:</strong> Create a 1640x856px banner showing the app dashboard or a hero shot: laptop with BOQ Generator open, overlaid text: <em>"Construction Tools Made Easy — argonar.co"</em></li>
-                <li>Change the cover photo quarterly for a promotional bump</li>
-            </ul>
-            <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap;">
-                <a href="images/fb/profile_512.png" download="argonar_profile_512.png" class="btn btn-sm btn-primary" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;">
-                    <i class="fas fa-download me-1"></i> Download Profile Photo (512x512)
-                </a>
-                <a href="images/fb/cover_1640x856.png" download="argonar_cover_1640x856.png" class="btn btn-sm btn-primary" style="background:var(--accent);border:none;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;">
-                    <i class="fas fa-download me-1"></i> Download Cover Photo (1640x856)
-                </a>
-            </div>
-            <div style="display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;">
-                <div style="text-align:center;">
-                    <img src="images/fb/profile_512.png" alt="Profile" style="width:120px;height:120px;border-radius:12px;border:2px solid var(--border);">
-                    <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Profile Photo</div>
-                </div>
-                <div style="text-align:center;">
-                    <img src="images/fb/cover_1640x856.png" alt="Cover" style="width:320px;height:auto;border-radius:8px;border:2px solid var(--border);">
-                    <div style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Cover Photo</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="step">
-        <span class="step-num">4</span>
-        <div class="step-content">
-            <strong>Fill Out Page Info</strong>
-            <ul>
-                <li><strong>Website:</strong> <code>https://argonar.co</code></li>
-                <li><strong>Phone / Email:</strong> Add business contact</li>
-                <li><strong>Hours:</strong> Set to "Always Open" (it's a web app)</li>
-                <li><strong>CTA Button:</strong> Click "Add Button" → <code>Sign Up</code> → link to <code>https://argonar.co/login.php</code></li>
-                <li><strong>Username:</strong> Set to <code>@argonarconstruction</code> (creates facebook.com/argonarconstruction)</li>
-            </ul>
-        </div>
-    </div>
-    <div class="step">
-        <span class="step-num">5</span>
-        <div class="step-content">
-            <strong>Final Touches</strong>
-            <ul>
-                <li>Invite friends & existing users to Like the page</li>
-                <li>Enable Messenger for customer inquiries</li>
-                <li>Post at least 3 pieces of content before boosting (avoids "empty page" impression)</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- ============================================== -->
-<h2 id="phase2"><i class="fas fa-pen-fancy me-2"></i>Phase 2 — Content Strategy & Post Templates</h2>
+<h2 id="phase1"><i class="fas fa-pen-fancy me-2"></i>Phase 1 — Content Strategy & Post Templates</h2>
 
 <h3>Posting Schedule</h3>
 <div class="highlight">
     Post <strong>3-4 times per week</strong>. Best times for Filipino professionals: <strong>12 PM – 1 PM</strong> (lunch break) and <strong>7 PM – 9 PM</strong> (after work). Tuesday, Wednesday, and Thursday perform best.
-</div>
-
-<h3>Page Post Image (1080x1080)</h3>
-<div class="card-dark">
-    <div style="text-align:center;margin-bottom:1rem;">
-        <img src="images/fb/post_tools_1080.png" alt="All Tools Post" style="width:300px;height:300px;border-radius:8px;border:2px solid var(--border);object-fit:cover;">
-    </div>
-    <div style="text-align:center;">
-        <a href="images/fb/post_tools_1080.png" download="argonar_post.png" style="background:var(--accent);border:none;padding:.6rem 1.5rem;border-radius:8px;color:#fff;text-decoration:none;font-size:.9rem;font-weight:600;display:inline-block;">
-            <i class="fas fa-download me-1"></i> Download Post Image
-        </a>
-    </div>
 </div>
 
 <h3>Content Mix (Weekly)</h3>
@@ -335,7 +268,7 @@ Sign up → argonar.co
 </div>
 
 <!-- ============================================== -->
-<h2 id="phase3"><i class="fas fa-rocket me-2"></i>Phase 3 — Boosting Posts & Running Ads</h2>
+<h2 id="phase2"><i class="fas fa-rocket me-2"></i>Phase 2 — Boosting Posts & Running Ads</h2>
 
 <h3>Option A: Boost a Post (Simple)</h3>
 <div class="card-dark">
@@ -420,24 +353,83 @@ Sign up → argonar.co
     </div>
 </div>
 
-<h3>Recommended Targeting Interests</h3>
+<h3>Detailed Targeting (Copy This Exactly)</h3>
 <div class="card-dark">
-    <table class="boost-table">
-        <thead>
-            <tr><th>Category</th><th>Interest Keywords</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Engineering</td><td>Civil Engineering, Structural Engineering, Construction Engineering, Geotechnical Engineering</td></tr>
-            <tr><td>Construction</td><td>Building Construction, General Contractor, Construction Management, Construction Worker</td></tr>
-            <tr><td>Architecture</td><td>Architecture, Interior Design, Building Design, Architectural Engineering</td></tr>
-            <tr><td>Software</td><td>AutoCAD, SketchUp, Microsoft Excel, Project Management Software</td></tr>
-            <tr><td>Education</td><td>Civil Engineering (degree), BS Architecture, Board Exam</td></tr>
-        </tbody>
-    </table>
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1rem;">In Ads Manager → Ad Set → Audience → <strong>Detailed Targeting</strong>, enter these exactly:</p>
+
+    <div style="margin-bottom:1.5rem;">
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Location</strong>
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
+            <p style="color:var(--muted);font-size:.9rem;margin:0;">Philippines</p>
+            <p style="color:var(--muted);font-size:.8rem;margin:.25rem 0 0;">Or narrow to: Metro Manila, Cebu, Davao, Pampanga, Cavite, Laguna, Bulacan</p>
+        </div>
+    </div>
+
+    <div style="margin-bottom:1.5rem;">
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Age & Gender</strong>
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
+            <p style="color:var(--muted);font-size:.9rem;margin:0;"><strong style="color:var(--text);">Age:</strong> 22 – 45</p>
+            <p style="color:var(--muted);font-size:.9rem;margin:.25rem 0 0;"><strong style="color:var(--text);">Gender:</strong> All</p>
+        </div>
+    </div>
+
+    <div style="margin-bottom:1.5rem;">
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Interests (Add ALL of these)</strong>
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
+            <p style="color:var(--text);font-size:.85rem;margin:0 0 .5rem;font-weight:600;">Browse → Additional Interests:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+                <code>Civil engineering</code>
+                <code>Structural engineering</code>
+                <code>Construction engineering</code>
+                <code>Construction management</code>
+                <code>Building construction</code>
+                <code>General contractor</code>
+                <code>Architecture</code>
+                <code>Architectural engineering</code>
+                <code>Quantity surveying</code>
+                <code>Project management</code>
+            </div>
+            <p style="color:var(--text);font-size:.85rem;margin:1rem 0 .5rem;font-weight:600;">Browse → Technology → Software:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+                <code>AutoCAD</code>
+                <code>Microsoft Excel</code>
+                <code>SketchUp</code>
+            </div>
+            <p style="color:var(--text);font-size:.85rem;margin:1rem 0 .5rem;font-weight:600;">Browse → Education → Field of Study:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+                <code>Civil engineering</code>
+                <code>Architecture</code>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom:1.5rem;">
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Narrow Audience (Optional — better quality)</strong>
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
+            <p style="color:var(--muted);font-size:.85rem;margin:0;">Click <strong style="color:var(--text);">"Narrow Audience"</strong> and add:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem;">
+                <code>Small business owners</code>
+                <code>Business page admins</code>
+                <code>Technology early adopters</code>
+            </div>
+            <p style="color:var(--muted);font-size:.8rem;margin:.75rem 0 0;">This targets people who match BOTH the interests above AND are likely business decision-makers.</p>
+        </div>
+    </div>
+
+    <div>
+        <strong style="color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">Exclude</strong>
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem;">
+            <p style="color:var(--muted);font-size:.85rem;margin:0;">Exclude existing customers (Custom Audience of subscribers) once you have the Meta Pixel installed.</p>
+        </div>
+    </div>
+</div>
+
+<div class="highlight">
+    <strong>Estimated audience size:</strong> With these settings targeting Philippines, age 22-45, the audience should be approximately <strong>2-5 million people</strong>. This is a good range — not too broad (wasting budget), not too narrow (limiting reach).
 </div>
 
 <!-- ============================================== -->
-<h2 id="phase4"><i class="fas fa-chart-line me-2"></i>Phase 4 — Budget & Reach Estimates</h2>
+<h2 id="phase3"><i class="fas fa-chart-line me-2"></i>Phase 3 — Budget & Reach Estimates</h2>
 
 <h3>Philippines Facebook Ads Benchmarks (2025 Data)</h3>
 <div class="stat-grid">
@@ -558,7 +550,7 @@ Sign up → argonar.co
 </div>
 
 <!-- ============================================== -->
-<h2 id="phase5"><i class="fas fa-road me-2"></i>Phase 5 — Growth Playbook</h2>
+<h2 id="phase4"><i class="fas fa-road me-2"></i>Phase 4 — Growth Playbook</h2>
 
 <h3>Week 1-2: Foundation</h3>
 <ul class="checklist">
