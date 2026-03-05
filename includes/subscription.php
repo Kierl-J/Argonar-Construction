@@ -60,7 +60,7 @@ function create_renewal_session(PDO $db, array $sub): ?string {
             'success_url' => 'https://argonar.co/payment/success.php?session_id={id}',
             'cancel_url' => 'https://argonar.co/payment/pricing.php',
             'billing_details_collection' => 'auto',
-            'payment_methods' => ['card', 'qrph', 'billease'],
+            'payment_methods' => ['card', 'gcash', 'shopeepay', 'qrph', 'billease'],
             'metadata' => [
                 'user_id' => (string)$sub['user_id'],
                 'plan_type' => $sub['plan_type'],

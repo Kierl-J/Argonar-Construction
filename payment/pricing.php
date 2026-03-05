@@ -88,7 +88,7 @@ require __DIR__ . '/../includes/header.php';
 </div>
 
 <div class="text-center">
-    <p class="text-muted small mb-1">Payments are securely processed by PayRex. We accept GCash, Maya, Cards, and QRPH.</p>
+    <p class="text-muted small mb-1">Payments are securely processed by PayRex. We accept GCash, ShopeePay, Cards, QRPH, and BillEase.</p>
     <div class="d-flex justify-content-center gap-3 text-muted">
         <span><i class="fas fa-shield-alt me-1"></i>Secure Payment</span>
         <span><i class="fas fa-bolt me-1"></i>Instant Access</span>
