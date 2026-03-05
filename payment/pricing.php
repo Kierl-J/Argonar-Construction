@@ -92,7 +92,7 @@ require __DIR__ . '/../includes/header.php';
     <div class="d-flex justify-content-center gap-3 text-muted">
         <span><i class="fas fa-shield-alt me-1"></i>Secure Payment</span>
         <span><i class="fas fa-bolt me-1"></i>Instant Access</span>
-        <span><i class="fas fa-undo me-1"></i>No Auto-Renewal</span>
+        <span><i class="fas fa-sync-alt me-1"></i>Auto-Renewal Available</span>
     </div>
 </div>
 

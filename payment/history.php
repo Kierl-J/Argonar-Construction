@@ -26,14 +26,52 @@ require __DIR__ . '/../includes/header.php';
 </div>
 
 <?php if ($activeSub): ?>
-<div class="alert alert-success d-flex align-items-center mb-4">
-    <i class="fas fa-check-circle fa-lg me-3"></i>
-    <div>
-        <strong>Active: <?= h(PLANS[$activeSub['plan_type']]['name']) ?></strong><br>
-        <span class="small">Expires <?= date('M d, Y \a\t g:i A', strtotime($activeSub['expires_at'])) ?></span>
+<div class="alert alert-success mb-4">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-check-circle fa-lg me-3"></i>
+            <div>
+                <strong>Active: <?= h(PLANS[$activeSub['plan_type']]['name']) ?></strong><br>
+                <span class="small">Expires <?= date('M d, Y \a\t g:i A', strtotime($activeSub['expires_at'])) ?></span>
+            </div>
+        </div>
+        <form method="POST" action="<?= url('payment/toggle-renew.php') ?>" class="ms-3">
+            <?= csrf_field() ?>
+            <input type="hidden" name="sub_id" value="<?= $activeSub['id'] ?>">
+            <input type="hidden" name="auto_renew" value="<?= $activeSub['auto_renew'] ? '0' : '1' ?>">
+            <button type="submit" class="btn btn-sm <?= $activeSub['auto_renew'] ? 'btn-outline-success' : 'btn-outline-secondary' ?>">
+                <i class="fas fa-<?= $activeSub['auto_renew'] ? 'sync-alt' : 'redo' ?> me-1"></i>
+                Auto-Renew: <?= $activeSub['auto_renew'] ? 'ON' : 'OFF' ?>
+            </button>
+        </form>
     </div>
+    <?php if ($activeSub['auto_renew']): ?>
+    <div class="small text-success mt-2">
+        <i class="fas fa-info-circle me-1"></i> You'll receive a payment link via email before your plan expires.
+    </div>
+    <?php endif; ?>
 </div>
 <?php endif; ?>
+
+<?php
+// Show renewal banner if subscription expired and has auto-renew
+if (!$activeSub) {
+    $latestSub = get_latest_subscription($db, $user['id']);
+    if ($latestSub && $latestSub['status'] === 'expired' && $latestSub['auto_renew'] && $latestSub['renewal_session_id']):
+        // Find the pending renewal
+        $renewStmt = $db->prepare('SELECT * FROM subscriptions WHERE payrex_checkout_session_id = ? AND status = "pending" LIMIT 1');
+        $renewStmt->execute([$latestSub['renewal_session_id']]);
+        $pendingRenewal = $renewStmt->fetch();
+?>
+<div class="alert alert-warning d-flex align-items-center mb-4">
+    <i class="fas fa-exclamation-circle fa-lg me-3"></i>
+    <div class="flex-grow-1">
+        <strong>Your plan has expired.</strong><br>
+        <span class="small">A renewal is ready. Complete the payment to restore access.</span>
+    </div>
+    <a href="<?= url('payment/pricing.php') ?>" class="btn btn-warning btn-sm ms-3 fw-bold">Renew Now</a>
+</div>
+<?php endif; } ?>
 
 <?php if (empty($subscriptions)): ?>
 <div class="empty-state">

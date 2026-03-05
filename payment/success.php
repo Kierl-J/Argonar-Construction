@@ -88,9 +88,24 @@ function showSuccess(array $sub): void { ?>
         <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
         <h5 class="fw-bold">Payment Successful!</h5>
         <p class="text-muted mb-2">Your <?= h(PLANS[$sub['plan_type']]['name']) ?> has been activated.</p>
-        <p class="mb-4">
+        <p class="mb-3">
             <strong>Access until:</strong> <?= date('M d, Y \a\t g:i A', strtotime($sub['expires_at'])) ?>
         </p>
+        <?php if (!$sub['auto_renew']): ?>
+        <div class="mb-4">
+            <form method="POST" action="<?= url('payment/toggle-renew.php') ?>" class="d-inline">
+                <?= csrf_field() ?>
+                <input type="hidden" name="sub_id" value="<?= $sub['id'] ?>">
+                <input type="hidden" name="auto_renew" value="1">
+                <button type="submit" class="btn btn-outline-success btn-sm">
+                    <i class="fas fa-sync-alt me-1"></i> Enable Auto-Renewal
+                </button>
+            </form>
+            <p class="text-muted small mt-2 mb-0">Get a payment link before expiry so you never lose access.</p>
+        </div>
+        <?php else: ?>
+        <p class="text-success small mb-4"><i class="fas fa-sync-alt me-1"></i> Auto-renewal is on. You'll get a payment link before expiry.</p>
+        <?php endif; ?>
         <a href="<?= url('boq/index.php') ?>" class="btn btn-primary me-2">
             <i class="fas fa-file-invoice-dollar me-1"></i> Go to BOQ Generator
         </a>

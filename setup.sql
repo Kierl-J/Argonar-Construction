@@ -60,6 +60,8 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     status ENUM('pending','active','expired') NOT NULL DEFAULT 'pending',
     starts_at DATETIME DEFAULT NULL,
     expires_at DATETIME DEFAULT NULL,
+    auto_renew TINYINT(1) NOT NULL DEFAULT 0,
+    renewal_session_id VARCHAR(100) DEFAULT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
