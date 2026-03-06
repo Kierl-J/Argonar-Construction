@@ -712,6 +712,46 @@ a {
     transition: color var(--transition);
 }
 
+/* ======================== NOTIFICATIONS ======================== */
+.notif-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--danger);
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    padding: 0 4px;
+}
+
+.notif-dropdown { box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid var(--border); }
+
+.notif-item {
+    border-bottom: 1px solid var(--border);
+    white-space: normal !important;
+    transition: background var(--transition);
+}
+.notif-item:last-of-type { border-bottom: none; }
+.notif-item:hover { background: var(--bg) !important; }
+
+.notif-unread { background: rgba(14, 165, 233, 0.05); }
+.notif-unread::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--secondary);
+}
+
 /* ======================== MISC UTILITIES ======================== */
 .fw-bold { letter-spacing: -0.01em; }
 .text-muted { color: var(--text-muted) !important; }

@@ -4,6 +4,7 @@
 // success.php handles activation as fallback.
 
 require __DIR__ . '/../includes/db.php';
+require __DIR__ . '/../includes/notifications.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 header('Content-Type: application/json');
@@ -51,6 +52,11 @@ if ($event->type === 'payment_intent.succeeded') {
                 'UPDATE subscriptions SET status = ?, payrex_payment_intent_id = ?, starts_at = ?, expires_at = ? WHERE id = ?'
             );
             $update->execute(['active', $piId, $now, $expires, $sub['id']]);
+
+            // Send in-app notification
+            $planName = $plan['name'];
+            $expiresFormatted = date('M d, Y g:i A', strtotime($expires));
+            notify($db, (int)$userId, 'Subscription Activated', "Your {$planName} is now active until {$expiresFormatted}.", 'success', 'payment/history.php');
         }
     }
 }

@@ -6,6 +6,15 @@ $flashMessages = get_flash();
 $currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
 $currentDir = basename(dirname($_SERVER['SCRIPT_NAME']));
 
+// Load notifications for logged-in users
+$_notifCount = 0;
+$_notifs = [];
+if ($currentUser) {
+    require_once __DIR__ . '/notifications.php';
+    $_notifCount = unread_count($GLOBALS['db'], $currentUser['id']);
+    $_notifs = get_notifications($GLOBALS['db'], $currentUser['id'], 8);
+}
+
 function navActive(string $page, string $dir = ''): string {
     global $currentPage, $currentDir;
     if ($dir && $currentDir === $dir) return 'active';
@@ -88,6 +97,9 @@ function navActive(string $page, string $dir = ''): string {
 
         <?php if ($currentUser): ?>
         <div class="nav-section">Account</div>
+        <a href="<?= url('notifications.php') ?>" class="nav-link <?= $currentPage === 'notifications' ? 'active' : '' ?>">
+            <i class="fas fa-bell"></i> Notifications <?php if ($_notifCount > 0): ?><span class="badge bg-danger ms-1" style="font-size:.65rem;"><?= $_notifCount ?></span><?php endif; ?>
+        </a>
         <a href="<?= url('payment/history.php') ?>" class="nav-link <?= $currentPage === 'history' ? 'active' : '' ?>">
             <i class="fas fa-receipt"></i> My Subscription
         </a>
@@ -119,6 +131,41 @@ function navActive(string $page, string $dir = ''): string {
             <span class="d-none d-md-inline text-muted small">
                 <?= h($currentUser['company'] ?: $currentUser['name']) ?>
             </span>
+            <!-- Notifications Bell -->
+            <div class="dropdown">
+                <button class="btn btn-link text-dark p-0 position-relative" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-label="Notifications">
+                    <i class="fas fa-bell fa-lg"></i>
+                    <?php if ($_notifCount > 0): ?>
+                    <span class="notif-badge"><?= $_notifCount > 9 ? '9+' : $_notifCount ?></span>
+                    <?php endif; ?>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end notif-dropdown" style="width:340px;max-height:420px;overflow-y:auto;padding:0;">
+                    <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                        <strong class="small">Notifications</strong>
+                        <?php if ($_notifCount > 0): ?>
+                        <a href="<?= url('notifications.php?action=read_all') ?>" class="small text-decoration-none">Mark all read</a>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (empty($_notifs)): ?>
+                    <div class="text-center text-muted py-4 small">No notifications yet.</div>
+                    <?php else: ?>
+                    <?php foreach ($_notifs as $n): ?>
+                    <a href="<?= $n['link'] ? url($n['link']) . (str_contains($n['link'], '?') ? '&' : '?') . 'mark_notif=' . $n['id'] : url('notifications.php?mark=' . $n['id']) ?>" class="dropdown-item notif-item <?= $n['is_read'] ? '' : 'notif-unread' ?> px-3 py-2">
+                        <div class="d-flex align-items-start gap-2">
+                            <i class="fas fa-<?= match($n['type']) { 'warning' => 'exclamation-triangle text-warning', 'success' => 'check-circle text-success', 'danger' => 'times-circle text-danger', 'renewal' => 'sync-alt text-primary', default => 'info-circle text-info' } ?> mt-1"></i>
+                            <div class="flex-grow-1 overflow-hidden">
+                                <div class="fw-semibold small text-truncate"><?= h($n['title']) ?></div>
+                                <div class="text-muted small" style="white-space:normal;line-height:1.3;"><?= h($n['message']) ?></div>
+                                <div class="text-muted" style="font-size:.7rem;"><?= time_ago($n['created_at']) ?></div>
+                            </div>
+                        </div>
+                    </a>
+                    <?php endforeach; ?>
+                    <a href="<?= url('notifications.php') ?>" class="dropdown-item text-center small py-2 border-top">View All</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <!-- User Dropdown -->
             <div class="dropdown">
                 <button class="btn btn-link text-dark dropdown-toggle p-0" data-bs-toggle="dropdown">
                     <i class="fas fa-user-circle fa-lg"></i>
