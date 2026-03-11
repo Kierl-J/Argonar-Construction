@@ -104,4 +104,20 @@ require __DIR__ . '/includes/header.php';
 
 </div>
 
+<!-- Contact Information -->
+<div class="card card-custom mt-4">
+    <div class="card-body p-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h6 class="fw-bold mb-1">Need Help?</h6>
+                <p class="text-muted small mb-0">For support, billing questions, or feedback, reach out to us anytime.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-2 mt-md-0">
+                <a href="mailto:support@argonar.co" class="btn btn-outline-primary btn-sm me-2"><i class="fas fa-envelope me-1"></i>support@argonar.co</a>
+                <a href="https://www.facebook.com/argonar.co" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fab fa-facebook me-1"></i>Facebook</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php require __DIR__ . '/includes/footer.php'; ?>

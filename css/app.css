@@ -752,6 +752,23 @@ a {
     background: var(--secondary);
 }
 
+/* ======================== FOOTER ======================== */
+.site-footer {
+    margin-top: 3rem;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.site-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+}
+.site-footer a:hover {
+    color: var(--secondary);
+}
+
 /* ======================== MISC UTILITIES ======================== */
 .fw-bold { letter-spacing: -0.01em; }
 .text-muted { color: var(--text-muted) !important; }
