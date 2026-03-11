@@ -48,24 +48,14 @@ $templates = [
 require __DIR__ . '/../includes/header.php';
 ?>
 
-<?php if (!$user): ?>
+<?php if (!$hasAccess): ?>
 <div class="card card-custom">
     <div class="card-body text-center py-5">
         <i class="fas fa-file-excel fa-3x text-muted mb-3"></i>
         <h5 class="fw-bold">Excel Templates</h5>
-        <p class="text-muted mb-4">Download ready-made Excel templates for construction projects.<br>Please log in or register to get started.</p>
-        <a href="<?= url('login.php') ?>" class="btn btn-primary">Log In / Register</a>
-    </div>
-</div>
-<?php elseif (!$hasAccess): ?>
-<div class="card card-custom">
-    <div class="card-body text-center py-5">
-        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
-        <h5 class="fw-bold">Subscription Required</h5>
-        <p class="text-muted mb-4">You need an active subscription to download Excel templates.<br>Choose a plan to get started.</p>
-        <a href="<?= url('payment/pricing.php') ?>" class="btn btn-primary">
-            <i class="fas fa-tags me-1"></i> View Pricing Plans
-        </a>
+        <p class="text-muted mb-4">Download ready-made Excel templates for construction projects.<br>Subscribe to get started - no registration needed.</p>
+        <a href="<?= url('payment/pricing.php') ?>" class="btn btn-primary"><i class="fas fa-tags me-1"></i>View Pricing</a>
+        <?php if (!$user): ?><div class="mt-2"><a href="<?= url('login.php') ?>" class="text-muted small">Already have an account? Log in</a></div><?php endif; ?>
     </div>
 </div>
 <?php else: ?>

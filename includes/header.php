@@ -64,7 +64,11 @@ function navActive(string $page, string $dir = ''): string {
 <!-- Sidebar -->
 <nav class="sidebar">
     <div class="sidebar-brand">
-        <img src="<?= asset('images/logo.svg') ?>" alt="<?= APP_NAME ?>" height="36">
+        <img src="<?= asset('images/favicon.svg') ?>" alt="" width="36" height="36">
+        <div>
+            <div class="sidebar-brand-name">Argonar</div>
+            <div class="sidebar-brand-sub">Construction</div>
+        </div>
     </div>
     <div class="sidebar-nav">
         <div class="nav-section">Main</div>
@@ -104,7 +108,7 @@ function navActive(string $page, string $dir = ''): string {
             <i class="fas fa-receipt"></i> My Subscription
         </a>
         <?php if (!empty($currentUser['is_guest'])): ?>
-        <a href="<?= url('claim.php') ?>" class="nav-link <?= $currentPage === 'claim' ? 'active' : '' ?>">
+        <a href="<?= url('claim.php') ?>" class="nav-link claim-account-link <?= $currentPage === 'claim' ? 'active' : '' ?>">
             <i class="fas fa-user-plus"></i> Claim Account
         </a>
         <?php endif; ?>
@@ -178,7 +182,8 @@ function navActive(string $page, string $dir = ''): string {
                 </ul>
             </div>
             <?php else: ?>
-            <a href="<?= url('login.php') ?>" class="btn btn-primary btn-sm">Log In / Register</a>
+            <a href="<?= url('payment/pricing.php') ?>" class="btn btn-primary btn-sm">Get Started</a>
+            <a href="<?= url('login.php') ?>" class="btn btn-outline-secondary btn-sm">Log In</a>
             <?php endif; ?>
         </div>
     </div>

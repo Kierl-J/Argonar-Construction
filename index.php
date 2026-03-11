@@ -27,7 +27,7 @@ require __DIR__ . '/includes/header.php';
             <h6 class="fw-bold mb-1">BOQ Generator</h6>
             <p class="text-muted small mb-0">Create Bill of Quantities with auto-calculations and Excel export.</p>
             <?php if (!$hasAccess): ?>
-            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <span class="tool-lock-badge"><i class="fas fa-tags me-1"></i>From ₱20/day</span>
             <?php endif; ?>
         </a>
     </div>
@@ -41,7 +41,7 @@ require __DIR__ . '/includes/header.php';
             <h6 class="fw-bold mb-1">Rebar Cutting List</h6>
             <p class="text-muted small mb-0">Generate rebar cutting lists with weight calculations.</p>
             <?php if (!$hasAccess): ?>
-            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <span class="tool-lock-badge"><i class="fas fa-tags me-1"></i>From ₱20/day</span>
             <?php endif; ?>
         </a>
     </div>
@@ -55,7 +55,7 @@ require __DIR__ . '/includes/header.php';
             <h6 class="fw-bold mb-1">Structural Estimate</h6>
             <p class="text-muted small mb-0">Quick structural cost estimates for concrete, steel, and formwork.</p>
             <?php if (!$hasAccess): ?>
-            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <span class="tool-lock-badge"><i class="fas fa-tags me-1"></i>From ₱20/day</span>
             <?php endif; ?>
         </a>
     </div>
@@ -69,7 +69,7 @@ require __DIR__ . '/includes/header.php';
             <h6 class="fw-bold mb-1">Architectural Estimate</h6>
             <p class="text-muted small mb-0">Estimate architectural finishes: masonry, tiling, painting, roofing.</p>
             <?php if (!$hasAccess): ?>
-            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <span class="tool-lock-badge"><i class="fas fa-tags me-1"></i>From ₱20/day</span>
             <?php endif; ?>
         </a>
     </div>
@@ -83,7 +83,7 @@ require __DIR__ . '/includes/header.php';
             <h6 class="fw-bold mb-1">Document Generator</h6>
             <p class="text-muted small mb-0">Generate construction documents and reports.</p>
             <?php if (!$hasAccess): ?>
-            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <span class="tool-lock-badge"><i class="fas fa-tags me-1"></i>From ₱20/day</span>
             <?php endif; ?>
         </a>
     </div>
@@ -97,7 +97,7 @@ require __DIR__ . '/includes/header.php';
             <h6 class="fw-bold mb-1">Excel Templates</h6>
             <p class="text-muted small mb-0">Download ready-made Excel templates for construction projects.</p>
             <?php if (!$hasAccess): ?>
-            <span class="tool-lock-badge"><i class="fas fa-lock me-1"></i>Subscribe to access</span>
+            <span class="tool-lock-badge"><i class="fas fa-tags me-1"></i>From ₱20/day</span>
             <?php endif; ?>
         </a>
     </div>

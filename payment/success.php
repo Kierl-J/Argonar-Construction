@@ -112,4 +112,15 @@ function showSuccess(array $sub): void { ?>
         <a href="<?= url('index.php') ?>" class="btn btn-outline-secondary">Tool Hub</a>
     </div>
 </div>
-<?php }
+<?php
+    global $currentUser;
+    if (!empty($currentUser['is_guest'])): ?>
+<div class="card card-custom mt-3">
+    <div class="card-body p-4 text-center">
+        <h6 class="fw-bold mb-1">Save your account</h6>
+        <p class="text-muted small mb-3">Set an email and password so you can log back in later and keep your data.</p>
+        <a href="<?= url('claim.php') ?>" class="btn btn-success btn-sm"><i class="fas fa-user-plus me-1"></i>Claim Account</a>
+    </div>
+</div>
+<?php endif;
+}

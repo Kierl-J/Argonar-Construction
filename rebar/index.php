@@ -18,26 +18,14 @@ if ($user) {
 require __DIR__ . '/../includes/header.php';
 ?>
 
-<?php if (!$user): ?>
-<!-- Guest prompt -->
+<?php if (!$hasAccess): ?>
 <div class="card card-custom">
     <div class="card-body text-center py-5">
         <i class="fas fa-ruler-combined fa-3x text-muted mb-3"></i>
         <h5 class="fw-bold">Rebar Cutting List</h5>
-        <p class="text-muted mb-4">Generate rebar cutting lists with automatic weight calculations and Excel export.<br>Please log in or register to get started.</p>
-        <a href="<?= url('login.php') ?>" class="btn btn-primary">Log In / Register</a>
-    </div>
-</div>
-<?php elseif (!$hasAccess): ?>
-<!-- No active subscription prompt -->
-<div class="card card-custom">
-    <div class="card-body text-center py-5">
-        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
-        <h5 class="fw-bold">Subscription Required</h5>
-        <p class="text-muted mb-4">You need an active subscription to use the Rebar Cutting List tool.<br>Choose a plan to get started.</p>
-        <a href="<?= url('payment/pricing.php') ?>" class="btn btn-primary">
-            <i class="fas fa-tags me-1"></i> View Pricing Plans
-        </a>
+        <p class="text-muted mb-4">Generate rebar cutting lists with automatic weight calculations and Excel export.<br>Subscribe to get started - no registration needed.</p>
+        <a href="<?= url('payment/pricing.php') ?>" class="btn btn-primary"><i class="fas fa-tags me-1"></i>View Pricing</a>
+        <?php if (!$user): ?><div class="mt-2"><a href="<?= url('login.php') ?>" class="text-muted small">Already have an account? Log in</a></div><?php endif; ?>
     </div>
 </div>
 <?php else: ?>

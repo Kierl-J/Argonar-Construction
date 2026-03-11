@@ -70,6 +70,23 @@ body {
 .sidebar-brand img {
     width: 36px;
     height: 36px;
+    border-radius: 10px;
+}
+
+.sidebar-brand-name {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.sidebar-brand-sub {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
 .sidebar-nav {
@@ -767,6 +784,17 @@ a {
 }
 .site-footer a:hover {
     color: var(--secondary);
+}
+
+/* ======================== CLAIM ACCOUNT HIGHLIGHT ======================== */
+.claim-account-link {
+    background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(34,197,94,0.05)) !important;
+    color: rgba(255,255,255,0.85) !important;
+    border: 1px dashed rgba(34,197,94,0.3);
+}
+.claim-account-link:hover {
+    background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(34,197,94,0.1)) !important;
+    color: #fff !important;
 }
 
 /* ======================== MISC UTILITIES ======================== */

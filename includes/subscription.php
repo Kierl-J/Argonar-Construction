@@ -97,8 +97,8 @@ function require_access(): void {
     $user = current_user();
     if (!$user) {
         $_SESSION['intended_url'] = $_SERVER['REQUEST_URI'];
-        flash('warning', 'Please log in to continue.');
-        header('Location: ' . url('login.php'));
+        flash('warning', 'Subscribe to access this tool. No registration needed.');
+        header('Location: ' . url('payment/pricing.php'));
         exit;
     }
     if (!has_active_access($db, $user['id'])) {
