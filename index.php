@@ -223,12 +223,19 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
     <?php endif; ?>
 </div>
 
-<div style="max-width:1000px; margin:0 auto 1.5rem; padding:0 1rem;">
+<div style="max-width:1000px; margin:0 auto 1.5rem; padding:0 1rem; display:flex; flex-direction:column; gap:0.75rem;">
     <div style="background:rgba(124,58,237,0.08); border:1px solid rgba(124,58,237,0.25); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
         <i class="bi bi-person-plus-fill" style="font-size:1.5rem; color:var(--accent-light);"></i>
         <div>
             <div style="font-weight:700; font-size:0.95rem; color:var(--text);">Don't have a team?</div>
             <div style="font-size:0.85rem; color:var(--text-muted);">Join as a solo entry! The system will pick a team for you based on your actual skill level. Just choose "Solo Entry" on any game below.</div>
+        </div>
+    </div>
+    <div style="background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+        <i class="bi bi-wallet2" style="font-size:1.5rem; color:var(--success);"></i>
+        <div>
+            <div style="font-weight:700; font-size:0.95rem; color:var(--text);">Register now, pay later!</div>
+            <div style="font-size:0.85rem; color:var(--text-muted);">You can register your team or solo entry first and pay anytime before the deadline — via GCash, InstaPay QR, or on-site at the venue.</div>
         </div>
     </div>
 </div>
