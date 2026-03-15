@@ -69,9 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($player_name === '') {
         $errors[] = 'In-game name is required.';
     }
-    if ($contact_number === '') {
-        $errors[] = 'Contact number is required.';
-    }
     if ($rank_tier === '' || !in_array($rank_tier, $rank_tiers[$game_slug])) {
         $errors[] = 'Please select a valid rank.';
     }
@@ -168,9 +165,9 @@ require_once __DIR__ . '/includes/header.php';
                        value="<?= htmlspecialchars($_POST['player_name'] ?? '') ?>" required>
             </div>
             <div class="mb-3">
-                <label class="form-label">Contact Number</label>
+                <label class="form-label">Contact Number <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
                 <input type="tel" name="contact_number" class="form-control" placeholder="e.g. 09XX XXX XXXX"
-                       value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>" required>
+                       value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Facebook Profile Link <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>

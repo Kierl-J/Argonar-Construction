@@ -1388,6 +1388,71 @@ body {
     color: #fff;
 }
 
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.btn-edit:hover {
+    background: #3b82f6;
+    color: #fff;
+}
+
+/* Skill Gauge */
+.skill-gauge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.skill-gauge input[type="number"] {
+    width: 50px;
+    padding: 0.25rem 0.4rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-dark);
+    color: var(--text);
+    font-size: 0.8rem;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.skill-gauge input[type="number"]::-webkit-outer-spin-button,
+.skill-gauge input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.skill-gauge button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(124, 58, 237, 0.15);
+    color: var(--accent-light);
+}
+
+.skill-gauge button:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
 /* Table responsive wrapper */
 .table-responsive {
     overflow-x: auto;
@@ -1897,6 +1962,211 @@ body {
     }
 }
 
+/* ========== Tournament Bracket ========== */
+
+.bracket-container {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding: 1.5rem 0.5rem 2rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bracket-round {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    min-width: 240px;
+    flex-shrink: 0;
+}
+
+.bracket-round-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-light);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.bracket-match {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s;
+}
+
+.bracket-match:hover {
+    border-color: var(--accent);
+}
+
+.bracket-match.live {
+    border-color: var(--success);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.15);
+}
+
+.bracket-match.completed {
+    border-color: var(--border);
+    opacity: 0.85;
+}
+
+.bracket-match .team-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.bracket-match .team-row.winner {
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.bracket-match .team-row.winner .team-name {
+    color: var(--success);
+    font-weight: 700;
+}
+
+.bracket-match .team-row.winner .team-score {
+    color: var(--success);
+    font-weight: 800;
+}
+
+.bracket-match .team-name {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+.bracket-match .team-score {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 24px;
+    text-align: right;
+}
+
+.match-vs {
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    padding: 0.15rem 0;
+}
+
+.match-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.match-time {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+/* Match Status Badges */
+.match-status {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+}
+
+.match-status-pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+}
+
+.match-status-live {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+    animation: pulse-live 2s ease-in-out infinite;
+}
+
+@keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.match-status-completed {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+}
+
+/* Bracket Connectors */
+.bracket-connector {
+    width: 2rem;
+    height: 2px;
+    background: var(--border);
+    align-self: center;
+    display: none;
+}
+
+/* ========== Leaderboard ========== */
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.leaderboard-table thead th {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--accent-light);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.leaderboard-table tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.leaderboard-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Medal Colors */
+.medal-1 {
+    color: #fbbf24;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.medal-2 {
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.medal-3 {
+    color: #cd7f32;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     .hero h1 { font-size: 1.75rem; }
@@ -1912,4 +2182,7 @@ body {
     .status-row { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
     .status-row .status-value { text-align: left; }
     body { padding-bottom: 70px; }
+    .bracket-container { gap: 1rem; padding: 1rem 0; }
+    .bracket-round { min-width: 200px; }
+    .bracket-match .team-name { max-width: 120px; }
 }

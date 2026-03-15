@@ -239,6 +239,9 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                     </span>
                                 </td>
                                 <td class="actions-cell" id="team-actions-<?= $t['id'] ?>">
+                                    <a href="<?= base_url('admin/edit.php?type=team&id=' . $t['id']) ?>" class="btn-edit">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
                                     <?php if ($t['status'] === 'pending'): ?>
                                         <button class="btn-approve" onclick="doAction('team', <?= $t['id'] ?>, 'approve')">
                                             <i class="bi bi-check-lg"></i> Approve
@@ -275,6 +278,7 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                             <th>IGN</th>
                             <th>Rank</th>
                             <th>Role</th>
+                            <th>Skill Gauge</th>
                             <th>Payment</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -290,6 +294,12 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                 <td><?= htmlspecialchars($s['rank_tier']) ?></td>
                                 <td><?= htmlspecialchars($s['preferred_role'] ?? '—') ?></td>
                                 <td>
+                                    <div class="skill-gauge">
+                                        <input type="number" min="0" max="10" value="<?= (int)($s['admin_rating'] ?? 0) ?>" id="rating-<?= $s['id'] ?>">
+                                        <button onclick="saveRating(<?= $s['id'] ?>)"><i class="bi bi-check-lg"></i></button>
+                                    </div>
+                                </td>
+                                <td>
                                     <?php if ($s['payment_proof']): ?>
                                         <a href="<?= base_url('admin/view-proof.php?file=' . urlencode($s['payment_proof'])) ?>" target="_blank" class="proof-link">
                                             <i class="bi bi-file-earmark-image"></i> View
@@ -304,6 +314,9 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                     </span>
                                 </td>
                                 <td class="actions-cell" id="solo-actions-<?= $s['id'] ?>">
+                                    <a href="<?= base_url('admin/edit.php?type=solo&id=' . $s['id']) ?>" class="btn-edit">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
                                     <?php if ($s['status'] === 'pending'): ?>
                                         <button class="btn-approve" onclick="doAction('solo', <?= $s['id'] ?>, 'approve')">
                                             <i class="bi bi-check-lg"></i> Approve
@@ -356,6 +369,29 @@ function doAction(type, id, action) {
                 actionsEl.querySelector('.btn-reject')?.remove();
             }
         } else {
+            alert('Error: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        alert('Request failed: ' + err.message);
+    });
+}
+
+function saveRating(id) {
+    const val = document.getElementById('rating-' + id).value;
+    const formData = new FormData();
+    formData.append('type', 'solo');
+    formData.append('id', id);
+    formData.append('action', 'rate');
+    formData.append('rating', val);
+
+    fetch('<?= base_url("admin/action.php") ?>', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) {
             alert('Error: ' + (data.error || 'Unknown error'));
         }
     })

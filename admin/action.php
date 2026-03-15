@@ -30,7 +30,7 @@ if ($id <= 0) {
     exit;
 }
 
-if (!in_array($action, ['approve', 'reject', 'delete'])) {
+if (!in_array($action, ['approve', 'reject', 'delete', 'rate'])) {
     echo json_encode(['success' => false, 'error' => 'Invalid action']);
     exit;
 }
@@ -38,6 +38,14 @@ if (!in_array($action, ['approve', 'reject', 'delete'])) {
 $table = $type === 'team' ? 'teams' : 'solo_players';
 
 try {
+    if ($action === 'rate') {
+        $rating = max(0, min(10, (int)($_POST['rating'] ?? 0)));
+        $stmt = $pdo->prepare("UPDATE solo_players SET admin_rating = ? WHERE id = ?");
+        $stmt->execute([$rating, $id]);
+        echo json_encode(['success' => true, 'action' => 'rate', 'rating' => $rating]);
+        exit;
+    }
+
     if ($action === 'delete') {
         $stmt = $pdo->prepare("DELETE FROM {$table} WHERE id = ?");
         $stmt->execute([$id]);

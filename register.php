@@ -64,9 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($team_name === '') {
         $errors[] = 'Team name is required.';
     }
-    if ($contact_number === '') {
-        $errors[] = 'Contact number is required.';
-    }
     foreach ($members as $i => $m) {
         if ($m === '') {
             $errors[] = "Member $i name is required.";
@@ -198,9 +195,9 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Contact Number</label>
+                <label class="form-label">Contact Number <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
                 <input type="tel" name="contact_number" class="form-control" placeholder="e.g. 09XX XXX XXXX"
-                       value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>" required>
+                       value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Facebook Profile Link <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
