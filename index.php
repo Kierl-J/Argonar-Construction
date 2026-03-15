@@ -37,6 +37,17 @@ $games = [
 require_once __DIR__ . '/includes/header.php';
 ?>
 
+<div class="presented-by">
+    <span class="presented-label">Presented by</span>
+    <div class="presented-logo">
+        <img src="<?= base_url('images/argonar-logo.svg') ?>" alt="Argonar Software OPC">
+        <div class="presented-text">
+            <strong>ARGONAR</strong>
+            <span>SOFTWARE OPC</span>
+        </div>
+    </div>
+</div>
+
 <div class="hero">
     <h1>Tournament Registration</h1>
     <p>Pick your game, form your squad, and compete. Entry fee is <strong>&#8369;500</strong> per team.</p>
