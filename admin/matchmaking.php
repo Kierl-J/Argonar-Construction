@@ -20,6 +20,13 @@ $msg_type = '';
 $team_letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 $team_names_nato = ['Alpha','Bravo','Charlie','Delta','Echo','Foxtrot','Golf','Hotel','India','Juliet','Kilo','Lima','Mike','November','Oscar','Papa','Quebec','Romeo','Sierra','Tango','Uniform','Victor','Whiskey','X-Ray','Yankee','Zulu'];
 
+// Rank tier numeric values (index = power level, higher = better)
+$rank_values = [
+    'valorant'  => ['Iron' => 1, 'Bronze' => 2, 'Silver' => 3, 'Gold' => 4, 'Platinum' => 5, 'Diamond' => 6, 'Ascendant' => 7, 'Immortal' => 8, 'Radiant' => 9],
+    'crossfire' => ['Trainee' => 1, 'Rookie' => 2, 'Soldier' => 3, 'Veteran' => 4, 'Hero' => 5, 'Legend' => 6, 'Master' => 7, 'Grandmaster' => 8],
+    'dota2'     => ['Herald' => 1, 'Guardian' => 2, 'Crusader' => 3, 'Archon' => 4, 'Legend' => 5, 'Ancient' => 6, 'Divine' => 7, 'Immortal' => 8],
+];
+
 // Role groupings per game for balance
 $role_groups = [
     'valorant'  => ['Duelist' => 'dps', 'Initiator' => 'util', 'Controller' => 'util', 'Sentinel' => 'support', '' => 'flex'],
@@ -109,7 +116,8 @@ foreach ($valid_games as $slug => $name) {
 
 /**
  * Snake draft algorithm:
- * Sort players by admin_rating DESC, then distribute across N teams
+ * Sort players by rank value DESC (with admin_rating as tiebreaker),
+ * then distribute across N teams.
  * Round 1: Team 1, 2, 3, ..., N
  * Round 2: Team N, N-1, ..., 1
  * Round 3: Team 1, 2, 3, ..., N (repeat)
@@ -118,7 +126,7 @@ foreach ($valid_games as $slug => $name) {
  * Role balancing: within each draft round, prefer assigning a player
  * to the team that has the fewest players of that role group.
  */
-function generate_suggested_teams($players, $game, $role_groups, $team_names_nato) {
+function generate_suggested_teams($players, $game, $role_groups, $team_names_nato, $rank_values = []) {
     $count = count($players);
     $num_teams = intdiv($count, 5);
     if ($num_teams < 1) return ['teams' => [], 'unmatched' => $players];
@@ -134,6 +142,7 @@ function generate_suggested_teams($players, $game, $role_groups, $team_names_nat
             'name' => 'Team ' . ($team_names_nato[$i] ?? chr(65 + $i)),
             'members' => [],
             'total_rating' => 0,
+            'total_rank_value' => 0,
             'role_counts' => [],
         ];
     }
@@ -141,8 +150,17 @@ function generate_suggested_teams($players, $game, $role_groups, $team_names_nat
     // Get role mapping for this game
     $game_roles = $role_groups[$game] ?? [];
 
-    // Sort by rating descending (already sorted from DB, but ensure)
+    // Compute rank_value for each player
+    $game_ranks = $rank_values[$game] ?? [];
+    foreach ($draftable as &$p) {
+        $p['rank_value'] = $game_ranks[$p['rank_tier'] ?? ''] ?? 0;
+    }
+    unset($p);
+
+    // Sort by rank_value DESC, then admin_rating DESC as tiebreaker
     usort($draftable, function($a, $b) {
+        $rv = ($b['rank_value'] ?? 0) - ($a['rank_value'] ?? 0);
+        if ($rv !== 0) return $rv;
         return ($b['admin_rating'] ?? 0) - ($a['admin_rating'] ?? 0);
     });
 
@@ -189,6 +207,7 @@ function generate_suggested_teams($players, $game, $role_groups, $team_names_nat
             $role_group = $game_roles[$player['preferred_role'] ?? ''] ?? 'flex';
             $teams[$team_idx]['members'][] = $player;
             $teams[$team_idx]['total_rating'] += (int)($player['admin_rating'] ?? 0);
+            $teams[$team_idx]['total_rank_value'] += (int)($player['rank_value'] ?? 0);
             $teams[$team_idx]['role_counts'][$role_group] = ($teams[$team_idx]['role_counts'][$role_group] ?? 0) + 1;
             $player_idx++;
         }
@@ -200,6 +219,9 @@ function generate_suggested_teams($players, $game, $role_groups, $team_names_nat
         $team['avg_rating'] = count($team['members']) > 0
             ? round($team['total_rating'] / count($team['members']), 1)
             : 0;
+        $team['avg_rank_value'] = count($team['members']) > 0
+            ? round($team['total_rank_value'] / count($team['members']), 1)
+            : 0;
     }
     unset($team);
 
@@ -209,7 +231,7 @@ function generate_suggested_teams($players, $game, $role_groups, $team_names_nat
 // Generate suggestions if requested via GET
 $suggested = null;
 if (isset($_GET['generate']) && $game_filter && isset($valid_games[$game_filter]) && $full_teams > 0) {
-    $suggested = generate_suggested_teams($solo_players, $game_filter, $role_groups, $team_names_nato);
+    $suggested = generate_suggested_teams($solo_players, $game_filter, $role_groups, $team_names_nato, $rank_values);
 }
 ?>
 <!DOCTYPE html>
@@ -330,7 +352,7 @@ if (isset($_GET['generate']) && $game_filter && isset($valid_games[$game_filter]
                                 <div class="suggested-team-header">
                                     <div>
                                         <strong><?= htmlspecialchars($team['name']) ?></strong>
-                                        <span class="avg-rating">Avg: <?= $team['avg_rating'] ?>/10</span>
+                                        <span class="avg-rating">Rank Avg: <?= $team['avg_rank_value'] ?> | Skill: <?= $team['avg_rating'] ?>/10</span>
                                     </div>
                                     <div class="skill-bar-sm" title="Avg rating: <?= $team['avg_rating'] ?>/10">
                                         <div class="skill-bar-sm-fill" style="width:<?= $team['avg_rating'] * 10 ?>%"></div>
@@ -358,7 +380,7 @@ if (isset($_GET['generate']) && $game_filter && isset($valid_games[$game_filter]
                                     <?php endforeach; ?>
                                 </div>
                                 <div class="suggested-team-footer">
-                                    Total: <strong><?= $team['total_rating'] ?></strong> pts
+                                    Rank Total: <strong><?= $team['total_rank_value'] ?></strong> | Skill: <strong><?= $team['total_rating'] ?></strong> pts
                                 </div>
                             </div>
                         <?php endforeach; ?>

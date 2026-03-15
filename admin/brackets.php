@@ -12,6 +12,13 @@ $valid_games = [
     'dota2'     => 'Dota 2',
 ];
 
+// Rank tier numeric values for seeding
+$rank_values = [
+    'valorant'  => ['Iron' => 1, 'Bronze' => 2, 'Silver' => 3, 'Gold' => 4, 'Platinum' => 5, 'Diamond' => 6, 'Ascendant' => 7, 'Immortal' => 8, 'Radiant' => 9],
+    'crossfire' => ['Trainee' => 1, 'Rookie' => 2, 'Soldier' => 3, 'Veteran' => 4, 'Hero' => 5, 'Legend' => 6, 'Master' => 7, 'Grandmaster' => 8],
+    'dota2'     => ['Herald' => 1, 'Guardian' => 2, 'Crusader' => 3, 'Archon' => 4, 'Legend' => 5, 'Ancient' => 6, 'Divine' => 7, 'Immortal' => 8],
+];
+
 $game_filter = $_GET['game'] ?? '';
 $message = '';
 $msg_type = '';
@@ -40,21 +47,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $del = $pdo->prepare("DELETE FROM matches WHERE game = ?");
             $del->execute([$gen_game]);
 
-            // Get approved teams
-            $stmt = $pdo->prepare("SELECT team_name FROM teams WHERE game = ? AND status = 'approved' ORDER BY RAND()");
+            // Get approved teams with member ranks for seeding
+            $stmt = $pdo->prepare("SELECT id, team_name, members_ranks FROM teams WHERE game = ? AND status = 'approved'");
             $stmt->execute([$gen_game]);
-            $teams = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            $raw_teams = $stmt->fetchAll();
 
-            if (count($teams) < 2) {
+            if (count($raw_teams) < 2) {
                 $message = 'Need at least 2 approved teams to generate a bracket.';
                 $msg_type = 'danger';
             } else {
-                $count = count($teams);
+                // Calculate average rank value per team for seeding
+                $game_ranks = $rank_values[$gen_game] ?? [];
+                $team_seeds = [];
+                foreach ($raw_teams as $rt) {
+                    $avg_rank = 0;
+                    if (!empty($rt['members_ranks'])) {
+                        $entries = explode('|', $rt['members_ranks']);
+                        $total = 0;
+                        $counted = 0;
+                        foreach ($entries as $entry) {
+                            $parts = explode(':', $entry, 2);
+                            $rank = $parts[1] ?? '';
+                            if (!empty($rank) && isset($game_ranks[$rank])) {
+                                $total += $game_ranks[$rank];
+                                $counted++;
+                            }
+                        }
+                        $avg_rank = $counted > 0 ? $total / $counted : 0;
+                    }
+                    $team_seeds[] = ['name' => $rt['team_name'], 'avg_rank' => $avg_rank];
+                }
+
+                // Sort by avg_rank DESC (strongest first = seed 1)
+                usort($team_seeds, function($a, $b) {
+                    return $b['avg_rank'] <=> $a['avg_rank'];
+                });
+
+                // Standard bracket seeding: 1v16, 8v9, 5v12, 4v13, 3v14, 6v11, 7v10, 2v15
+                $count = count($team_seeds);
                 $size = 1;
                 while ($size < $count) $size *= 2;
 
-                while (count($teams) < $size) {
-                    $teams[] = 'BYE';
+                // Pad with BYEs
+                while (count($team_seeds) < $size) {
+                    $team_seeds[] = ['name' => 'BYE', 'avg_rank' => 0];
+                }
+
+                // Generate standard seeding order for bracket positions
+                function seedOrder($n) {
+                    if ($n === 1) return [0];
+                    $prev = seedOrder($n / 2);
+                    $result = [];
+                    foreach ($prev as $seed) {
+                        $result[] = $seed;
+                        $result[] = $n - 1 - $seed;
+                    }
+                    return $result;
+                }
+                $order = seedOrder($size);
+                $teams = [];
+                foreach ($order as $idx) {
+                    $teams[] = $team_seeds[$idx]['name'];
                 }
 
                 $insert = $pdo->prepare("INSERT INTO matches (game, bracket_side, round, match_order, team1_name, team2_name, status, winner, team1_score, team2_score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
@@ -105,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // --- GRAND FINALS ---
                 $insert->execute([$gen_game, 'grand', 1, 1, 'TBD', 'TBD', 'pending', '']);
 
-                $message = 'Double elimination bracket generated for ' . $valid_games[$gen_game] . ' with ' . $count . ' teams!';
+                $message = 'Rank-seeded double elimination bracket generated for ' . $valid_games[$gen_game] . ' with ' . $count . ' teams!';
                 $msg_type = 'success';
                 $game_filter = $gen_game;
             }
@@ -266,7 +319,7 @@ foreach ($valid_games as $slug => $name) {
         <div class="admin-section">
             <h2><i class="bi bi-shuffle"></i> Generate Bracket — <?= $valid_games[$game_filter] ?></h2>
             <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
-                This will randomize <?= $team_counts[$game_filter] ?> approved teams into a double-elimination bracket (Winners &amp; Losers bracket).
+                This will seed <?= $team_counts[$game_filter] ?> approved teams by average rank into a double-elimination bracket (strongest vs weakest in round 1).
                 <?php if (!empty($rounds)): ?>
                     <strong style="color:var(--warning);">Warning: existing bracket will be replaced!</strong>
                 <?php endif; ?>

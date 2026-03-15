@@ -88,7 +88,8 @@ require_once __DIR__ . '/includes/header.php';
             <li class="rule-item"><strong>False or dishonest information</strong> — Providing incorrect player names, using someone else's identity, or submitting fraudulent payment proofs will result in disqualification and forfeiture of any prizes.</li>
             <li class="rule-item"><strong>Smurfing</strong> — Using alternate or lower-ranked accounts to bypass fair matchmaking is strictly prohibited.</li>
             <li class="rule-item"><strong>Match fixing</strong> — Any form of intentional losing, score manipulation, or collusion between teams will result in permanent bans for all involved players.</li>
-            <li class="rule-item"><strong>Penalties are at the organizer's discretion.</strong> The severity of the penalty — including warnings, disqualification, prize forfeiture, or permanent bans — will be determined by <strong>Argonar Software OPC</strong> and <strong>OCPD</strong> based on the nature and severity of the violation.</li>
+            <li class="rule-item"><strong>Complaints and reports</strong> — Any complaints from players, audiences, or other participants regarding unfair play, dishonesty, or rule violations will be taken into consideration by the organizers when evaluating penalties.</li>
+            <li class="rule-item"><strong>Penalties are at the organizer's discretion.</strong> The severity of the penalty — including warnings, disqualification, prize forfeiture, or permanent bans — will be judged by <strong>Argonar Software OPC</strong> and <strong>OCPD</strong> based on the nature and severity of the violation.</li>
             <li class="rule-item"><strong>All decisions are final.</strong> Argonar Software OPC and OCPD, as the official organizers of this event, reserve the right to take any action deemed necessary to maintain the integrity and fairness of the tournament.</li>
         </ol>
 
