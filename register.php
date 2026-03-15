@@ -259,7 +259,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="mb-3">
                 <label class="form-label">Or explain why you can't upload proof <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
                 <textarea name="payment_note" class="form-control" rows="2" placeholder="e.g. Will send proof later, paid in person, etc."><?= htmlspecialchars($_POST['payment_note'] ?? '') ?></textarea>
-                <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
+                <div class="form-text" style="font-size:0.8rem; margin-top:0.4rem; color: var(--warning);">
                     If you can't upload proof right now, tell us why. You must provide either a file or a reason.
                 </div>
             </div>
