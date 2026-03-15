@@ -373,6 +373,10 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                             <div class="team-type"><i class="bi bi-people-fill"></i> Team</div>
                             <span class="team-status <?= $team['status'] ?>"><?= $team['status'] ?></span>
                             <div class="team-members-list">
+                                <div class="team-member-row team-member-header">
+                                    <span>Player</span>
+                                    <span>Rank</span>
+                                </div>
                                 <?php
                                 // Parse members_ranks (format: name:rank|name:rank|...)
                                 $members_data = !empty($team['members_ranks']) ? explode('|', $team['members_ranks']) : [];
@@ -385,9 +389,7 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                                 ?>
                                     <div class="team-member-row">
                                         <span class="team-member-name"><?= $mi === 0 ? '<i class="bi bi-star-fill" style="color:#fbbf24; font-size:0.6rem;" title="Captain"></i> ' : '' ?><?= htmlspecialchars($mname) ?></span>
-                                        <?php if (!empty($mrank)): ?>
-                                            <span class="team-member-rank"><?= htmlspecialchars($mrank) ?></span>
-                                        <?php endif; ?>
+                                        <span class="team-member-rank"><?= !empty($mrank) ? htmlspecialchars($mrank) : '—' ?></span>
                                     </div>
                                 <?php
                                     endforeach;
@@ -398,6 +400,7 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                                 ?>
                                     <div class="team-member-row">
                                         <span class="team-member-name"><?= $mi === 1 ? '<i class="bi bi-star-fill" style="color:#fbbf24; font-size:0.6rem;" title="Captain"></i> ' : '' ?><?= htmlspecialchars($team["member_$mi"]) ?></span>
+                                        <span class="team-member-rank">—</span>
                                     </div>
                                 <?php
                                     endfor;
