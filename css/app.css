@@ -568,6 +568,36 @@ body {
     color: var(--text-muted);
 }
 
+.guide-auto-replies {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.auto-reply-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.auto-reply-header {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1877f2;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.auto-reply-desc {
+    color: var(--text-muted) !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
 /* Participating Organizations */
 .orgs-section {
     max-width: 1000px;

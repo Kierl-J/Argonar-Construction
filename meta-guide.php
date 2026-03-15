@@ -122,6 +122,116 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </div>
 
+        <!-- Step 8 -->
+        <div class="section-label">Step 8 — Set Up Automated Replies (Messenger)</div>
+        <div class="guide-step">
+            <div class="guide-number">8</div>
+            <div class="guide-content">
+                <p>Go to <strong>Inbox &rarr; Automations</strong> in Meta Business Suite.</p>
+                <p>Set up these automated replies:</p>
+            </div>
+        </div>
+
+        <div class="guide-auto-replies">
+            <div class="auto-reply-card">
+                <div class="auto-reply-header">
+                    <i class="bi bi-chat-dots-fill"></i> Instant Reply
+                </div>
+                <p class="auto-reply-desc">Automatically greet anyone who messages your page.</p>
+                <div class="guide-template">
+                    Hey there! 👋 Thanks for reaching out to Argonar Tournament!<br><br>
+                    🎮 We're hosting a gaming tournament for Valorant, CrossFire &amp; Dota 2.<br><br>
+                    📋 Register here: https://argonar.co<br>
+                    💰 Team Entry: ₱500 | Solo: ₱100<br>
+                    💳 GCash: 0927 872 8916<br><br>
+                    We'll reply to your message shortly! 🙌
+                </div>
+                <p class="guide-note">Enable via: Automations &rarr; Instant Reply &rarr; Toggle ON &rarr; Edit message</p>
+            </div>
+
+            <div class="auto-reply-card">
+                <div class="auto-reply-header">
+                    <i class="bi bi-clock-fill"></i> Away Message
+                </div>
+                <p class="auto-reply-desc">Auto-reply when you're offline or outside business hours.</p>
+                <div class="guide-template">
+                    Hi! We're currently away but we'll get back to you ASAP. ⏳<br><br>
+                    In the meantime, you can register for the tournament at:<br>
+                    👉 https://argonar.co<br><br>
+                    See you on the battlefield! 🎯
+                </div>
+                <p class="guide-note">Enable via: Automations &rarr; Away Message &rarr; Set your schedule &rarr; Edit message</p>
+            </div>
+
+            <div class="auto-reply-card">
+                <div class="auto-reply-header">
+                    <i class="bi bi-question-circle-fill"></i> Frequently Asked Questions
+                </div>
+                <p class="auto-reply-desc">Set up quick-reply buttons for common questions.</p>
+                <div class="guide-schedule">
+                    <div class="schedule-item">
+                        <span class="schedule-day">Q: How to join?</span>
+                        <span>Go to https://argonar.co, pick your game, and register your team or enter solo!</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-day">Q: Entry fee?</span>
+                        <span>₱500 per team (5 players) or ₱100 per solo player. Pay via GCash: 0927 872 8916</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-day">Q: What games?</span>
+                        <span>Valorant, CrossFire (GameClub), and Dota 2</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-day">Q: Where?</span>
+                        <span>Hide Out Cybernet Cafe. Check our page for the exact schedule!</span>
+                    </div>
+                </div>
+                <p class="guide-note">Enable via: Automations &rarr; Frequently Asked Questions &rarr; Add questions &amp; answers</p>
+            </div>
+
+            <div class="auto-reply-card">
+                <div class="auto-reply-header">
+                    <i class="bi bi-chat-left-text-fill"></i> Comment Auto-Reply
+                </div>
+                <p class="auto-reply-desc">Automatically reply to comments on your tournament posts.</p>
+                <div class="guide-template">
+                    Thanks for your interest! 🔥<br><br>
+                    Register now at https://argonar.co<br>
+                    Team: ₱500 | Solo: ₱100<br><br>
+                    See you there! 💪
+                </div>
+                <p class="guide-note">Enable via: When creating/editing a post &rarr; Toggle "Auto-reply in comments" &rarr; Edit message</p>
+            </div>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="section-label">Step 9 — Set Up Keyword Triggers</div>
+        <div class="guide-step">
+            <div class="guide-number">9</div>
+            <div class="guide-content">
+                <p>In <strong>Automations &rarr; Custom Keywords</strong>, set up keyword-based auto-replies:</p>
+                <div class="guide-schedule">
+                    <div class="schedule-item">
+                        <span class="schedule-day">register</span>
+                        <span>"Register at https://argonar.co — Team: ₱500 | Solo: ₱100 🎮"</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-day">price / fee</span>
+                        <span>"Team entry: ₱500 (5 players) | Solo: ₱100. GCash: 0927 872 8916 💰"</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-day">gcash</span>
+                        <span>"Send payment to GCash: 0927 872 8916. Then upload proof at https://argonar.co 📱"</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-day">schedule / when</span>
+                        <span>"Check our Facebook page for the tournament schedule! Register now: https://argonar.co 📅"</span>
+                    </div>
+                </div>
+                <p class="guide-note">Keyword triggers work when someone messages a word that matches. Add multiple keywords per rule.</p>
+            </div>
+        </div>
+
         <!-- Quick Links -->
         <div class="section-label">Quick Links</div>
         <div class="guide-links">
