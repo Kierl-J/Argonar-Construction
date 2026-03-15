@@ -88,6 +88,23 @@ require_once __DIR__ . '/includes/header.php';
     <div class="winner-banner">
         <i class="bi bi-trophy-fill"></i> Winner Takes All — One champion per game. No runner-up, no second place.
     </div>
+    <div class="prize-pick">
+        <div class="prize-pick-title">The winning team picks ONE reward:</div>
+        <div class="prize-options">
+            <div class="prize-option">
+                <div class="prize-icon"><i class="bi bi-cash-stack"></i></div>
+                <div class="prize-amount">&#8369;9,000 Cash</div>
+                <div class="prize-desc">Split among the team</div>
+            </div>
+            <div class="prize-or">OR</div>
+            <div class="prize-option">
+                <div class="prize-icon"><i class="bi bi-wind"></i></div>
+                <div class="prize-amount">Paragliding Experience</div>
+                <div class="prize-desc">For the whole team — by OCPD Oslob Cebu</div>
+            </div>
+        </div>
+        <div class="prize-note">Winners must choose one. You cannot claim both.</div>
+    </div>
 </div>
 
 <div class="games-grid">

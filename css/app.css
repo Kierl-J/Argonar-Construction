@@ -158,6 +158,88 @@ body {
     font-size: 1.2rem;
 }
 
+.prize-pick {
+    margin-top: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prize-pick-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+}
+
+.prize-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.prize-option {
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+    background: rgba(124, 58, 237, 0.06);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+}
+
+.prize-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.prize-option:first-child .prize-icon {
+    color: var(--success);
+}
+
+.prize-option:last-child .prize-icon {
+    color: #38bdf8;
+}
+
+.prize-amount {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+}
+
+.prize-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.prize-or {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent-light);
+    padding: 0.25rem 0.75rem;
+    background: rgba(124, 58, 237, 0.15);
+    border-radius: 20px;
+}
+
+.prize-note {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+@media (max-width: 480px) {
+    .prize-options { flex-direction: column; }
+    .prize-pick { padding: 1.25rem; }
+}
+
 /* Game Cards */
 .games-grid {
     display: grid;
