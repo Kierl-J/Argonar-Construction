@@ -54,6 +54,7 @@ $games = [
         'desc'    => '5v5 MOBA battle. Outplay, outfarm, outdraft.',
         'banner'  => 'dota2',
         'date'    => '2026-04-15',
+        'reg_deadline' => '2026-04-13',
     ],
 ];
 
@@ -241,6 +242,8 @@ if (!$countdown_target) {
         $pct = min(100, round(($effective / $max_teams) * 100));
         $slots_left = max(0, $max_teams - $effective);
         $date_est = estimate_date($tc, $sc, $game['date'] ?? null);
+        $reg_deadline = $game['reg_deadline'] ?? null;
+        $reg_closed = $reg_deadline && strtotime($reg_deadline . ' 23:59:59') < time();
     ?>
         <div class="game-card">
             <div class="game-banner">
@@ -259,6 +262,16 @@ if (!$countdown_target) {
                         <div class="slot-fill" style="width: <?= $pct ?>%"></div>
                     </div>
                     <div class="slot-date"><i class="bi bi-calendar-event"></i> <?= $date_est ?></div>
+                    <?php if ($reg_deadline): ?>
+                        <div class="slot-date" style="color:<?= $reg_closed ? 'var(--danger)' : '#f59e0b' ?>;">
+                            <i class="bi bi-clock-fill"></i>
+                            <?php if ($reg_closed): ?>
+                                Registration closed
+                            <?php else: ?>
+                                Register by <?= date('F j, Y', strtotime($reg_deadline)) ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="game-stats">
@@ -270,7 +283,11 @@ if (!$countdown_target) {
                     </span>
                 </div>
                 <div class="game-actions">
-                    <?php if ($slots_left > 0): ?>
+                    <?php if ($reg_closed): ?>
+                        <div class="btn-register" style="opacity:0.5; cursor:default;">
+                            <i class="bi bi-lock-fill"></i> Registration Closed
+                        </div>
+                    <?php elseif ($slots_left > 0): ?>
                         <a href="<?= base_url('register.php') ?>?game=<?= $game['slug'] ?>" class="btn-register">
                             <i class="bi bi-people-fill"></i> Register Team <span class="btn-price">&#8369;500</span>
                         </a>
