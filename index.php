@@ -14,21 +14,21 @@ $games = [
     [
         'slug'    => 'valorant',
         'name'    => 'Valorant',
-        'icon'    => 'bi-crosshair',
+        'logo'    => 'images/valorant.png',
         'desc'    => '5v5 tactical shooter. Show your aim and strategy.',
         'banner'  => 'valorant',
     ],
     [
         'slug'    => 'crossfire',
         'name'    => 'CrossFire',
-        'icon'    => 'bi-bullseye',
+        'logo'    => 'images/crossfire.png',
         'desc'    => 'Classic FPS action on GameClub. Lock and load.',
         'banner'  => 'crossfire',
     ],
     [
         'slug'    => 'dota2',
         'name'    => 'Dota 2',
-        'icon'    => 'bi-shield-shaded',
+        'logo'    => 'images/dota.webp',
         'desc'    => '5v5 MOBA battle. Outplay, outfarm, outdraft.',
         'banner'  => 'dota2',
     ],
@@ -70,7 +70,7 @@ require_once __DIR__ . '/includes/header.php';
     <?php foreach ($games as $game): ?>
         <a href="<?= base_url('register.php') ?>?game=<?= $game['slug'] ?>" class="game-card">
             <div class="game-banner <?= $game['banner'] ?>">
-                <i class="bi <?= $game['icon'] ?> game-icon"></i>
+                <img src="<?= base_url($game['logo']) ?>" alt="<?= $game['name'] ?>" class="game-logo">
                 <div class="game-title"><?= $game['name'] ?></div>
             </div>
             <div class="game-body">

@@ -188,9 +188,12 @@ body {
     background: linear-gradient(135deg, #dc2626, #1a1a2e);
 }
 
-.game-banner .game-icon {
-    font-size: 4rem;
-    opacity: 0.9;
+.game-banner .game-logo {
+    max-height: 100px;
+    max-width: 80%;
+    object-fit: contain;
+    z-index: 1;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
 }
 
 .game-banner .game-title {
