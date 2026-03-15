@@ -35,15 +35,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id,
         ]);
     } else {
-        $stmt = $pdo->prepare("UPDATE solo_players SET game = ?, real_name = ?, player_name = ?, contact_number = ?, facebook_link = ?, rank_tier = ?, preferred_role = ?, status = ? WHERE id = ?");
+        // Auto-calculate skill rating from rank
+        $rank_tiers = [
+            'valorant'  => ['Iron', 'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Ascendant', 'Immortal', 'Radiant'],
+            'crossfire' => ['Trainee', 'Rookie', 'Soldier', 'Veteran', 'Hero', 'Legend', 'Master', 'Grandmaster'],
+            'dota2'     => ['Herald', 'Guardian', 'Crusader', 'Archon', 'Legend', 'Ancient', 'Divine', 'Immortal'],
+        ];
+        $edit_game = $_POST['game'] ?? '';
+        $edit_rank = $_POST['rank_tier'] ?? '';
+        $auto_rating = 5;
+        if (isset($rank_tiers[$edit_game])) {
+            $idx = array_search($edit_rank, $rank_tiers[$edit_game]);
+            $total = count($rank_tiers[$edit_game]);
+            if ($idx !== false) {
+                $auto_rating = (int)round(1 + ($idx / max(1, $total - 1)) * 9);
+            }
+        }
+
+        $stmt = $pdo->prepare("UPDATE solo_players SET game = ?, real_name = ?, player_name = ?, contact_number = ?, facebook_link = ?, rank_tier = ?, preferred_role = ?, admin_rating = ?, status = ? WHERE id = ?");
         $stmt->execute([
-            $_POST['game'] ?? '',
+            $edit_game,
             $_POST['real_name'] ?? '',
             $_POST['player_name'] ?? '',
             $_POST['contact_number'] ?? '',
             $_POST['facebook_link'] ?? '',
-            $_POST['rank_tier'] ?? '',
+            $edit_rank,
             $_POST['preferred_role'] ?? '',
+            $auto_rating,
             $_POST['status'] ?? 'pending',
             $id,
         ]);

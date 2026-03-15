@@ -113,7 +113,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'S');
 
-        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, contact_number, facebook_link, rank_tier, preferred_role, ref_code, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        // Auto-calculate skill rating from rank (1-10 scale)
+        $rank_index = array_search($rank_tier, $rank_tiers[$game_slug]);
+        $total_ranks = count($rank_tiers[$game_slug]);
+        $admin_rating = ($rank_index !== false) ? (int)round(1 + ($rank_index / max(1, $total_ranks - 1)) * 9) : 5;
+
+        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, contact_number, facebook_link, rank_tier, preferred_role, ref_code, admin_rating, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $real_name,
@@ -123,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $rank_tier,
             $preferred_role,
             $ref_code,
+            $admin_rating,
             $upload_path,
         ]);
 
