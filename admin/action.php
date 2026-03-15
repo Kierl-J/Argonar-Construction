@@ -30,24 +30,29 @@ if ($id <= 0) {
     exit;
 }
 
-if (!in_array($action, ['approve', 'reject'])) {
+if (!in_array($action, ['approve', 'reject', 'delete'])) {
     echo json_encode(['success' => false, 'error' => 'Invalid action']);
     exit;
 }
 
-$new_status = $action === 'approve' ? 'approved' : 'rejected';
 $table = $type === 'team' ? 'teams' : 'solo_players';
 
 try {
-    $stmt = $pdo->prepare("UPDATE {$table} SET status = ? WHERE id = ?");
-    $stmt->execute([$new_status, $id]);
+    if ($action === 'delete') {
+        $stmt = $pdo->prepare("DELETE FROM {$table} WHERE id = ?");
+        $stmt->execute([$id]);
+    } else {
+        $new_status = $action === 'approve' ? 'approved' : 'rejected';
+        $stmt = $pdo->prepare("UPDATE {$table} SET status = ? WHERE id = ?");
+        $stmt->execute([$new_status, $id]);
+    }
 
     if ($stmt->rowCount() === 0) {
         echo json_encode(['success' => false, 'error' => 'Record not found']);
         exit;
     }
 
-    echo json_encode(['success' => true, 'status' => $new_status]);
+    echo json_encode(['success' => true, 'action' => $action]);
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'error' => 'Database error']);
 }

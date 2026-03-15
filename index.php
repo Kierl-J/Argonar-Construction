@@ -100,11 +100,12 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="prize-desc">Split among the team</div>
             </div>
             <div class="prize-or">OR</div>
-            <div class="prize-option">
+            <a href="https://www.facebook.com/oslobparagliding" target="_blank" rel="noopener" class="prize-option prize-option-link">
                 <div class="prize-icon"><i class="bi bi-wind"></i></div>
                 <div class="prize-amount">Paragliding Experience</div>
-                <div class="prize-desc">Free tickets for the whole team — by OCPD Oslob Cebu</div>
-            </div>
+                <div class="prize-desc">Free tickets for the whole team — by <strong>OCPD Oslob Cebu</strong></div>
+                <div class="prize-desc" style="font-size:0.7rem; margin-top:0.3rem;">Tickets only. Travel &amp; logistics are on the winners.</div>
+            </a>
         </div>
         <div class="prize-note">Winners must choose one. You cannot claim both.</div>
     </div>

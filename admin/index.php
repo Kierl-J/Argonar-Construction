@@ -196,9 +196,10 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                         <button class="btn-reject" onclick="doAction('team', <?= $t['id'] ?>, 'reject')">
                                             <i class="bi bi-x-lg"></i> Reject
                                         </button>
-                                    <?php else: ?>
-                                        <span class="text-muted">—</span>
                                     <?php endif; ?>
+                                    <button class="btn-delete" onclick="doAction('team', <?= $t['id'] ?>, 'delete')">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -258,9 +259,10 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                         <button class="btn-reject" onclick="doAction('solo', <?= $s['id'] ?>, 'reject')">
                                             <i class="bi bi-x-lg"></i> Reject
                                         </button>
-                                    <?php else: ?>
-                                        <span class="text-muted">—</span>
                                     <?php endif; ?>
+                                    <button class="btn-delete" onclick="doAction('solo', <?= $s['id'] ?>, 'delete')">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -289,15 +291,18 @@ function doAction(type, id, action) {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            // Update status badge
-            const statusEl = document.getElementById(type + '-status-' + id);
-            const newStatus = action === 'approve' ? 'approved' : 'rejected';
-            statusEl.className = 'status-badge status-' + newStatus;
-            statusEl.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+            if (action === 'delete') {
+                document.getElementById(type + '-row-' + id).remove();
+            } else {
+                const statusEl = document.getElementById(type + '-status-' + id);
+                const newStatus = action === 'approve' ? 'approved' : 'rejected';
+                statusEl.className = 'status-badge status-' + newStatus;
+                statusEl.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
 
-            // Remove action buttons
-            const actionsEl = document.getElementById(type + '-actions-' + id);
-            actionsEl.innerHTML = '<span class="text-muted">—</span>';
+                const actionsEl = document.getElementById(type + '-actions-' + id);
+                actionsEl.querySelector('.btn-approve')?.remove();
+                actionsEl.querySelector('.btn-reject')?.remove();
+            }
         } else {
             alert('Error: ' + (data.error || 'Unknown error'));
         }

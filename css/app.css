@@ -242,6 +242,17 @@ body {
     border-radius: 20px;
 }
 
+.prize-option-link {
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+}
+
+.prize-option-link:hover {
+    border-color: #38bdf8;
+    color: inherit;
+}
+
 .prize-note {
     margin-top: 1rem;
     font-size: 0.8rem;
@@ -1227,6 +1238,26 @@ body {
 }
 
 .btn-reject:hover {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(150, 150, 150, 0.1);
+    color: var(--text-muted);
+}
+
+.btn-delete:hover {
     background: var(--danger);
     color: #fff;
 }
