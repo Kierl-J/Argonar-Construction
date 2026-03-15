@@ -195,6 +195,16 @@ if ($best_total >= 16) {
     <?php endif; ?>
 </div>
 
+<div style="max-width:1000px; margin:0 auto 1.5rem; padding:0 1rem;">
+    <div style="background:rgba(124,58,237,0.08); border:1px solid rgba(124,58,237,0.25); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+        <i class="bi bi-person-plus-fill" style="font-size:1.5rem; color:var(--accent-light);"></i>
+        <div>
+            <div style="font-weight:700; font-size:0.95rem; color:var(--text);">Don't have a team?</div>
+            <div style="font-size:0.85rem; color:var(--text-muted);">Join as a solo entry! The system will pick a team for you based on your actual skill level. Just choose "Solo Entry" on any game below.</div>
+        </div>
+    </div>
+</div>
+
 <div class="games-grid" id="games">
     <?php foreach ($games as $game):
         $tc = $counts[$game['slug']] ?? 0;
