@@ -225,7 +225,11 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                     <?php endfor; ?>
                                 </td>
                                 <td>
-                                    <?php if ($t['payment_proof']): ?>
+                                    <?php if ($t['payment_proof'] && strpos($t['payment_proof'], 'NOTE:') === 0): ?>
+                                        <span style="color:var(--warning); font-size:0.8rem;" title="<?= htmlspecialchars(substr($t['payment_proof'], 6)) ?>">
+                                            <i class="bi bi-chat-left-text"></i> <?= htmlspecialchars(substr($t['payment_proof'], 6, 30)) ?><?= strlen($t['payment_proof']) > 36 ? '...' : '' ?>
+                                        </span>
+                                    <?php elseif ($t['payment_proof']): ?>
                                         <a href="<?= base_url('admin/view-proof.php?file=' . urlencode($t['payment_proof'])) ?>" target="_blank" class="proof-link">
                                             <i class="bi bi-file-earmark-image"></i> View
                                         </a>
@@ -239,6 +243,9 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                     </span>
                                 </td>
                                 <td class="actions-cell" id="team-actions-<?= $t['id'] ?>">
+                                    <a href="<?= base_url('admin/view.php?type=team&id=' . $t['id']) ?>" class="btn-view">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
                                     <a href="<?= base_url('admin/edit.php?type=team&id=' . $t['id']) ?>" class="btn-edit">
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
@@ -300,7 +307,11 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                     </div>
                                 </td>
                                 <td>
-                                    <?php if ($s['payment_proof']): ?>
+                                    <?php if ($s['payment_proof'] && strpos($s['payment_proof'], 'NOTE:') === 0): ?>
+                                        <span style="color:var(--warning); font-size:0.8rem;" title="<?= htmlspecialchars(substr($s['payment_proof'], 6)) ?>">
+                                            <i class="bi bi-chat-left-text"></i> <?= htmlspecialchars(substr($s['payment_proof'], 6, 30)) ?><?= strlen($s['payment_proof']) > 36 ? '...' : '' ?>
+                                        </span>
+                                    <?php elseif ($s['payment_proof']): ?>
                                         <a href="<?= base_url('admin/view-proof.php?file=' . urlencode($s['payment_proof'])) ?>" target="_blank" class="proof-link">
                                             <i class="bi bi-file-earmark-image"></i> View
                                         </a>
@@ -314,6 +325,9 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                     </span>
                                 </td>
                                 <td class="actions-cell" id="solo-actions-<?= $s['id'] ?>">
+                                    <a href="<?= base_url('admin/view.php?type=solo&id=' . $s['id']) ?>" class="btn-view">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
                                     <a href="<?= base_url('admin/edit.php?type=solo&id=' . $s['id']) ?>" class="btn-edit">
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>

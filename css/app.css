@@ -1409,6 +1409,133 @@ body {
     color: #fff;
 }
 
+.btn-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    background: rgba(124, 58, 237, 0.15);
+    color: var(--accent-light);
+}
+
+.btn-view:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* View Page Cards */
+.view-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+}
+
+.view-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(124, 58, 237, 0.05);
+}
+
+.view-card-header h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.view-card-body {
+    padding: 0.5rem 1.5rem;
+}
+
+.view-row {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.view-row:last-child {
+    border-bottom: none;
+}
+
+.view-label {
+    flex: 0 0 160px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.view-value {
+    flex: 1;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.view-value code {
+    background: rgba(124, 58, 237, 0.15);
+    color: var(--accent-light);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.member-rank-badge {
+    display: inline-block;
+    background: rgba(124, 58, 237, 0.15);
+    color: var(--accent-light);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.skill-bar-container {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 5px;
+    transition: width 0.3s;
+}
+
+@media (max-width: 600px) {
+    .view-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+    .view-label {
+        flex: none;
+    }
+}
+
 /* Skill Gauge */
 .skill-gauge {
     display: inline-flex;
