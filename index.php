@@ -117,6 +117,26 @@ require_once __DIR__ . '/includes/header.php';
     <?php endforeach; ?>
 </div>
 
+<div class="orgs-section">
+    <h2>Participating Organizations</h2>
+    <div class="orgs-grid">
+        <a href="https://www.facebook.com/argonarsoftwarepublishing" target="_blank" rel="noopener" class="org-card">
+            <img src="<?= base_url('images/argonar-logo.svg') ?>" alt="Argonar Software OPC" class="org-logo">
+            <div class="org-info">
+                <div class="org-name">Argonar Software OPC</div>
+                <span class="org-link"><i class="bi bi-facebook"></i> Facebook Page</span>
+            </div>
+        </a>
+        <a href="https://www.facebook.com/oslobparagliding" target="_blank" rel="noopener" class="org-card">
+            <div class="org-logo-placeholder"><i class="bi bi-parachute"></i></div>
+            <div class="org-info">
+                <div class="org-name">Oslob Cebu Paragliding Development Com</div>
+                <span class="org-link"><i class="bi bi-facebook"></i> Facebook Page</span>
+            </div>
+        </a>
+    </div>
+</div>
+
 <div class="registered-section">
     <h2>Registered Participants</h2>
 

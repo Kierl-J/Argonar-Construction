@@ -455,6 +455,96 @@ body {
     color: var(--danger);
 }
 
+/* Participating Organizations */
+.orgs-section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.orgs-section h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-light), #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.orgs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.org-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.org-card:hover {
+    border-color: #1877f2;
+    background: var(--bg-card-hover);
+    color: inherit;
+}
+
+.org-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.org-logo-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: rgba(124, 58, 237, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--accent-light);
+    flex-shrink: 0;
+}
+
+.org-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.org-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.3;
+}
+
+.org-link {
+    font-size: 0.8rem;
+    color: #1877f2;
+    margin-top: 0.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.org-card:hover .org-link {
+    text-decoration: underline;
+}
+
 /* Success Page */
 .success-container {
     text-align: center;
