@@ -71,6 +71,9 @@ require_once __DIR__ . '/includes/header.php';
         This event is officially organized by <strong style="color:var(--accent-light);">Argonar Software OPC</strong> and <strong style="color:var(--accent-light);">OCPD Oslob Cebu Paragliding</strong>.
         All rules, penalties, and final decisions are under the authority of the organizers.
     </div>
+    <div style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.35); border-radius:10px; padding:0.6rem 1rem; font-size:0.85rem; color:var(--danger); font-weight:700; margin-top:0.5rem;">
+        <i class="bi bi-x-circle-fill"></i> NO REFUNDS — All entry fees are non-refundable once payment is made.
+    </div>
 </div>
 
 <div class="sponsors-bar">
