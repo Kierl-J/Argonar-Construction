@@ -39,8 +39,8 @@ $games = [
         'logo'    => 'images/valorant.png',
         'desc'    => '5v5 tactical shooter. Show your aim and strategy.',
         'banner'  => 'valorant',
-        'date'    => '2026-04-15',
-        'reg_deadline' => '2026-04-13',
+        'date'    => '2026-04-19',
+        'reg_deadline' => '2026-04-17',
     ],
     [
         'slug'    => 'crossfire',
@@ -48,8 +48,8 @@ $games = [
         'logo'    => 'images/crossfire.png',
         'desc'    => 'Classic FPS action on GameClub. Lock and load.',
         'banner'  => 'crossfire',
-        'date'    => '2026-04-15',
-        'reg_deadline' => '2026-04-13',
+        'date'    => '2026-04-19',
+        'reg_deadline' => '2026-04-17',
     ],
     [
         'slug'    => 'dota2',
@@ -57,8 +57,8 @@ $games = [
         'logo'    => 'images/dota.webp',
         'desc'    => '5v5 MOBA battle. Outplay, outfarm, outdraft.',
         'banner'  => 'dota2',
-        'date'    => '2026-04-15',
-        'reg_deadline' => '2026-04-13',
+        'date'    => '2026-04-19',
+        'reg_deadline' => '2026-04-17',
     ],
 ];
 

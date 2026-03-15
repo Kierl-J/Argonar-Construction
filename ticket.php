@@ -218,6 +218,11 @@ require_once __DIR__ . '/includes/header.php';
                     <span>0927 872 8916</span>
                 </div>
 
+                <div class="ticket-qr" style="margin:1rem auto; text-align:center;">
+                    <div id="gcashQR" style="display:inline-block; background:#fff; padding:12px; border-radius:12px;"></div>
+                    <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">Scan with GCash app</div>
+                </div>
+
                 <div class="ticket-instructions">
                     <p>Open your GCash app and send <strong>exactly &#8369;<?= number_format($amount, 2) ?></strong> to the number above.</p>
                     <p>Payment will be <strong>automatically detected</strong> — this page updates in real time.</p>
@@ -390,6 +395,17 @@ require_once __DIR__ . '/includes/header.php';
             chevron.classList.replace('bi-chevron-up', 'bi-chevron-down');
         }
     };
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+(function() {
+    var el = document.getElementById('gcashQR');
+    if (!el) return;
+    var qr = qrcode(0, 'M');
+    qr.addData('09278728916');
+    qr.make();
+    el.innerHTML = qr.createSvgTag(5, 0);
 })();
 </script>
 
