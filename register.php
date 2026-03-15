@@ -211,7 +211,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="payment-info">
                 <div class="fee">&#8369;500.00</div>
                 <p>Entry fee per team. You'll be directed to the payment page after registering.</p>
-                <div class="gcash-number"><i class="bi bi-phone"></i> GCash auto-detect or upload proof</div>
+                <div class="gcash-number"><i class="bi bi-phone"></i> GCash auto-detect or InstaPay QR</div>
                 <div class="gcash-number" style="margin-top:0.4rem; background:rgba(34,197,94,0.1); border-color:rgba(34,197,94,0.25); color:var(--success);"><i class="bi bi-shop"></i> Or pay <strong>on-site</strong> at Hide Out Cybernet Cafe</div>
             </div>
 

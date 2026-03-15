@@ -222,7 +222,7 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                     <div class="schedule-item">
                         <span class="schedule-day">gcash</span>
-                        <span>"Send payment to GCash: 0927 872 8916. Then upload proof at https://argonar.co 📱"</span>
+                        <span>"Send payment to GCash: 0927 872 8916 or scan the InstaPay QR at https://argonar.co 📱"</span>
                     </div>
                     <div class="schedule-item">
                         <span class="schedule-day">schedule / when</span>
