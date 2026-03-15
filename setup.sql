@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS teams (
 CREATE TABLE IF NOT EXISTS solo_players (
     id INT AUTO_INCREMENT PRIMARY KEY,
     game VARCHAR(50) NOT NULL,
+    real_name VARCHAR(100) DEFAULT '',
     player_name VARCHAR(100) NOT NULL,
     rank_tier VARCHAR(50) NOT NULL,
     preferred_role VARCHAR(50) DEFAULT '',

@@ -30,13 +30,17 @@ $pageTitle = "Solo Matchmaking — $game_name";
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $real_name      = trim($_POST['real_name'] ?? '');
     $player_name    = trim($_POST['player_name'] ?? '');
     $rank_tier      = trim($_POST['rank_tier'] ?? '');
     $preferred_role = trim($_POST['preferred_role'] ?? '');
 
     // Validate
+    if ($real_name === '') {
+        $errors[] = 'Real name is required.';
+    }
     if ($player_name === '') {
-        $errors[] = 'Player name is required.';
+        $errors[] = 'In-game name is required.';
     }
     if ($rank_tier === '' || !in_array($rank_tier, $rank_tiers[$game_slug])) {
         $errors[] = 'Please select a valid rank.';
@@ -80,9 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO solo_players (game, player_name, rank_tier, preferred_role, payment_proof) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, rank_tier, preferred_role, payment_proof) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
+            $real_name,
             $player_name,
             $rank_tier,
             $preferred_role,
@@ -117,8 +122,13 @@ require_once __DIR__ . '/includes/header.php';
         <form method="POST" enctype="multipart/form-data">
             <div class="section-label">Player Info</div>
             <div class="mb-3">
-                <label class="form-label">Player Name</label>
-                <input type="text" name="player_name" class="form-control" placeholder="Full name or in-game name"
+                <label class="form-label">Real Name</label>
+                <input type="text" name="real_name" class="form-control" placeholder="Your full real name"
+                       value="<?= htmlspecialchars($_POST['real_name'] ?? '') ?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">In-Game Name (IGN)</label>
+                <input type="text" name="player_name" class="form-control" placeholder="Your in-game name / gamertag"
                        value="<?= htmlspecialchars($_POST['player_name'] ?? '') ?>" required>
             </div>
 
@@ -153,7 +163,7 @@ require_once __DIR__ . '/includes/header.php';
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
+                <div class="form-text" style="font-size:0.8rem; margin-top:0.4rem; color: var(--accent-light);">
                     This helps us balance teams. You can still negotiate roles with your teammates.
                 </div>
             </div>

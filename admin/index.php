@@ -221,7 +221,8 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                         <tr>
                             <th>ID</th>
                             <th>Game</th>
-                            <th>Player Name</th>
+                            <th>Real Name</th>
+                            <th>IGN</th>
                             <th>Rank</th>
                             <th>Role</th>
                             <th>Payment</th>
@@ -234,6 +235,7 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                             <tr id="solo-row-<?= $s['id'] ?>">
                                 <td><?= $s['id'] ?></td>
                                 <td><?= htmlspecialchars($valid_games[$s['game']] ?? $s['game']) ?></td>
+                                <td><?= htmlspecialchars($s['real_name'] ?? '—') ?></td>
                                 <td><strong><?= htmlspecialchars($s['player_name']) ?></strong></td>
                                 <td><?= htmlspecialchars($s['rank_tier']) ?></td>
                                 <td><?= htmlspecialchars($s['preferred_role'] ?? '—') ?></td>
