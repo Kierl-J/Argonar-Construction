@@ -773,6 +773,8 @@ body {
     color: var(--text-muted);
     margin-top: 0.5rem;
     line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .guide-schedule {

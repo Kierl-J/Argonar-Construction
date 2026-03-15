@@ -16,10 +16,7 @@ require_once __DIR__ . '/includes/header.php';
 
         <!-- GENERAL POST -->
         <div class="section-label">General Tournament Announcement</div>
-        <div class="guide-template" style="position:relative;">
-            <button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;">
-                <i class="bi bi-clipboard"></i> Copy
-            </button>
+        <div class="guide-template" style="position:relative;"><button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;"><i class="bi bi-clipboard"></i> Copy</button>
 🎮🏆 ARGONAR GAMING TOURNAMENT IS HERE! 🏆🎮
 
 Are you ready to prove you're the best? 🔥
@@ -51,15 +48,11 @@ Presented by Argonar Software OPC
 Venue hosted by Hide Out Cybernet Cafe
 Paragliding by OCPD — https://oslobcebuparagliding.com
 
-#ArgonarTournament #GamingCebu #Esports #Valorant #Dota2 #CrossFire #CebuGaming #WinnerTakesAll #Paragliding #HideOutCafe #GameOn
-        </div>
+#ArgonarTournament #GamingCebu #Esports #Valorant #Dota2 #CrossFire #CebuGaming #WinnerTakesAll #Paragliding #HideOutCafe #GameOn</div>
 
         <!-- VALORANT POST -->
         <div class="section-label"><i class="bi bi-crosshair"></i> Valorant Post</div>
-        <div class="guide-template" style="position:relative;">
-            <button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;">
-                <i class="bi bi-clipboard"></i> Copy
-            </button>
+        <div class="guide-template" style="position:relative;"><button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;"><i class="bi bi-clipboard"></i> Copy</button>
 🔫 VALORANT TOURNAMENT — ARGONAR GAMING 🔫
 
 Calling all Agents! 🎯
@@ -86,15 +79,11 @@ Iron to Radiant, everyone's welcome.
 
 Lock in. Clutch up. Win everything. 🏆
 
-#Valorant #ValorantPH #ValorantCebu #ArgonarTournament #Esports #TacticalShooter #ClutchOrKick #GamingCebu #WinnerTakesAll
-        </div>
+#Valorant #ValorantPH #ValorantCebu #ArgonarTournament #Esports #TacticalShooter #ClutchOrKick #GamingCebu #WinnerTakesAll</div>
 
         <!-- DOTA 2 POST -->
         <div class="section-label"><i class="bi bi-shield-shaded"></i> Dota 2 Post</div>
-        <div class="guide-template" style="position:relative;">
-            <button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;">
-                <i class="bi bi-clipboard"></i> Copy
-            </button>
+        <div class="guide-template" style="position:relative;"><button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;"><i class="bi bi-clipboard"></i> Copy</button>
 ⚔️ DOTA 2 TOURNAMENT — ARGONAR GAMING ⚔️
 
 Mga lodi ng Dota, tara na! 🔥
@@ -123,15 +112,11 @@ Herald to Immortal — Carry, Mid, Offlane, Support — pick your role.
 
 Outplay. Outfarm. Outdraft. Take the throne. 👑
 
-#Dota2 #Dota2PH #Dota2Cebu #ArgonarTournament #MOBA #GGWellPlayed #CebuGaming #WinnerTakesAll #Esports
-        </div>
+#Dota2 #Dota2PH #Dota2Cebu #ArgonarTournament #MOBA #GGWellPlayed #CebuGaming #WinnerTakesAll #Esports</div>
 
         <!-- CROSSFIRE POST -->
         <div class="section-label"><i class="bi bi-bullseye"></i> CrossFire Post</div>
-        <div class="guide-template" style="position:relative;">
-            <button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;">
-                <i class="bi bi-clipboard"></i> Copy
-            </button>
+        <div class="guide-template" style="position:relative;"><button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;"><i class="bi bi-clipboard"></i> Copy</button>
 💥 CROSSFIRE TOURNAMENT — ARGONAR GAMING 💥
 
 OG gamers, this one's for you! 🎯
@@ -158,15 +143,11 @@ CrossFire on GameClub — the classic FPS is back and better than ever. 5v5 Sear
 
 Lock and load. The battlefield awaits. 💀
 
-#CrossFire #CrossFirePH #CFFPS #ArgonarTournament #GameClub #FPS #SearchAndDestroy #CebuGaming #WinnerTakesAll #OGGamers
-        </div>
+#CrossFire #CrossFirePH #CFFPS #ArgonarTournament #GameClub #FPS #SearchAndDestroy #CebuGaming #WinnerTakesAll #OGGamers</div>
 
         <!-- SOLO MATCHMAKING POST -->
         <div class="section-label"><i class="bi bi-person-plus-fill"></i> Solo Entry Promo Post</div>
-        <div class="guide-template" style="position:relative;">
-            <button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;">
-                <i class="bi bi-clipboard"></i> Copy
-            </button>
+        <div class="guide-template" style="position:relative;"><button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;"><i class="bi bi-clipboard"></i> Copy</button>
 🎮 WALANG TEAM? NO PROBLEM! 🙌
 
 Join the Argonar Tournament as a SOLO PLAYER — for just ₱100!
@@ -187,15 +168,11 @@ Don't sit this one out. Your next squad is waiting! 💪
 📍 Hide Out Cybernet Cafe — Cebu City
 🔗 https://argonar.co
 
-#ArgonarTournament #SoloQueue #FindYourTeam #GamingCebu #Valorant #Dota2 #CrossFire #Esports #NoTeamNoProblem
-        </div>
+#ArgonarTournament #SoloQueue #FindYourTeam #GamingCebu #Valorant #Dota2 #CrossFire #Esports #NoTeamNoProblem</div>
 
         <!-- PARAGLIDING PROMO POST -->
         <div class="section-label"><i class="bi bi-wind"></i> Paragliding Prize Promo Post</div>
-        <div class="guide-template" style="position:relative;">
-            <button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;">
-                <i class="bi bi-clipboard"></i> Copy
-            </button>
+        <div class="guide-template" style="position:relative;"><button onclick="copyCaption(this)" class="btn-copy-link" style="position:absolute; top:0.5rem; right:0.5rem; font-size:0.7rem;"><i class="bi bi-clipboard"></i> Copy</button>
 🪂 WIN A PARAGLIDING EXPERIENCE FOR YOUR WHOLE TEAM! 🪂
 
 Yes, you read that right. 🔥
@@ -215,8 +192,7 @@ OR take home ₱9,000 CASH — your choice!
 
 From gaming chairs to paragliders — only at Argonar Tournament. 🎮➡️🪂
 
-#Paragliding #OslobCebu #OCPD #ArgonarTournament #GamingCebu #WinAndFly #FreeParagliding #Esports #AdventureAwaits
-        </div>
+#Paragliding #OslobCebu #OCPD #ArgonarTournament #GamingCebu #WinAndFly #FreeParagliding #Esports #AdventureAwaits</div>
 
         <div style="margin-top:2rem; text-align:center;">
             <a href="<?= base_url('meta-guide.php') ?>" class="btn-register" style="display:inline-flex; width:auto; padding:0.75rem 2rem;">
