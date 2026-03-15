@@ -128,7 +128,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </a>
         <a href="https://www.facebook.com/oslobparagliding" target="_blank" rel="noopener" class="org-card">
-            <div class="org-logo-placeholder"><i class="bi bi-parachute"></i></div>
+            <img src="<?= base_url('images/ocpd.jpg') ?>" alt="OCPD" class="org-logo">
             <div class="org-info">
                 <div class="org-name">Oslob Cebu Paragliding Development Com</div>
                 <span class="org-link"><i class="bi bi-facebook"></i> Facebook Page</span>
