@@ -203,45 +203,36 @@ body {
     padding: 1.25rem;
 }
 
-.game-body .meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-}
-
-.badge-game {
-    background: var(--accent);
-    color: #fff;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.entry-fee {
-    color: var(--success);
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
 .game-body .desc {
     color: var(--text-muted);
     font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.game-stats {
+    display: flex;
+    gap: 1rem;
     margin-bottom: 1rem;
 }
 
+.game-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .btn-register {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    flex: 1;
+    padding: 0.7rem 0.5rem;
     background: var(--accent);
     color: #fff;
     border: none;
     border-radius: 10px;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     text-align: center;
     text-decoration: none;
     transition: background 0.2s;
@@ -250,6 +241,34 @@ body {
 .btn-register:hover {
     background: #6d28d9;
     color: #fff;
+}
+
+.btn-solo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    flex: 1;
+    padding: 0.7rem 0.5rem;
+    background: transparent;
+    color: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-solo:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.btn-price {
+    font-weight: 800;
+    font-size: 0.8rem;
 }
 
 /* Registration Form */
@@ -439,71 +458,85 @@ body {
     border-top: 1px solid var(--border);
 }
 
-/* Matchmaking Section */
-.matchmaking-section {
+/* Registered Teams Section */
+.registered-section {
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
-    text-align: center;
 }
 
-.matchmaking-section h2 {
-    font-size: 1.75rem;
+.registered-section h2 {
+    font-size: 1.5rem;
     font-weight: 800;
     background: linear-gradient(135deg, var(--accent-light), #c084fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
 }
 
-.matchmaking-section > p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+.registered-game {
     margin-bottom: 1.5rem;
 }
 
-.matchmaking-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+.registered-game h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
 }
 
-.match-card {
+.registered-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.registered-team {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: all 0.3s ease;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
 }
 
-.match-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
-    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.15);
-    color: inherit;
-}
-
-.match-card-img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-}
-
-.match-card-body {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.match-card-body h3 {
-    font-size: 1.1rem;
+.registered-team .team-name {
     font-weight: 700;
-    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.registered-team .team-type {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.registered-team .team-status {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    margin-top: 0.3rem;
+}
+
+.team-status.pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+}
+
+.team-status.approved {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+}
+
+.no-teams {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
 }
 
 .solo-count {

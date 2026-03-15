@@ -17,6 +17,20 @@ while ($row = $stmt->fetch()) {
     $solo_counts[$row['game']] = $row['total'];
 }
 
+// Get registered teams per game
+$registered_teams = [];
+$stmt = $pdo->query("SELECT game, team_name, status FROM teams ORDER BY created_at DESC");
+while ($row = $stmt->fetch()) {
+    $registered_teams[$row['game']][] = $row;
+}
+
+// Get solo players per game
+$solo_players = [];
+$stmt = $pdo->query("SELECT game, player_name, rank_tier, status FROM solo_players ORDER BY created_at DESC");
+while ($row = $stmt->fetch()) {
+    $solo_players[$row['game']][] = $row;
+}
+
 $games = [
     [
         'slug'    => 'valorant',
@@ -70,53 +84,72 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="hero">
     <h1>Tournament Registration</h1>
-    <p>Pick your game, form your squad, and compete. Entry fee is <strong>&#8369;500</strong> per team.</p>
+    <p>Pick your game and join the tournament. Register as a team or enter solo and get matched by rank.</p>
 </div>
 
 <div class="games-grid">
     <?php foreach ($games as $game): ?>
-        <a href="<?= base_url('register.php') ?>?game=<?= $game['slug'] ?>" class="game-card">
-            <div class="game-banner <?= $game['banner'] ?>">
+        <div class="game-card">
+            <div class="game-banner">
                 <img src="<?= base_url($game['logo']) ?>" alt="<?= $game['name'] ?>" class="game-logo">
                 <div class="game-title"><?= $game['name'] ?></div>
             </div>
             <div class="game-body">
-                <div class="meta">
-                    <span class="badge-game"><?= strtoupper($game['slug']) ?></span>
-                    <span class="entry-fee">&#8369;500</span>
-                </div>
                 <p class="desc"><?= $game['desc'] ?></p>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="game-stats">
                     <span class="teams-count">
-                        <i class="bi bi-people-fill"></i>
-                        <?= $counts[$game['slug']] ?? 0 ?> team(s) registered
+                        <i class="bi bi-people-fill"></i> <?= $counts[$game['slug']] ?? 0 ?> team(s)
                     </span>
-                    <span class="btn-register" style="width:auto; padding: 0.5rem 1.25rem;">Register</span>
+                    <span class="teams-count">
+                        <i class="bi bi-person-fill"></i> <?= $solo_counts[$game['slug']] ?? 0 ?> solo player(s)
+                    </span>
+                </div>
+                <div class="game-actions">
+                    <a href="<?= base_url('register.php') ?>?game=<?= $game['slug'] ?>" class="btn-register">
+                        <i class="bi bi-people-fill"></i> Register Team <span class="btn-price">&#8369;500</span>
+                    </a>
+                    <a href="<?= base_url('matchmaking.php') ?>?game=<?= $game['slug'] ?>" class="btn-solo">
+                        <i class="bi bi-person-fill"></i> Solo Entry <span class="btn-price">&#8369;100</span>
+                    </a>
                 </div>
             </div>
-        </a>
+        </div>
     <?php endforeach; ?>
 </div>
 
-<div class="matchmaking-section">
-    <h2>Solo Matchmaking</h2>
-    <p>No team? Register solo and we'll match you with players of similar rank. <strong>&#8369;100</strong> per player.</p>
+<div class="registered-section">
+    <h2>Registered Participants</h2>
 
-    <div class="matchmaking-grid">
-        <?php foreach ($games as $game): ?>
-            <a href="<?= base_url('matchmaking.php') ?>?game=<?= $game['slug'] ?>" class="match-card">
-                <img src="<?= base_url($game['logo']) ?>" alt="<?= $game['name'] ?>" class="match-card-img">
-                <div class="match-card-body">
-                    <h3><?= $game['name'] ?></h3>
-                    <span class="solo-count">
-                        <i class="bi bi-person-fill"></i>
-                        <?= $solo_counts[$game['slug']] ?? 0 ?> player(s) waiting
-                    </span>
-                    <span class="btn-register" style="width:auto; padding: 0.5rem 1.25rem; margin-top: 0.75rem; display: inline-block;">Find Team</span>
-                </div>
-            </a>
-        <?php endforeach; ?>
-    </div>
+    <?php foreach ($games as $game): ?>
+        <?php
+        $teams = $registered_teams[$game['slug']] ?? [];
+        $solos = $solo_players[$game['slug']] ?? [];
+        if (empty($teams) && empty($solos)) continue;
+        ?>
+        <div class="registered-game">
+            <h3><i class="bi bi-controller"></i> <?= $game['name'] ?></h3>
+            <div class="registered-list">
+                <?php foreach ($teams as $team): ?>
+                    <div class="registered-team">
+                        <div class="team-name"><?= htmlspecialchars($team['team_name']) ?></div>
+                        <div class="team-type"><i class="bi bi-people-fill"></i> Team</div>
+                        <span class="team-status <?= $team['status'] ?>"><?= $team['status'] ?></span>
+                    </div>
+                <?php endforeach; ?>
+                <?php foreach ($solos as $solo): ?>
+                    <div class="registered-team">
+                        <div class="team-name"><?= htmlspecialchars($solo['player_name']) ?></div>
+                        <div class="team-type"><i class="bi bi-person-fill"></i> Solo &middot; <?= htmlspecialchars($solo['rank_tier']) ?></div>
+                        <span class="team-status <?= $solo['status'] ?>"><?= $solo['status'] ?></span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
+    <?php if (empty($registered_teams) && empty($solo_players)): ?>
+        <p class="no-teams" style="text-align:center;">No participants registered yet. Be the first!</p>
+    <?php endif; ?>
 </div>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
