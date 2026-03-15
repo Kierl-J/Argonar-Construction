@@ -61,7 +61,6 @@ require_once __DIR__ . '/includes/header.php';
             <li class="rule-item"><strong>No cheating or exploits.</strong> Any use of hacks, scripts, macros, or game exploits will result in immediate disqualification and a permanent ban from future events.</li>
             <li class="rule-item"><strong>Admin decisions are final.</strong> All rulings by tournament administrators are binding and non-negotiable.</li>
             <li class="rule-item"><strong>No-shows = forfeit.</strong> If your team fails to show up for a scheduled match, the opposing team advances automatically.</li>
-            <li class="rule-item"><strong>Bring your own peripherals.</strong> Players must bring their own mouse, keyboard, headset, and any other peripherals they need. The venue provides PCs only.</li>
             <li class="rule-item"><strong>Account sharing is prohibited.</strong> Each player must use their own game account. Substitute players must be declared before the tournament starts.</li>
         </ol>
 
