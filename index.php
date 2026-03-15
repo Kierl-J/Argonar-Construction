@@ -85,6 +85,9 @@ require_once __DIR__ . '/includes/header.php';
 <div class="hero">
     <h1>Tournament Registration</h1>
     <p>Pick your game and join the tournament. Register as a team or enter solo and get matched by rank.</p>
+    <div class="winner-banner">
+        <i class="bi bi-trophy-fill"></i> Winner Takes All — One champion per game. No runner-up, no second place.
+    </div>
 </div>
 
 <div class="games-grid">

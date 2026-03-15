@@ -139,6 +139,25 @@ body {
     margin: 0 auto;
 }
 
+.winner-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.5rem;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.1));
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 10px;
+    color: var(--warning);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.winner-banner i {
+    font-size: 1.2rem;
+}
+
 /* Game Cards */
 .games-grid {
     display: grid;
