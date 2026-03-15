@@ -195,8 +195,8 @@ require_once __DIR__ . '/includes/header.php';
                     <input type="text" name="member_<?= $i ?>" class="form-control" style="margin-bottom:0.5rem;"
                            placeholder="Full name or in-game name"
                            value="<?= htmlspecialchars($_POST["member_$i"] ?? '') ?>" required>
-                    <select name="member_rank_<?= $i ?>" class="form-control form-select">
-                        <option value="">Select rank (optional)</option>
+                    <select name="member_rank_<?= $i ?>" class="form-control form-select" required>
+                        <option value="">Select rank</option>
                         <?php foreach ($rank_tiers[$game_slug] as $rank): ?>
                             <option value="<?= htmlspecialchars($rank) ?>"
                                 <?= (($_POST["member_rank_$i"] ?? '') === $rank) ? 'selected' : '' ?>>
@@ -206,6 +206,11 @@ require_once __DIR__ . '/includes/header.php';
                     </select>
                 </div>
             <?php endfor; ?>
+
+            <div class="alert-custom alert-danger" style="margin-top:0.5rem; font-size:0.8rem;">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <strong>Rank Integrity Warning:</strong> Make sure your submitted rank is genuine and reflects your actual in-game rank. Any form of rank manipulation, smurfing, or dishonesty will result in disqualification and penalties at the discretion of the organizers.
+            </div>
 
             <div class="section-label">Payment</div>
             <div class="payment-info">

@@ -191,6 +191,11 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
+            <div class="alert-custom alert-danger" style="margin-top:0.5rem; font-size:0.8rem;">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <strong>Rank Integrity Warning:</strong> Make sure your submitted rank is genuine and reflects your actual in-game rank. Any form of rank manipulation, smurfing, or dishonesty will result in disqualification and penalties at the discretion of the organizers.
+            </div>
+
             <div class="section-label">Payment</div>
             <div class="payment-info">
                 <div class="fee">&#8369;100.00</div>
