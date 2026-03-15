@@ -82,6 +82,17 @@ require_once __DIR__ . '/includes/header.php';
             <li class="rule-item">Report any issues or disputes to the admin immediately — do not engage in arguments with the opposing team.</li>
         </ol>
 
+        <!-- Violations & Penalties -->
+        <div class="section-label" style="color:var(--danger);"><i class="bi bi-shield-exclamation"></i> Violations &amp; Penalties</div>
+        <ol class="rules-list">
+            <li class="rule-item"><strong>Rank manipulation</strong> — Submitting a fake or intentionally lower rank to gain an unfair advantage in matchmaking or seeding will result in immediate disqualification.</li>
+            <li class="rule-item"><strong>False or dishonest information</strong> — Providing incorrect player names, using someone else's identity, or submitting fraudulent payment proofs will result in disqualification and forfeiture of any prizes.</li>
+            <li class="rule-item"><strong>Smurfing</strong> — Using alternate or lower-ranked accounts to bypass fair matchmaking is strictly prohibited.</li>
+            <li class="rule-item"><strong>Match fixing</strong> — Any form of intentional losing, score manipulation, or collusion between teams will result in permanent bans for all involved players.</li>
+            <li class="rule-item"><strong>Penalties are at the organizer's discretion.</strong> The severity of the penalty — including warnings, disqualification, prize forfeiture, or permanent bans — will be determined by the organizing team based on the nature and severity of the violation.</li>
+            <li class="rule-item"><strong>All decisions are final.</strong> The organizer reserves the right to take any action deemed necessary to maintain the integrity and fairness of the tournament.</li>
+        </ol>
+
         <div style="margin-top:2rem; text-align:center;">
             <a href="<?= base_url() ?>" class="btn-register" style="display:inline-flex; width:auto; padding:0.75rem 2rem;">
                 <i class="bi bi-arrow-left"></i> Back to Registration
