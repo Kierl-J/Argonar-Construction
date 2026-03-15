@@ -7,7 +7,6 @@ $errors = [];
 $success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    csrf_check();
     $player_name = trim($_POST['player_name'] ?? '');
     $ref_code = strtoupper(trim($_POST['ref_code'] ?? ''));
     $subject = trim($_POST['subject'] ?? '');
@@ -48,7 +47,6 @@ require_once __DIR__ . '/includes/header.php';
             <?php endif; ?>
 
             <form method="POST">
-                <?= csrf_field() ?>
 
                 <div class="mb-3">
                     <label class="form-label">Your Name</label>
