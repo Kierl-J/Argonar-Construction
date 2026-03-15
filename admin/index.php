@@ -61,6 +61,26 @@ $valid_games = [
     'dota2'     => 'Dota 2',
 ];
 
+// Handle admin add team
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_add_team'])) {
+    $add_game = $_POST['add_game'] ?? '';
+    $add_team = trim($_POST['add_team_name'] ?? '');
+    $add_status = $_POST['add_status'] ?? 'approved';
+
+    if (isset($valid_games[$add_game]) && $add_team !== '') {
+        $prefixes = ['valorant' => 'VAL', 'crossfire' => 'CF', 'dota2' => 'DOTA'];
+        $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $rand = '';
+        for ($i = 0; $i < 4; $i++) $rand .= $chars[random_int(0, strlen($chars) - 1)];
+        $ref = $prefixes[$add_game] . '-T-' . $rand;
+
+        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, ref_code, member_1, member_2, member_3, member_4, member_5, payment_proof, status) VALUES (?, ?, ?, '', '', '', '', '', '', ?)");
+        $stmt->execute([$add_game, $add_team, $ref, $add_status]);
+        header('Location: ' . base_url('admin/?game=' . $add_game));
+        exit;
+    }
+}
+
 // Summary counts
 $total_teams = $pdo->query("SELECT COUNT(*) FROM teams")->fetchColumn();
 $total_solo  = $pdo->query("SELECT COUNT(*) FROM solo_players")->fetchColumn();
@@ -135,6 +155,35 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                 <div class="summary-label">Pending Payments</div>
             </div>
         </div>
+    </div>
+
+    <!-- Quick Add Team -->
+    <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.25rem; margin-bottom:1.5rem;">
+        <form method="POST" style="display:flex; gap:0.5rem; align-items:flex-end; flex-wrap:wrap;">
+            <input type="hidden" name="admin_add_team" value="1">
+            <div style="flex:0 0 auto;">
+                <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.3rem;">Game</label>
+                <select name="add_game" class="form-control form-select" style="min-width:130px;" required>
+                    <?php foreach ($valid_games as $slug => $name): ?>
+                        <option value="<?= $slug ?>"><?= $name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div style="flex:1; min-width:180px;">
+                <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.3rem;">Team Name</label>
+                <input type="text" name="add_team_name" class="form-control" placeholder="Enter team name" required>
+            </div>
+            <div style="flex:0 0 auto;">
+                <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.3rem;">Status</label>
+                <select name="add_status" class="form-control form-select" style="min-width:110px;">
+                    <option value="approved">Approved</option>
+                    <option value="pending">Pending</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-approve" style="padding:0.55rem 1rem; font-size:0.85rem;">
+                <i class="bi bi-plus-lg"></i> Add Team
+            </button>
+        </form>
     </div>
 
     <!-- Filter Tabs -->
