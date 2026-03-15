@@ -2504,4 +2504,245 @@ body {
     .bracket-container { gap: 1rem; padding: 1rem 0; }
     .bracket-round { min-width: 200px; }
     .bracket-match .team-name { max-width: 120px; }
+    .ticket-amount { font-size: 2.5rem; }
+    .ticket-card { padding: 1.5rem; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   TICKET / PAYMENT PAGE
+   ════════════════════════════════════════════════════════════ */
+
+.ticket-container {
+    max-width: 540px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.ticket-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.ticket-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.ticket-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.ticket-ref {
+    display: inline-block;
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--accent-light);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 0.3rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+/* Status areas */
+.ticket-status {
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+}
+
+.ticket-status h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.ticket-status p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.ticket-status-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-light);
+}
+
+.ticket-status-icon.ticket-check {
+    color: var(--success);
+    font-size: 3.5rem;
+    animation: ticketPopIn 0.5s ease-out;
+}
+
+@keyframes ticketPopIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Amount display */
+.ticket-amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 1rem 0;
+    letter-spacing: -1px;
+}
+
+/* GCash number */
+.ticket-gcash-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 112, 224, 0.12);
+    border: 1px solid rgba(0, 112, 224, 0.3);
+    color: #4da6ff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 0.6rem 1.5rem;
+    border-radius: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.ticket-instructions {
+    margin: 1.25rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.ticket-instructions strong {
+    color: var(--text);
+}
+
+/* Detecting spinner */
+.ticket-detecting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 1.25rem 0;
+    color: var(--accent-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.ticket-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid rgba(167, 139, 250, 0.3);
+    border-top-color: var(--accent-light);
+    border-radius: 50%;
+    animation: ticketSpin 0.8s linear infinite;
+}
+
+@keyframes ticketSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Pulse ring behind icon */
+.ticket-pulse-ring {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    animation: ticketPulse 2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ticketPulse {
+    0% { transform: translateX(-50%) scale(0.8); opacity: 0.6; }
+    100% { transform: translateX(-50%) scale(1.6); opacity: 0; }
+}
+
+/* Timer */
+.ticket-timer {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+}
+
+.ticket-timer i {
+    margin-right: 0.3rem;
+}
+
+/* Countdown for slot busy */
+.ticket-countdown {
+    margin-top: 1rem;
+    color: var(--warning);
+    font-size: 0.95rem;
+}
+
+/* Success state */
+.ticket-success {
+    background: rgba(34, 197, 94, 0.06);
+    border-radius: 12px;
+}
+
+.ticket-success h3 {
+    color: var(--success);
+}
+
+/* Fallback options */
+.ticket-fallback {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.ticket-fallback-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.ticket-option {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+}
+
+.ticket-option-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ticket-option-header:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.ticket-option-header .bi-chevron-down,
+.ticket-option-header .bi-chevron-up {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.ticket-option-body {
+    padding: 0.75rem 1rem 1rem;
+    border-top: 1px solid var(--border);
 }

@@ -77,43 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Please select your preferred role.';
     }
 
-    // Handle payment proof (file upload OR text reason)
+    // Payment proof is handled on the ticket page after registration
     $upload_path = '';
-    $payment_note = trim($_POST['payment_note'] ?? '');
-    if (empty($errors)) {
-        $has_file = isset($_FILES['payment_proof']) && $_FILES['payment_proof']['error'] === UPLOAD_ERR_OK;
-
-        if (!$has_file && $payment_note === '') {
-            $errors[] = 'Please upload payment proof or provide a reason why you cannot.';
-        } elseif ($has_file) {
-            $file = $_FILES['payment_proof'];
-            $allowed = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-            $max_size = 5 * 1024 * 1024; // 5MB
-
-            if (!in_array($file['type'], $allowed)) {
-                $errors[] = 'Payment proof must be JPG, PNG, WebP, or PDF.';
-            } elseif ($file['size'] > $max_size) {
-                $errors[] = 'File is too large. Maximum 2MB.';
-            } else {
-                $upload_dir = __DIR__ . '/uploads/payment_proofs';
-                if (!is_dir($upload_dir)) {
-                    mkdir($upload_dir, 0755, true);
-                }
-
-                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-                $filename = 'solo_' . $game_slug . '_' . preg_replace('/[^a-z0-9]/', '', strtolower($player_name)) . '_' . time() . '.' . $ext;
-                $dest = $upload_dir . '/' . $filename;
-
-                if (!move_uploaded_file($file['tmp_name'], $dest)) {
-                    $errors[] = 'Failed to upload file. Please try again.';
-                } else {
-                    $upload_path = 'uploads/payment_proofs/' . $filename;
-                }
-            }
-        } else {
-            $upload_path = 'NOTE: ' . $payment_note;
-        }
-    }
 
     // Insert
     if (empty($errors)) {
@@ -140,8 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $_SESSION['ref_code'] = $ref_code;
-            flash('success', "You've been registered for $game_name solo matchmaking! We'll match you with players of similar rank.");
-            header("Location: " . base_url("success.php?type=solo&game=$game_slug"));
+            header("Location: " . base_url("ticket.php?ref=$ref_code&type=solo&game=$game_slug"));
             exit;
         } catch (Exception $e) {
             $errors[] = 'Registration failed. Please try again. Error: ' . $e->getMessage();
@@ -230,23 +194,9 @@ require_once __DIR__ . '/includes/header.php';
             <div class="section-label">Payment</div>
             <div class="payment-info">
                 <div class="fee">&#8369;100.00</div>
-                <p>Entry fee per player. Pay via GCash or on-site at the venue.</p>
-                <div class="gcash-number"><i class="bi bi-phone"></i> GCash: <strong>0927 872 8916</strong></div>
+                <p>Entry fee per player. You'll be directed to the payment page after registering.</p>
+                <div class="gcash-number"><i class="bi bi-phone"></i> GCash auto-detect or upload proof</div>
                 <div class="gcash-number" style="margin-top:0.4rem; background:rgba(34,197,94,0.1); border-color:rgba(34,197,94,0.25); color:var(--success);"><i class="bi bi-shop"></i> Or pay <strong>on-site</strong> at Hide Out Cybernet Cafe</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Payment Proof <span style="color:var(--text-muted); font-weight:400;">(upload screenshot)</span></label>
-                <input type="file" name="payment_proof" class="form-control" accept="image/*,.pdf">
-                <div class="form-text" style="font-size:0.8rem; margin-top:0.4rem; color: var(--warning);">
-                    JPG, PNG, WebP, or PDF. Max 5MB.
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Or explain why you can't upload proof <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
-                <textarea name="payment_note" class="form-control" rows="2" placeholder="e.g. Will send proof later, paid in person, etc."><?= htmlspecialchars($_POST['payment_note'] ?? '') ?></textarea>
-                <div class="form-text" style="font-size:0.8rem; margin-top:0.4rem; color: var(--warning);">
-                    If you can't upload proof right now, tell us why. You must provide either a file or a reason.
-                </div>
             </div>
 
             <div class="terms-section">
