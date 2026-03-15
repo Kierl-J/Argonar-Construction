@@ -111,6 +111,20 @@ body {
     background: var(--border);
 }
 
+.venue-address {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.venue-address i {
+    color: var(--danger);
+    font-size: 0.8rem;
+}
+
 @media (max-width: 640px) {
     .sponsor-divider { display: none; }
     .sponsors-bar { gap: 1.25rem; }

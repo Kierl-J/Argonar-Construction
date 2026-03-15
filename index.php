@@ -79,6 +79,9 @@ require_once __DIR__ . '/includes/header.php';
                 <span>CYBERNET CAFE</span>
             </div>
         </div>
+        <div class="venue-address">
+            <i class="bi bi-geo-alt-fill"></i> Brgy. Inayawan, Inayawan Central, Cebu City, 6000
+        </div>
     </div>
 </div>
 
