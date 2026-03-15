@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     game VARCHAR(50) NOT NULL,
     team_name VARCHAR(100) NOT NULL,
+    team_logo VARCHAR(255) DEFAULT '',
     member_1 VARCHAR(100) NOT NULL,
     member_2 VARCHAR(100) NOT NULL,
     member_3 VARCHAR(100) NOT NULL,

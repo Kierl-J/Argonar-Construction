@@ -19,7 +19,7 @@ while ($row = $stmt->fetch()) {
 
 // Get registered teams per game
 $registered_teams = [];
-$stmt = $pdo->query("SELECT game, team_name, status FROM teams ORDER BY created_at DESC");
+$stmt = $pdo->query("SELECT game, team_name, team_logo, status FROM teams ORDER BY created_at DESC");
 while ($row = $stmt->fetch()) {
     $registered_teams[$row['game']][] = $row;
 }
@@ -174,10 +174,15 @@ require_once __DIR__ . '/includes/header.php';
             <h3><i class="bi bi-controller"></i> <?= $game['name'] ?></h3>
             <div class="registered-list">
                 <?php foreach ($teams as $team): ?>
-                    <div class="registered-team">
-                        <div class="team-name"><?= htmlspecialchars($team['team_name']) ?></div>
-                        <div class="team-type"><i class="bi bi-people-fill"></i> Team</div>
-                        <span class="team-status <?= $team['status'] ?>"><?= $team['status'] ?></span>
+                    <div class="registered-team <?= !empty($team['team_logo']) ? 'has-logo' : '' ?>">
+                        <?php if (!empty($team['team_logo'])): ?>
+                            <img src="<?= base_url($team['team_logo']) ?>" alt="" class="team-logo-img">
+                        <?php endif; ?>
+                        <div>
+                            <div class="team-name"><?= htmlspecialchars($team['team_name']) ?></div>
+                            <div class="team-type"><i class="bi bi-people-fill"></i> Team</div>
+                            <span class="team-status <?= $team['status'] ?>"><?= $team['status'] ?></span>
+                        </div>
                     </div>
                 <?php endforeach; ?>
                 <?php foreach ($solos as $solo): ?>

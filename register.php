@@ -76,12 +76,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Handle team logo upload (optional)
+    $logo_path = '';
+    if (empty($errors) && isset($_FILES['team_logo']) && $_FILES['team_logo']['error'] === UPLOAD_ERR_OK) {
+        $logo = $_FILES['team_logo'];
+        $logo_allowed = ['image/jpeg', 'image/png', 'image/webp'];
+        $logo_max = 2 * 1024 * 1024; // 2MB
+
+        if (!in_array($logo['type'], $logo_allowed)) {
+            $errors[] = 'Team logo must be JPG, PNG, or WebP.';
+        } elseif ($logo['size'] > $logo_max) {
+            $errors[] = 'Team logo is too large. Maximum 2MB.';
+        } else {
+            $logo_dir = __DIR__ . '/uploads/team_logos';
+            if (!is_dir($logo_dir)) {
+                mkdir($logo_dir, 0755, true);
+            }
+            $logo_ext = pathinfo($logo['name'], PATHINFO_EXTENSION);
+            $logo_filename = $game_slug . '_' . preg_replace('/[^a-z0-9]/', '', strtolower($team_name)) . '_' . time() . '.' . $logo_ext;
+            $logo_dest = $logo_dir . '/' . $logo_filename;
+
+            if (move_uploaded_file($logo['tmp_name'], $logo_dest)) {
+                $logo_path = 'uploads/team_logos/' . $logo_filename;
+            }
+        }
+    }
+
     // Insert
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, member_1, member_2, member_3, member_4, member_5, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, member_1, member_2, member_3, member_4, member_5, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $team_name,
+            $logo_path,
             $members[1], $members[2], $members[3], $members[4], $members[5],
             $upload_path,
         ]);
@@ -117,6 +144,14 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label">Team Name</label>
                 <input type="text" name="team_name" class="form-control" placeholder="e.g. Shadow Wolves"
                        value="<?= htmlspecialchars($_POST['team_name'] ?? '') ?>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Team Logo <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+                <input type="file" name="team_logo" class="form-control" accept="image/*">
+                <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
+                    JPG, PNG, or WebP. Max 2MB. Will be shown on the registered teams list.
+                </div>
             </div>
 
             <div class="section-label">Members (5 Players)</div>
