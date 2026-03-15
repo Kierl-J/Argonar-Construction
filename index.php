@@ -395,6 +395,17 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                 <li><strong>Pay Later Option:</strong> You may register now and pay before the deadline via GCash, InstaPay QR, or on-site at the venue. Unpaid registrations by the deadline may be forfeited.</li>
                 <li><strong>Build Your Reputation:</strong> This tournament is your stage. Your performance, conduct, and teamwork build your credibility as a player in the community. Play with honor.</li>
             </ul>
+            <div style="margin-top:1rem; padding:0.85rem 1rem; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.3); border-radius:10px; text-align:center;">
+                <div style="font-size:0.95rem; font-weight:800; color:var(--accent-light);">
+                    <i class="bi bi-building"></i> This event is officially organized by
+                </div>
+                <div style="font-size:1.25rem; font-weight:800; margin-top:0.3rem; color:var(--text);">
+                    ARGONAR SOFTWARE OPC
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">
+                    All rules, penalties, and final decisions are under the authority of Argonar Software OPC.
+                </div>
+            </div>
         </div>
     </div>
 </div>
