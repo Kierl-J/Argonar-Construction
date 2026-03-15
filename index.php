@@ -108,11 +108,32 @@ require_once __DIR__ . '/includes/header.php';
             </a>
         </div>
         <div class="prize-note">Winners must choose one. You cannot claim both.</div>
+        <div class="prize-note">Cash prize is subject to change based on the organizer's decision and the number of registered participants.</div>
     </div>
 </div>
 
+<?php
+$max_teams = 16;
+// Solo players form teams of 5
+function estimate_date($team_count, $solo_count) {
+    $total = $team_count + floor($solo_count / 5);
+    if ($total >= 16) return 'Ready to launch! Date will be announced soon.';
+    if ($total >= 12) return 'Almost full — estimated start: 1-2 weeks';
+    if ($total >= 8) return 'Filling up — estimated start: 2-3 weeks';
+    if ($total >= 4) return 'Building up — estimated start: 3-4 weeks';
+    return 'Recruiting — tournament starts once we hit 8+ teams';
+}
+?>
+
 <div class="games-grid">
-    <?php foreach ($games as $game): ?>
+    <?php foreach ($games as $game):
+        $tc = $counts[$game['slug']] ?? 0;
+        $sc = $solo_counts[$game['slug']] ?? 0;
+        $effective = $tc + floor($sc / 5);
+        $pct = min(100, round(($effective / $max_teams) * 100));
+        $slots_left = max(0, $max_teams - $effective);
+        $date_est = estimate_date($tc, $sc);
+    ?>
         <div class="game-card">
             <div class="game-banner">
                 <img src="<?= base_url($game['logo']) ?>" alt="<?= $game['name'] ?>" class="game-logo">
@@ -120,21 +141,39 @@ require_once __DIR__ . '/includes/header.php';
             </div>
             <div class="game-body">
                 <p class="desc"><?= $game['desc'] ?></p>
+
+                <div class="slot-tracker">
+                    <div class="slot-info">
+                        <span><strong><?= $effective ?></strong> / <?= $max_teams ?> teams</span>
+                        <span class="slots-left"><?= $slots_left ?> slot(s) left</span>
+                    </div>
+                    <div class="slot-bar">
+                        <div class="slot-fill" style="width: <?= $pct ?>%"></div>
+                    </div>
+                    <div class="slot-date"><i class="bi bi-calendar-event"></i> <?= $date_est ?></div>
+                </div>
+
                 <div class="game-stats">
                     <span class="teams-count">
-                        <i class="bi bi-people-fill"></i> <?= $counts[$game['slug']] ?? 0 ?> team(s)
+                        <i class="bi bi-people-fill"></i> <?= $tc ?> team(s)
                     </span>
                     <span class="teams-count">
-                        <i class="bi bi-person-fill"></i> <?= $solo_counts[$game['slug']] ?? 0 ?> solo player(s)
+                        <i class="bi bi-person-fill"></i> <?= $sc ?> solo player(s)
                     </span>
                 </div>
                 <div class="game-actions">
-                    <a href="<?= base_url('register.php') ?>?game=<?= $game['slug'] ?>" class="btn-register">
-                        <i class="bi bi-people-fill"></i> Register Team <span class="btn-price">&#8369;500</span>
-                    </a>
-                    <a href="<?= base_url('matchmaking.php') ?>?game=<?= $game['slug'] ?>" class="btn-solo">
-                        <i class="bi bi-person-fill"></i> Solo Entry <span class="btn-price">&#8369;100</span>
-                    </a>
+                    <?php if ($slots_left > 0): ?>
+                        <a href="<?= base_url('register.php') ?>?game=<?= $game['slug'] ?>" class="btn-register">
+                            <i class="bi bi-people-fill"></i> Register Team <span class="btn-price">&#8369;500</span>
+                        </a>
+                        <a href="<?= base_url('matchmaking.php') ?>?game=<?= $game['slug'] ?>" class="btn-solo">
+                            <i class="bi bi-person-fill"></i> Solo Entry <span class="btn-price">&#8369;100</span>
+                        </a>
+                    <?php else: ?>
+                        <div class="btn-register" style="opacity:0.5; cursor:default;">
+                            <i class="bi bi-lock-fill"></i> Registration Full
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
