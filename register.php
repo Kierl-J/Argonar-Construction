@@ -27,6 +27,7 @@ $game_prefixes = [
 
 $game_name = $valid_games[$game_slug];
 $pageTitle = "Register — $game_name";
+$pageDescription = "Register your team for $game_name tournament. ₱500 entry fee. Double elimination format.";
 $errors = [];
 
 function generate_ref_code($pdo, $prefix, $type) {

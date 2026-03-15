@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /uploads/
+Sitemap: https://argonar.co/sitemap.xml

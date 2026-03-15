@@ -11,6 +11,7 @@ $game_slug = $_GET['game'] ?? '';
 $game_name = $valid_games[$game_slug] ?? 'Tournament';
 $type = $_GET['type'] ?? 'team';
 $pageTitle = 'Registration Submitted';
+$pageDescription = 'Registration confirmed for Argonar Tournament.';
 
 $flash = get_flash();
 $ref_code = $_SESSION['ref_code'] ?? null;

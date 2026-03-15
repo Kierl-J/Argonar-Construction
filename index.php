@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/db.php';
 
 $pageTitle = 'Argonar Tournament';
+$pageDescription = 'Join the Argonar Gaming Tournament! Valorant, CrossFire & Dota 2. ₱9,000 cash prize or free paragliding experience. Register your team or enter solo.';
 
 // Count registered teams per game
 $counts = [];

@@ -8,6 +8,7 @@ $valid_games = [
 ];
 
 $pageTitle = 'Check Registration Status';
+$pageDescription = 'Check your tournament registration status with your reference code.';
 $query = trim($_GET['q'] ?? '');
 $result = null;
 

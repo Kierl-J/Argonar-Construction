@@ -9,6 +9,7 @@ $valid_games = [
 
 $game = $_GET['game'] ?? '';
 $pageTitle = 'Tournament Brackets — Argonar Tournament';
+$pageDescription = 'View tournament brackets — Winners bracket, Losers bracket, Grand Finals.';
 
 $round_labels = [
     1 => 'Round 1',

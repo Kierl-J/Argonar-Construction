@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/db.php';
 
 $pageTitle = 'Contact & Support — Argonar Tournament';
+$pageDescription = 'Contact Argonar Tournament. Venue: Hide Out Cybernet Cafe, Cebu City.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 

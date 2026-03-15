@@ -33,6 +33,7 @@ if (!isset($valid_games[$game_slug])) {
 
 $game_name = $valid_games[$game_slug];
 $pageTitle = "Solo Matchmaking — $game_name";
+$pageDescription = "Solo entry for $game_name tournament. ₱100 per player. Get matched with players of similar skill level.";
 $errors = [];
 
 function generate_ref_code($pdo, $prefix, $type) {

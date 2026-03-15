@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/db.php';
 $pageTitle = 'Meta Business Suite Guide — Argonar Tournament';
+$pageDescription = 'Meta Business Suite guide for automated Facebook posting.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 

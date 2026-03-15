@@ -8,6 +8,7 @@ $valid_games = [
 ];
 
 $pageTitle = 'Leaderboard — Argonar Tournament';
+$pageDescription = 'Tournament results and leaderboard history.';
 
 $results = $pdo->query("SELECT * FROM tournament_results ORDER BY game ASC, season DESC, placement ASC")->fetchAll();
 

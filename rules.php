@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/db.php';
 
 $pageTitle = 'Tournament Rules — Argonar Tournament';
+$pageDescription = 'Tournament rules — double elimination, game-specific rules for Valorant, CrossFire, and Dota 2.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
