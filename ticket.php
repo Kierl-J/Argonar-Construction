@@ -251,37 +251,13 @@ require_once __DIR__ . '/includes/header.php';
             <div class="ticket-status ticket-waiting">
                 <div class="ticket-status-icon"><i class="bi bi-exclamation-triangle"></i></div>
                 <h3>Auto-detection unavailable</h3>
-                <p>Please upload payment proof or pay on-site instead.</p>
+                <p>Please pay on-site or scan the InstaPay QR code above.</p>
             </div>
         <?php endif; ?>
 
         <!-- Fallback options -->
         <div class="ticket-fallback">
             <div class="ticket-fallback-title">Other Payment Options</div>
-
-            <div class="ticket-option">
-                <div class="ticket-option-header" onclick="toggleProofUpload()">
-                    <i class="bi bi-upload"></i> Upload Payment Proof
-                    <i class="bi bi-chevron-down" id="proofChevron"></i>
-                </div>
-                <div class="ticket-option-body" id="proofUploadForm" style="display:none;">
-                    <form method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="upload_proof" value="1">
-                        <div class="mb-3">
-                            <input type="file" name="payment_proof" class="form-control" accept="image/*,.pdf">
-                            <div class="form-text" style="font-size:0.8rem; margin-top:0.4rem; color: var(--text-muted);">
-                                Screenshot of your GCash transfer. JPG, PNG, WebP, or PDF. Max 5MB.
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <textarea name="payment_note" class="form-control" rows="2" placeholder="Or explain: e.g. Will send proof later, paid via someone else..."></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit" style="font-size:0.9rem; padding:0.65rem 1.5rem;">
-                            <i class="bi bi-check-circle"></i> Submit Proof
-                        </button>
-                    </form>
-                </div>
-            </div>
 
             <div class="ticket-option">
                 <div class="ticket-option-header">
@@ -383,18 +359,6 @@ require_once __DIR__ . '/includes/header.php';
         }, 2500);
     }
 
-    // ── Proof upload toggle ──
-    window.toggleProofUpload = function() {
-        var form = document.getElementById('proofUploadForm');
-        var chevron = document.getElementById('proofChevron');
-        if (form.style.display === 'none') {
-            form.style.display = 'block';
-            chevron.classList.replace('bi-chevron-down', 'bi-chevron-up');
-        } else {
-            form.style.display = 'none';
-            chevron.classList.replace('bi-chevron-up', 'bi-chevron-down');
-        }
-    };
 })();
 </script>
 
