@@ -528,6 +528,12 @@ body {
     line-height: 1.5;
 }
 
+.terms-landing {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
 /* Terms & Consent */
 .terms-section {
     margin-top: 1.5rem;
