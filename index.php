@@ -12,7 +12,7 @@ while ($row = $stmt->fetch()) {
 
 // Count solo players waiting per game
 $solo_counts = [];
-$stmt = $pdo->query("SELECT game, COUNT(*) as total FROM solo_players WHERE status = 'pending' GROUP BY game");
+$stmt = $pdo->query("SELECT game, COUNT(*) as total FROM solo_players GROUP BY game");
 while ($row = $stmt->fetch()) {
     $solo_counts[$row['game']] = $row['total'];
 }
