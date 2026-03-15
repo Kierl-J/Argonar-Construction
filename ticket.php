@@ -272,11 +272,14 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <div style="text-align:center; margin-top:1rem;">
+            <div style="text-align:center; margin-top:1.25rem;">
                 <a href="<?= base_url("success.php?type=$type&game={$registration['game']}") ?>"
-                   style="color:var(--text-muted); font-size:0.85rem; text-decoration:underline;">
-                    Skip — I'll pay later
+                   class="btn-submit" style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.4); width:auto; display:inline-flex; padding:0.7rem 2rem; font-size:0.95rem;">
+                    <i class="bi bi-clock"></i> I'll Pay Later
                 </a>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">
+                    Your registration is saved. Pay anytime before the deadline via GCash, InstaPay, or on-site.
+                </div>
             </div>
         </div>
     </div>
