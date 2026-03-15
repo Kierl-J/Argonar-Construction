@@ -206,7 +206,7 @@ require_once __DIR__ . '/includes/header.php';
                     <ul>
                         <li><strong>Media Release:</strong> You consent to being photographed, filmed, and/or recorded during the tournament. All media may be used for promotional, social media, and public purposes by the organizers.</li>
                         <li><strong>Fair Play &amp; Integrity:</strong> You commit to playing with honesty and sportsmanship. Any form of cheating, rank manipulation, or unsportsmanlike behavior may result in disqualification.</li>
-                        <li><strong>Violations &amp; Penalties:</strong> Rank manipulation, submitting false information, smurfing, or any form of dishonesty will be subject to penalties — including disqualification and prize forfeiture — at the discretion of Argonar Software OPC.</li>
+                        <li><strong>Violations &amp; Penalties:</strong> Rank manipulation, submitting false information, smurfing, or any form of dishonesty will be subject to penalties — including disqualification and prize forfeiture — at the discretion of Argonar Software OPC and OCPD.</li>
                         <li><strong>Pay Later Option:</strong> You may register now and pay before the deadline via GCash, InstaPay QR, or on-site at the venue. Unpaid registrations by the deadline may be forfeited.</li>
                         <li><strong>Build Your Reputation:</strong> This tournament is your stage. Your performance, conduct, and teamwork build your credibility as a player in the community. Play with honor.</li>
                     </ul>

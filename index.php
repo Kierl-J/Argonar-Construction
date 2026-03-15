@@ -68,8 +68,8 @@ require_once __DIR__ . '/includes/header.php';
 <div style="max-width:1000px; margin:0 auto 1rem; padding:0 1rem; text-align:center;">
     <div style="background:rgba(124,58,237,0.08); border:1px solid rgba(124,58,237,0.25); border-radius:10px; padding:0.6rem 1rem; font-size:0.8rem; color:var(--text-muted);">
         <i class="bi bi-building" style="color:var(--accent-light);"></i>
-        This event is officially organized by <strong style="color:var(--accent-light);">Argonar Software OPC</strong>.
-        All rules, penalties, and final decisions are under the authority of Argonar Software OPC.
+        This event is officially organized by <strong style="color:var(--accent-light);">Argonar Software OPC</strong> and <strong style="color:var(--accent-light);">OCPD Oslob Cebu Paragliding</strong>.
+        All rules, penalties, and final decisions are under the authority of the organizers.
     </div>
 </div>
 
@@ -431,7 +431,7 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
             <ul>
                 <li><strong>Media Release:</strong> You consent to being photographed, filmed, and/or recorded during the tournament. All media may be used for promotional, social media, and public purposes by the organizers.</li>
                 <li><strong>Fair Play &amp; Integrity:</strong> You commit to playing with honesty and sportsmanship. Any form of cheating, rank manipulation, or unsportsmanlike behavior may result in disqualification.</li>
-                <li><strong>Violations &amp; Penalties:</strong> Rank manipulation, submitting false information, smurfing, or any form of dishonesty will be subject to penalties — including disqualification and prize forfeiture — at the discretion of Argonar Software OPC.</li>
+                <li><strong>Violations &amp; Penalties:</strong> Rank manipulation, submitting false information, smurfing, or any form of dishonesty will be subject to penalties — including disqualification and prize forfeiture — at the discretion of Argonar Software OPC and OCPD.</li>
                 <li><strong>Pay Later Option:</strong> You may register now and pay before the deadline via GCash, InstaPay QR, or on-site at the venue. Unpaid registrations by the deadline may be forfeited.</li>
                 <li><strong>Build Your Reputation:</strong> This tournament is your stage. Your performance, conduct, and teamwork build your credibility as a player in the community. Play with honor.</li>
             </ul>
@@ -440,10 +440,10 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                     <i class="bi bi-building"></i> This event is officially organized by
                 </div>
                 <div style="font-size:1.25rem; font-weight:800; margin-top:0.3rem; color:var(--text);">
-                    ARGONAR SOFTWARE OPC
+                    ARGONAR SOFTWARE OPC &amp; OCPD
                 </div>
                 <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">
-                    All rules, penalties, and final decisions are under the authority of Argonar Software OPC.
+                    All rules, penalties, and final decisions are under the authority of Argonar Software OPC and OCPD.
                 </div>
             </div>
         </div>
