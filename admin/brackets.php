@@ -37,55 +37,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'Need at least 2 approved teams to generate a bracket.';
                 $msg_type = 'danger';
             } else {
-                // Pad to next power of 2
                 $count = count($teams);
                 $size = 1;
                 while ($size < $count) $size *= 2;
 
-                // Fill with BYE
                 while (count($teams) < $size) {
                     $teams[] = 'BYE';
                 }
 
-                // Create round 1 matches
-                $round = 1;
-                $match_order = 1;
-                $insert = $pdo->prepare("INSERT INTO matches (game, round, match_order, team1_name, team2_name, status, winner, team1_score, team2_score) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)");
+                $insert = $pdo->prepare("INSERT INTO matches (game, bracket_side, round, match_order, team1_name, team2_name, status, winner, team1_score, team2_score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
 
+                // --- WINNERS BRACKET ---
+                $match_order = 1;
                 for ($i = 0; $i < count($teams); $i += 2) {
                     $t1 = $teams[$i];
                     $t2 = $teams[$i + 1];
-
-                    // Auto-resolve BYE matches
                     if ($t2 === 'BYE') {
-                        $insert->execute([$gen_game, $round, $match_order, $t1, $t2, 'completed', $t1]);
+                        $insert->execute([$gen_game, 'winners', 1, $match_order, $t1, $t2, 'completed', $t1]);
                     } elseif ($t1 === 'BYE') {
-                        $insert->execute([$gen_game, $round, $match_order, $t1, $t2, 'completed', $t2]);
+                        $insert->execute([$gen_game, 'winners', 1, $match_order, $t1, $t2, 'completed', $t2]);
                     } else {
-                        $insert->execute([$gen_game, $round, $match_order, $t1, $t2, 'pending', '']);
+                        $insert->execute([$gen_game, 'winners', 1, $match_order, $t1, $t2, 'pending', '']);
                     }
                     $match_order++;
                 }
 
-                // Create placeholder matches for subsequent rounds
+                // Winners bracket subsequent rounds
                 $matches_in_round = $size / 2;
                 $round = 2;
                 while ($matches_in_round > 1) {
                     $matches_in_round = $matches_in_round / 2;
                     for ($j = 1; $j <= $matches_in_round; $j++) {
-                        $insert->execute([$gen_game, $round, $j, 'TBD', 'TBD', 'pending', '']);
+                        $insert->execute([$gen_game, 'winners', $round, $j, 'TBD', 'TBD', 'pending', '']);
                     }
                     $round++;
                 }
+                $winners_rounds = $round - 1;
 
-                // Create finals
-                if ($size > 2) {
-                    // Finals already created in the loop above
-                } else {
-                    // Only 2 teams, round 1 is the finals — already created
+                // --- LOSERS BRACKET ---
+                // Losers bracket has roughly (winners_rounds - 1) * 2 rounds
+                $losers_rounds = max(1, ($winners_rounds - 1) * 2);
+                $lr_matches = $size / 4; // First losers round matches
+                for ($lr = 1; $lr <= $losers_rounds; $lr++) {
+                    $num = max(1, (int)ceil($lr_matches));
+                    for ($j = 1; $j <= $num; $j++) {
+                        $insert->execute([$gen_game, 'losers', $lr, $j, 'TBD', 'TBD', 'pending', '']);
+                    }
+                    // Every 2 rounds, halve the matches
+                    if ($lr % 2 === 0) {
+                        $lr_matches = $lr_matches / 2;
+                    }
+                    if ($lr_matches < 1) break;
                 }
 
-                $message = 'Bracket generated for ' . $valid_games[$gen_game] . ' with ' . $count . ' teams!';
+                // --- GRAND FINALS ---
+                $insert->execute([$gen_game, 'grand', 1, 1, 'TBD', 'TBD', 'pending', '']);
+
+                $message = 'Double elimination bracket generated for ' . $valid_games[$gen_game] . ' with ' . $count . ' teams!';
                 $msg_type = 'success';
                 $game_filter = $gen_game;
             }
@@ -180,15 +188,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch matches for selected game
 $matches = [];
-$rounds = [];
+$bracket_data = [];
 if ($game_filter && isset($valid_games[$game_filter])) {
-    $stmt = $pdo->prepare("SELECT * FROM matches WHERE game = ? ORDER BY round ASC, match_order ASC");
+    $stmt = $pdo->prepare("SELECT * FROM matches WHERE game = ? ORDER BY bracket_side ASC, round ASC, match_order ASC");
     $stmt->execute([$game_filter]);
     $matches = $stmt->fetchAll();
     foreach ($matches as $m) {
-        $rounds[$m['round']][] = $m;
+        $side = $m['bracket_side'] ?? 'winners';
+        $bracket_data[$side][$m['round']][] = $m;
     }
 }
+$rounds = $bracket_data; // for empty check
 
 // Count approved teams per game
 $team_counts = [];
@@ -244,7 +254,7 @@ foreach ($valid_games as $slug => $name) {
         <div class="admin-section">
             <h2><i class="bi bi-shuffle"></i> Generate Bracket — <?= $valid_games[$game_filter] ?></h2>
             <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
-                This will randomize <?= $team_counts[$game_filter] ?> approved teams into a single-elimination bracket.
+                This will randomize <?= $team_counts[$game_filter] ?> approved teams into a double-elimination bracket (Winners &amp; Losers bracket).
                 <?php if (!empty($rounds)): ?>
                     <strong style="color:var(--warning);">Warning: existing bracket will be replaced!</strong>
                 <?php endif; ?>
@@ -259,12 +269,19 @@ foreach ($valid_games as $slug => $name) {
         </div>
 
         <!-- Edit Matches -->
-        <?php if (!empty($rounds)): ?>
+        <?php if (!empty($bracket_data)): ?>
+            <?php
+            $side_labels = ['winners' => 'Winners Bracket', 'losers' => 'Losers Bracket', 'grand' => 'Grand Finals'];
+            $side_icons = ['winners' => 'bi-trophy', 'losers' => 'bi-arrow-repeat', 'grand' => 'bi-star-fill'];
+            ?>
+            <?php foreach (['winners', 'losers', 'grand'] as $side):
+                if (empty($bracket_data[$side])) continue;
+            ?>
             <div class="admin-section">
-                <h2><i class="bi bi-pencil-square"></i> Match Results</h2>
-                <?php foreach ($rounds as $round_num => $round_matches): ?>
+                <h2><i class="bi <?= $side_icons[$side] ?>"></i> <?= $side_labels[$side] ?></h2>
+                <?php foreach ($bracket_data[$side] as $round_num => $round_matches): ?>
                     <h3 style="font-size:1rem; font-weight:700; color:var(--accent-light); margin:1.5rem 0 0.75rem;">
-                        Round <?= $round_num ?>
+                        <?= $side === 'grand' ? 'Grand Finals' : "Round $round_num" ?>
                     </h3>
                     <div class="table-responsive" style="margin-bottom:1rem;">
                         <table class="admin-table">
@@ -331,6 +348,7 @@ foreach ($valid_games as $slug => $name) {
                     </div>
                 <?php endforeach; ?>
             </div>
+            <?php endforeach; ?>
 
             <!-- Finalize Results -->
             <div class="admin-section">

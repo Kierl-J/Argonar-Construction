@@ -19,15 +19,17 @@ $round_labels = [
 
 if ($game && isset($valid_games[$game])) {
     $pageTitle = $valid_games[$game] . ' Bracket — Argonar Tournament';
-    $stmt = $pdo->prepare("SELECT * FROM matches WHERE game = ? ORDER BY round ASC, match_order ASC");
+    $stmt = $pdo->prepare("SELECT * FROM matches WHERE game = ? ORDER BY bracket_side ASC, round ASC, match_order ASC");
     $stmt->execute([$game]);
     $matches = $stmt->fetchAll();
 
-    // Group by round
-    $rounds = [];
+    // Group by bracket side then round
+    $bracket_data = [];
     foreach ($matches as $m) {
-        $rounds[$m['round']][] = $m;
+        $side = $m['bracket_side'] ?? 'winners';
+        $bracket_data[$side][$m['round']][] = $m;
     }
+    $rounds = $bracket_data; // for empty check
 }
 
 include __DIR__ . '/includes/header.php';
@@ -62,30 +64,38 @@ include __DIR__ . '/includes/header.php';
         <?= htmlspecialchars($valid_games[$game]) ?> — Bracket
     </h1>
 
-    <?php if (empty($rounds)): ?>
+    <?php if (empty($bracket_data)): ?>
         <div class="reg-card" style="text-align:center; padding:3rem 2rem;">
             <i class="bi bi-hourglass-split" style="font-size:3rem; color:var(--accent-light); display:block; margin-bottom:1rem;"></i>
             <h3 style="margin-bottom:0.5rem;">Bracket Coming Soon</h3>
             <p style="color:var(--text-muted);">Bracket will be revealed once registration closes.</p>
         </div>
     <?php else: ?>
+        <?php
+        $side_labels = ['winners' => 'Winners Bracket', 'losers' => 'Losers Bracket', 'grand' => 'Grand Finals'];
+        $side_colors = ['winners' => 'var(--success)', 'losers' => 'var(--warning)', 'grand' => 'var(--accent-light)'];
+        foreach (['winners', 'losers', 'grand'] as $side):
+            if (empty($bracket_data[$side])) continue;
+            $side_rounds = $bracket_data[$side];
+        ?>
+        <h2 style="font-size:1.25rem; font-weight:800; color:<?= $side_colors[$side] ?>; margin:2rem 0 1rem;">
+            <i class="bi <?= $side === 'winners' ? 'bi-trophy' : ($side === 'losers' ? 'bi-arrow-repeat' : 'bi-star-fill') ?>"></i>
+            <?= $side_labels[$side] ?>
+        </h2>
         <div class="bracket-container">
             <?php
-            $round_keys = array_keys($rounds);
+            $round_keys = array_keys($side_rounds);
             $total_rounds = count($round_keys);
             foreach ($round_keys as $idx => $round_num):
-                $round_matches = $rounds[$round_num];
-                // Determine label
-                if ($total_rounds === 1) {
-                    $label = 'Finals';
-                } elseif ($idx === $total_rounds - 1) {
-                    $label = 'Finals';
-                } elseif ($idx === $total_rounds - 2) {
-                    $label = 'Semifinals';
-                } elseif ($idx === $total_rounds - 3) {
-                    $label = 'Quarterfinals';
+                $round_matches = $side_rounds[$round_num];
+                if ($side === 'grand') {
+                    $label = 'Grand Finals (Bo3)';
+                } elseif ($idx === $total_rounds - 1 && $side === 'winners') {
+                    $label = 'WB Finals';
+                } elseif ($idx === $total_rounds - 1 && $side === 'losers') {
+                    $label = 'LB Finals';
                 } else {
-                    $label = 'Round ' . ($idx + 1);
+                    $label = ($side === 'winners' ? 'WB' : 'LB') . ' Round ' . $round_num;
                 }
             ?>
                 <div class="bracket-round">
@@ -108,13 +118,11 @@ include __DIR__ . '/includes/header.php';
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <?php if ($idx < $total_rounds - 1): ?>
-                            <div class="bracket-connector"></div>
-                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     <?php endif; ?>
 
 <?php endif; ?>
