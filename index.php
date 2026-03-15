@@ -91,6 +91,9 @@ require_once __DIR__ . '/includes/header.php';
     <div class="winner-banner">
         <i class="bi bi-trophy-fill"></i> Winner Takes All — One champion per game. No runner-up, no second place.
     </div>
+    <div class="winner-banner" style="margin-top:0.5rem; background:rgba(124,58,237,0.1); border-color:rgba(124,58,237,0.3); color:var(--accent-light);">
+        <i class="bi bi-diagram-3"></i> Double Elimination — Winners &amp; Losers bracket. You have to lose twice to be out.
+    </div>
     <div class="prize-pick">
         <div class="prize-pick-title">The winning team picks ONE reward:</div>
         <div class="prize-options">

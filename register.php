@@ -13,6 +13,12 @@ if (!isset($valid_games[$game_slug])) {
     exit;
 }
 
+$rank_tiers = [
+    'valorant'  => ['Iron', 'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Ascendant', 'Immortal', 'Radiant'],
+    'crossfire' => ['Trainee', 'Rookie', 'Soldier', 'Veteran', 'Hero', 'Legend', 'Master', 'Grandmaster'],
+    'dota2'     => ['Herald', 'Guardian', 'Crusader', 'Archon', 'Legend', 'Ancient', 'Divine', 'Immortal'],
+];
+
 $game_prefixes = [
     'valorant'  => 'VAL',
     'crossfire' => 'CF',
@@ -45,14 +51,21 @@ function generate_ref_code($pdo, $prefix, $type) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $team_name = trim($_POST['team_name'] ?? '');
+    $contact_number = trim($_POST['contact_number'] ?? '');
+    $facebook_link = trim($_POST['facebook_link'] ?? '');
     $members = [];
+    $member_ranks = [];
     for ($i = 1; $i <= 5; $i++) {
         $members[$i] = trim($_POST["member_$i"] ?? '');
+        $member_ranks[$i] = trim($_POST["member_rank_$i"] ?? '');
     }
 
     // Validate
     if ($team_name === '') {
         $errors[] = 'Team name is required.';
+    }
+    if ($contact_number === '') {
+        $errors[] = 'Contact number is required.';
     }
     foreach ($members as $i => $m) {
         if ($m === '') {
@@ -132,13 +145,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'T');
 
-        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, member_1, member_2, member_3, member_4, member_5, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $members_data = '';
+        for ($i = 1; $i <= 5; $i++) {
+            $members_data .= ($i > 1 ? '|' : '') . $members[$i] . ':' . $member_ranks[$i];
+        }
+
+        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, contact_number, facebook_link, member_1, member_2, member_3, member_4, member_5, members_ranks, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $team_name,
             $logo_path,
             $ref_code,
+            $contact_number,
+            $facebook_link,
             $members[1], $members[2], $members[3], $members[4], $members[5],
+            $members_data,
             $upload_path,
         ]);
 
@@ -177,6 +198,16 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Contact Number</label>
+                <input type="tel" name="contact_number" class="form-control" placeholder="e.g. 09XX XXX XXXX"
+                       value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Facebook Profile Link <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+                <input type="url" name="facebook_link" class="form-control" placeholder="https://facebook.com/yourprofile"
+                       value="<?= htmlspecialchars($_POST['facebook_link'] ?? '') ?>">
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Team Logo <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
                 <input type="file" name="team_logo" class="form-control" accept="image/*">
                 <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
@@ -186,13 +217,22 @@ require_once __DIR__ . '/includes/header.php';
 
             <div class="section-label">Members (5 Players)</div>
             <?php for ($i = 1; $i <= 5; $i++): ?>
-                <div class="mb-3">
-                    <label class="form-label">
+                <div class="mb-3" style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem;">
+                    <label class="form-label" style="margin-bottom:0.5rem;">
                         <?= $i === 1 ? 'Team Captain' : "Member $i" ?>
                     </label>
-                    <input type="text" name="member_<?= $i ?>" class="form-control"
+                    <input type="text" name="member_<?= $i ?>" class="form-control" style="margin-bottom:0.5rem;"
                            placeholder="Full name or in-game name"
                            value="<?= htmlspecialchars($_POST["member_$i"] ?? '') ?>" required>
+                    <select name="member_rank_<?= $i ?>" class="form-control form-select">
+                        <option value="">Select rank (optional)</option>
+                        <?php foreach ($rank_tiers[$game_slug] as $rank): ?>
+                            <option value="<?= htmlspecialchars($rank) ?>"
+                                <?= (($_POST["member_rank_$i"] ?? '') === $rank) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($rank) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             <?php endfor; ?>
 

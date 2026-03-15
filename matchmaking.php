@@ -57,6 +57,8 @@ function generate_ref_code($pdo, $prefix, $type) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $real_name      = trim($_POST['real_name'] ?? '');
     $player_name    = trim($_POST['player_name'] ?? '');
+    $contact_number = trim($_POST['contact_number'] ?? '');
+    $facebook_link  = trim($_POST['facebook_link'] ?? '');
     $rank_tier      = trim($_POST['rank_tier'] ?? '');
     $preferred_role = trim($_POST['preferred_role'] ?? '');
 
@@ -66,6 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($player_name === '') {
         $errors[] = 'In-game name is required.';
+    }
+    if ($contact_number === '') {
+        $errors[] = 'Contact number is required.';
     }
     if ($rank_tier === '' || !in_array($rank_tier, $rank_tiers[$game_slug])) {
         $errors[] = 'Please select a valid rank.';
@@ -111,11 +116,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'S');
 
-        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, rank_tier, preferred_role, ref_code, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, contact_number, facebook_link, rank_tier, preferred_role, ref_code, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $real_name,
             $player_name,
+            $contact_number,
+            $facebook_link,
             $rank_tier,
             $preferred_role,
             $ref_code,
@@ -159,6 +166,16 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label">In-Game Name (IGN)</label>
                 <input type="text" name="player_name" class="form-control" placeholder="Your in-game name / gamertag"
                        value="<?= htmlspecialchars($_POST['player_name'] ?? '') ?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contact Number</label>
+                <input type="tel" name="contact_number" class="form-control" placeholder="e.g. 09XX XXX XXXX"
+                       value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Facebook Profile Link <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+                <input type="url" name="facebook_link" class="form-control" placeholder="https://facebook.com/yourprofile"
+                       value="<?= htmlspecialchars($_POST['facebook_link'] ?? '') ?>">
             </div>
 
             <div class="rank-notice">
