@@ -39,6 +39,8 @@ $games = [
         'logo'    => 'images/valorant.png',
         'desc'    => '5v5 tactical shooter. Show your aim and strategy.',
         'banner'  => 'valorant',
+        'date'    => '2026-04-15',
+        'reg_deadline' => '2026-04-13',
     ],
     [
         'slug'    => 'crossfire',
@@ -46,6 +48,8 @@ $games = [
         'logo'    => 'images/crossfire.png',
         'desc'    => 'Classic FPS action on GameClub. Lock and load.',
         'banner'  => 'crossfire',
+        'date'    => '2026-04-15',
+        'reg_deadline' => '2026-04-13',
     ],
     [
         'slug'    => 'dota2',
@@ -160,34 +164,29 @@ function estimate_date($team_count, $solo_count, $fixed_date = null) {
     return 'Recruiting — date TBA once 8+ teams register';
 }
 
-// Determine countdown: prefer games with fixed dates, then most teams
+// Determine countdown: pick the game with the most registrations
 $best_game = null;
 $best_total = 0;
 $countdown_target = null;
 $countdown_label = '';
 foreach ($games as $g) {
-    if (!empty($g['date']) && strtotime($g['date']) > time()) {
-        $countdown_target = $g['date'];
-        $countdown_label = $g['name'] . ' tournament starts in';
-        $best_game = $g;
-        break;
-    }
     $tc = $counts[$g['slug']] ?? 0;
     $sc = $solo_counts[$g['slug']] ?? 0;
-    $total = $tc + floor($sc / 5);
+    $total = $tc + $sc;
     if ($total > $best_total) {
         $best_total = $total;
         $best_game = $g;
     }
 }
-if (!$countdown_target) {
-    if ($best_total >= 16) {
-        $countdown_target = date('Y-m-d', strtotime('+1 week'));
-        $countdown_label = 'Tournament starts in';
-    } elseif ($best_total >= 8) {
-        $countdown_target = date('Y-m-d', strtotime('+3 weeks'));
-        $countdown_label = 'Estimated tournament date';
-    }
+if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > time()) {
+    $countdown_target = $best_game['date'];
+    $countdown_label = $best_game['name'] . ' tournament starts in';
+} elseif ($best_total >= 16) {
+    $countdown_target = date('Y-m-d', strtotime('+1 week'));
+    $countdown_label = 'Tournament starts in';
+} elseif ($best_total >= 8) {
+    $countdown_target = date('Y-m-d', strtotime('+3 weeks'));
+    $countdown_label = 'Estimated tournament date';
 }
 ?>
 
