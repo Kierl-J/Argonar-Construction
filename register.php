@@ -252,7 +252,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="mb-3">
                 <label class="form-label">Payment Proof <span style="color:var(--text-muted); font-weight:400;">(upload screenshot)</span></label>
                 <input type="file" name="payment_proof" class="form-control" accept="image/*,.pdf">
-                <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
+                <div class="form-text" style="font-size:0.8rem; margin-top:0.4rem; color: var(--warning);">
                     JPG, PNG, WebP, or PDF. Max 5MB.
                 </div>
             </div>
