@@ -13,6 +13,12 @@ $rank_tiers = [
     'dota2'     => ['Herald', 'Guardian', 'Crusader', 'Archon', 'Legend', 'Ancient', 'Divine', 'Immortal'],
 ];
 
+$roles = [
+    'valorant'  => ['Duelist', 'Initiator', 'Controller', 'Sentinel', 'Flexible (Any)'],
+    'crossfire' => ['Rifler', 'Sniper', 'Support', 'Entry Fragger', 'Flexible (Any)'],
+    'dota2'     => ['Carry (Pos 1)', 'Mid (Pos 2)', 'Offlane (Pos 3)', 'Soft Support (Pos 4)', 'Hard Support (Pos 5)', 'Flexible (Any)'],
+];
+
 $game_slug = $_GET['game'] ?? '';
 if (!isset($valid_games[$game_slug])) {
     header('Location: ' . base_url());
@@ -24,8 +30,9 @@ $pageTitle = "Solo Matchmaking — $game_name";
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $player_name = trim($_POST['player_name'] ?? '');
-    $rank_tier   = trim($_POST['rank_tier'] ?? '');
+    $player_name    = trim($_POST['player_name'] ?? '');
+    $rank_tier      = trim($_POST['rank_tier'] ?? '');
+    $preferred_role = trim($_POST['preferred_role'] ?? '');
 
     // Validate
     if ($player_name === '') {
@@ -33,6 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($rank_tier === '' || !in_array($rank_tier, $rank_tiers[$game_slug])) {
         $errors[] = 'Please select a valid rank.';
+    }
+    if ($preferred_role === '' || !in_array($preferred_role, $roles[$game_slug])) {
+        $errors[] = 'Please select your preferred role.';
     }
 
     // Handle file upload
@@ -70,11 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO solo_players (game, player_name, rank_tier, payment_proof) VALUES (?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO solo_players (game, player_name, rank_tier, preferred_role, payment_proof) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $player_name,
             $rank_tier,
+            $preferred_role,
             $upload_path,
         ]);
 
@@ -129,6 +140,22 @@ require_once __DIR__ . '/includes/header.php';
                         </option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Preferred Role</label>
+                <select name="preferred_role" class="form-control form-select" required>
+                    <option value="">Select your preferred role</option>
+                    <?php foreach ($roles[$game_slug] as $role): ?>
+                        <option value="<?= htmlspecialchars($role) ?>"
+                            <?= (($_POST['preferred_role'] ?? '') === $role) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($role) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
+                    This helps us balance teams. You can still negotiate roles with your teammates.
+                </div>
             </div>
 
             <div class="section-label">Payment</div>

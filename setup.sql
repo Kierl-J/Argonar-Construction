@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS solo_players (
     game VARCHAR(50) NOT NULL,
     player_name VARCHAR(100) NOT NULL,
     rank_tier VARCHAR(50) NOT NULL,
+    preferred_role VARCHAR(50) DEFAULT '',
     payment_proof VARCHAR(255) NOT NULL,
     status ENUM('pending', 'matched', 'approved') DEFAULT 'pending',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP

@@ -26,7 +26,7 @@ while ($row = $stmt->fetch()) {
 
 // Get solo players per game
 $solo_players = [];
-$stmt = $pdo->query("SELECT game, player_name, rank_tier, status FROM solo_players ORDER BY created_at DESC");
+$stmt = $pdo->query("SELECT game, player_name, rank_tier, preferred_role, status FROM solo_players ORDER BY created_at DESC");
 while ($row = $stmt->fetch()) {
     $solo_players[$row['game']][] = $row;
 }
@@ -159,7 +159,7 @@ require_once __DIR__ . '/includes/header.php';
                 <?php foreach ($solos as $solo): ?>
                     <div class="registered-team">
                         <div class="team-name"><?= htmlspecialchars($solo['player_name']) ?></div>
-                        <div class="team-type"><i class="bi bi-person-fill"></i> Solo &middot; <?= htmlspecialchars($solo['rank_tier']) ?></div>
+                        <div class="team-type"><i class="bi bi-person-fill"></i> Solo &middot; <?= htmlspecialchars($solo['rank_tier']) ?><?= !empty($solo['preferred_role']) ? ' &middot; ' . htmlspecialchars($solo['preferred_role']) : '' ?></div>
                         <span class="team-status <?= $solo['status'] ?>"><?= $solo['status'] ?></span>
                     </div>
                 <?php endforeach; ?>

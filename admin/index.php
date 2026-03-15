@@ -221,7 +221,8 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                             <th>ID</th>
                             <th>Game</th>
                             <th>Player Name</th>
-                            <th>Rank / Tier</th>
+                            <th>Rank</th>
+                            <th>Role</th>
                             <th>Payment</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -234,6 +235,7 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                                 <td><?= htmlspecialchars($valid_games[$s['game']] ?? $s['game']) ?></td>
                                 <td><strong><?= htmlspecialchars($s['player_name']) ?></strong></td>
                                 <td><?= htmlspecialchars($s['rank_tier']) ?></td>
+                                <td><?= htmlspecialchars($s['preferred_role'] ?? '—') ?></td>
                                 <td>
                                     <?php if ($s['payment_proof']): ?>
                                         <a href="<?= base_url('admin/view-proof.php?file=' . urlencode($s['payment_proof'])) ?>" target="_blank" class="proof-link">
