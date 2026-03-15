@@ -246,8 +246,9 @@ require_once __DIR__ . '/includes/header.php';
             <div class="section-label">Payment</div>
             <div class="payment-info">
                 <div class="fee">&#8369;500.00</div>
-                <p>Entry fee per team. Send payment via GCash then upload your proof below.</p>
+                <p>Entry fee per team. Pay via GCash or on-site at the venue.</p>
                 <div class="gcash-number"><i class="bi bi-phone"></i> GCash: <strong>0927 872 8916</strong></div>
+                <div class="gcash-number" style="margin-top:0.4rem; background:rgba(34,197,94,0.1); border-color:rgba(34,197,94,0.25); color:var(--success);"><i class="bi bi-shop"></i> Or pay <strong>on-site</strong> at Hide Out Cybernet Cafe on tournament day</div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Payment Proof <span style="color:var(--text-muted); font-weight:400;">(upload screenshot)</span></label>
