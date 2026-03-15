@@ -79,12 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Handle file upload
+    // Handle payment proof (file upload OR text reason)
     $upload_path = '';
+    $payment_note = trim($_POST['payment_note'] ?? '');
     if (empty($errors)) {
-        if (!isset($_FILES['payment_proof']) || $_FILES['payment_proof']['error'] !== UPLOAD_ERR_OK) {
-            $errors[] = 'Payment proof is required.';
-        } else {
+        $has_file = isset($_FILES['payment_proof']) && $_FILES['payment_proof']['error'] === UPLOAD_ERR_OK;
+
+        if (!$has_file && $payment_note === '') {
+            $errors[] = 'Please upload payment proof or provide a reason why you cannot.';
+        } elseif ($has_file) {
             $file = $_FILES['payment_proof'];
             $allowed = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
             $max_size = 5 * 1024 * 1024; // 5MB
@@ -109,6 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $upload_path = 'uploads/payment_proofs/' . $filename;
                 }
             }
+        } else {
+            // No file, using text note instead
+            $upload_path = 'NOTE: ' . $payment_note;
         }
     }
 
@@ -122,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!in_array($logo['type'], $logo_allowed)) {
             $errors[] = 'Team logo must be JPG, PNG, or WebP.';
         } elseif ($logo['size'] > $logo_max) {
-            $errors[] = 'Team logo is too large. Maximum 2MB.';
+            $errors[] = 'Team logo is too large. Maximum 5MB.';
         } else {
             $logo_dir = __DIR__ . '/uploads/team_logos';
             if (!is_dir($logo_dir)) {
@@ -140,30 +146,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert
     if (empty($errors)) {
-        $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'T');
+        try {
+            $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'T');
 
-        $members_data = '';
-        for ($i = 1; $i <= 5; $i++) {
-            $members_data .= ($i > 1 ? '|' : '') . $members[$i] . ':' . $member_ranks[$i];
+            $members_data = '';
+            for ($i = 1; $i <= 5; $i++) {
+                $members_data .= ($i > 1 ? '|' : '') . $members[$i] . ':' . $member_ranks[$i];
+            }
+
+            $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, contact_number, facebook_link, member_1, member_2, member_3, member_4, member_5, members_ranks, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $game_slug,
+                $team_name,
+                $logo_path,
+                $ref_code,
+                $contact_number,
+                $facebook_link,
+                $members[1], $members[2], $members[3], $members[4], $members[5],
+                $members_data,
+                $upload_path,
+            ]);
+
+            $_SESSION['ref_code'] = $ref_code;
+            flash('success', "Team \"$team_name\" registered for $game_name! We'll review your payment and confirm shortly.");
+            header("Location: " . base_url("success.php?game=$game_slug"));
+            exit;
+        } catch (Exception $e) {
+            $errors[] = 'Registration failed. Please try again. Error: ' . $e->getMessage();
         }
-
-        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, contact_number, facebook_link, member_1, member_2, member_3, member_4, member_5, members_ranks, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([
-            $game_slug,
-            $team_name,
-            $logo_path,
-            $ref_code,
-            $contact_number,
-            $facebook_link,
-            $members[1], $members[2], $members[3], $members[4], $members[5],
-            $members_data,
-            $upload_path,
-        ]);
-
-        $_SESSION['ref_code'] = $ref_code;
-        flash('success', "Team \"$team_name\" registered for $game_name! We'll review your payment and confirm shortly.");
-        header("Location: " . base_url("success.php?game=$game_slug"));
-        exit;
     }
 }
 
@@ -208,7 +218,7 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label">Team Logo <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
                 <input type="file" name="team_logo" class="form-control" accept="image/*">
                 <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
-                    JPG, PNG, or WebP. Max 2MB. Will be shown on the registered teams list.
+                    JPG, PNG, or WebP. Max 5MB. Will be shown on the registered teams list.
                 </div>
             </div>
 
@@ -240,10 +250,17 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="gcash-number"><i class="bi bi-phone"></i> GCash: <strong>0927 872 8916</strong></div>
             </div>
             <div class="mb-3">
-                <label class="form-label">Payment Proof</label>
-                <input type="file" name="payment_proof" class="form-control" accept="image/*,.pdf" required>
+                <label class="form-label">Payment Proof <span style="color:var(--text-muted); font-weight:400;">(upload screenshot)</span></label>
+                <input type="file" name="payment_proof" class="form-control" accept="image/*,.pdf">
                 <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
                     JPG, PNG, WebP, or PDF. Max 5MB.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Or explain why you can't upload proof <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+                <textarea name="payment_note" class="form-control" rows="2" placeholder="e.g. Will send proof later, paid in person, etc."><?= htmlspecialchars($_POST['payment_note'] ?? '') ?></textarea>
+                <div class="form-text text-muted" style="font-size:0.8rem; margin-top:0.4rem;">
+                    If you can't upload proof right now, tell us why. You must provide either a file or a reason.
                 </div>
             </div>
 
