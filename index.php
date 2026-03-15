@@ -117,11 +117,23 @@ $max_teams = 16;
 // Solo players form teams of 5
 function estimate_date($team_count, $solo_count) {
     $total = $team_count + floor($solo_count / 5);
-    if ($total >= 16) return 'Ready to launch! Date will be announced soon.';
-    if ($total >= 12) return 'Almost full — estimated start: 1-2 weeks';
-    if ($total >= 8) return 'Filling up — estimated start: 2-3 weeks';
-    if ($total >= 4) return 'Building up — estimated start: 3-4 weeks';
-    return 'Recruiting — tournament starts once we hit 8+ teams';
+    if ($total >= 16) {
+        $date = date('F j, Y', strtotime('+1 week'));
+        return "Slots full! Target date: $date";
+    }
+    if ($total >= 12) {
+        $date = date('F j', strtotime('+2 weeks'));
+        return "Almost full — target date: $date";
+    }
+    if ($total >= 8) {
+        $date = date('F j', strtotime('+3 weeks'));
+        return "Filling up — estimated: $date";
+    }
+    if ($total >= 4) {
+        $date = date('F j', strtotime('+4 weeks'));
+        return "Building up — estimated: $date";
+    }
+    return 'Recruiting — date TBA once 8+ teams register';
 }
 ?>
 
