@@ -135,9 +135,64 @@ function estimate_date($team_count, $solo_count) {
     }
     return 'Recruiting — date TBA once 8+ teams register';
 }
+
+// Determine countdown: find the game with the most teams
+$best_game = null;
+$best_total = 0;
+foreach ($games as $g) {
+    $tc = $counts[$g['slug']] ?? 0;
+    $sc = $solo_counts[$g['slug']] ?? 0;
+    $total = $tc + floor($sc / 5);
+    if ($total > $best_total) {
+        $best_total = $total;
+        $best_game = $g;
+    }
+}
+$countdown_target = null;
+$countdown_label = '';
+if ($best_total >= 16) {
+    $countdown_target = date('Y-m-d', strtotime('+1 week'));
+    $countdown_label = 'Tournament starts in';
+} elseif ($best_total >= 8) {
+    $countdown_target = date('Y-m-d', strtotime('+3 weeks'));
+    $countdown_label = 'Estimated tournament date';
+}
 ?>
 
-<div class="games-grid">
+<div class="countdown-section" id="countdownSection">
+    <?php if ($countdown_target): ?>
+        <div class="countdown-heading"><?= $countdown_label ?></div>
+        <div class="countdown-timer" data-target="<?= $countdown_target ?>">
+            <div class="countdown-unit">
+                <div class="countdown-number" id="cdDays">--</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit">
+                <div class="countdown-number" id="cdHours">--</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit">
+                <div class="countdown-number" id="cdMins">--</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit">
+                <div class="countdown-number" id="cdSecs">--</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="countdown-heading">Tournament Season</div>
+        <div class="countdown-tba">
+            <i class="bi bi-calendar-event"></i> Date TBA — <a href="#games">Register now!</a>
+        </div>
+        <div class="countdown-sub">Registration closing soon. Secure your slot before it fills up.</div>
+    <?php endif; ?>
+</div>
+
+<div class="games-grid" id="games">
     <?php foreach ($games as $game):
         $tc = $counts[$game['slug']] ?? 0;
         $sc = $solo_counts[$game['slug']] ?? 0;
@@ -186,6 +241,17 @@ function estimate_date($team_count, $solo_count) {
                             <i class="bi bi-lock-fill"></i> Registration Full
                         </div>
                     <?php endif; ?>
+                </div>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://argonar.co" target="_blank" rel="noopener" class="btn-share-fb" title="Share on Facebook">
+                        <i class="bi bi-facebook"></i> Share
+                    </a>
+                    <a href="fb-messenger://share/?link=https://argonar.co" class="btn-share-msg" title="Send via Messenger">
+                        <i class="bi bi-messenger"></i> Send
+                    </a>
+                    <button type="button" class="btn-copy-link" onclick="copyLink(this)" title="Copy link">
+                        <i class="bi bi-link-45deg"></i> Copy Link
+                    </button>
                 </div>
             </div>
         </div>

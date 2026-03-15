@@ -11,9 +11,11 @@ CREATE TABLE IF NOT EXISTS teams (
     member_3 VARCHAR(100) NOT NULL,
     member_4 VARCHAR(100) NOT NULL,
     member_5 VARCHAR(100) NOT NULL,
+    ref_code VARCHAR(20) DEFAULT NULL,
     payment_proof VARCHAR(255) NOT NULL,
     status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY (ref_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS solo_players (
@@ -23,7 +25,34 @@ CREATE TABLE IF NOT EXISTS solo_players (
     player_name VARCHAR(100) NOT NULL,
     rank_tier VARCHAR(50) NOT NULL,
     preferred_role VARCHAR(50) DEFAULT '',
+    ref_code VARCHAR(20) DEFAULT NULL,
     payment_proof VARCHAR(255) NOT NULL,
     status ENUM('pending', 'matched', 'approved') DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY (ref_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS matches (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    game VARCHAR(50) NOT NULL,
+    round INT NOT NULL,
+    match_order INT NOT NULL,
+    team1_name VARCHAR(100) NOT NULL,
+    team2_name VARCHAR(100) NOT NULL,
+    team1_score INT NOT NULL DEFAULT 0,
+    team2_score INT NOT NULL DEFAULT 0,
+    winner VARCHAR(100) NOT NULL DEFAULT '',
+    status ENUM('pending', 'live', 'completed') NOT NULL DEFAULT 'pending',
+    scheduled_at DATETIME DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS tournament_results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    game VARCHAR(50) NOT NULL,
+    season VARCHAR(50) NOT NULL DEFAULT 'Season 1',
+    placement INT NOT NULL,
+    team_name VARCHAR(100) NOT NULL,
+    prize VARCHAR(255) NOT NULL DEFAULT '',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

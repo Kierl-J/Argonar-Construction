@@ -19,6 +19,12 @@ $roles = [
     'dota2'     => ['Carry (Pos 1)', 'Mid (Pos 2)', 'Offlane (Pos 3)', 'Soft Support (Pos 4)', 'Hard Support (Pos 5)', 'Flexible (Any)'],
 ];
 
+$game_prefixes = [
+    'valorant'  => 'VAL',
+    'crossfire' => 'CF',
+    'dota2'     => 'DOTA',
+];
+
 $game_slug = $_GET['game'] ?? '';
 if (!isset($valid_games[$game_slug])) {
     header('Location: ' . base_url());
@@ -28,6 +34,25 @@ if (!isset($valid_games[$game_slug])) {
 $game_name = $valid_games[$game_slug];
 $pageTitle = "Solo Matchmaking — $game_name";
 $errors = [];
+
+function generate_ref_code($pdo, $prefix, $type) {
+    $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for ($attempt = 0; $attempt < 20; $attempt++) {
+        $rand = '';
+        for ($i = 0; $i < 4; $i++) {
+            $rand .= $chars[random_int(0, strlen($chars) - 1)];
+        }
+        $code = $prefix . '-' . $type . '-' . $rand;
+        $check1 = $pdo->prepare("SELECT 1 FROM teams WHERE ref_code = ?");
+        $check1->execute([$code]);
+        $check2 = $pdo->prepare("SELECT 1 FROM solo_players WHERE ref_code = ?");
+        $check2->execute([$code]);
+        if (!$check1->fetch() && !$check2->fetch()) {
+            return $code;
+        }
+    }
+    return $prefix . '-' . $type . '-' . strtoupper(bin2hex(random_bytes(2)));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $real_name      = trim($_POST['real_name'] ?? '');
@@ -84,16 +109,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, rank_tier, preferred_role, payment_proof) VALUES (?, ?, ?, ?, ?, ?)");
+        $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'S');
+
+        $stmt = $pdo->prepare("INSERT INTO solo_players (game, real_name, player_name, rank_tier, preferred_role, ref_code, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $real_name,
             $player_name,
             $rank_tier,
             $preferred_role,
+            $ref_code,
             $upload_path,
         ]);
 
+        $_SESSION['ref_code'] = $ref_code;
         flash('success', "You've been registered for $game_name solo matchmaking! We'll match you with players of similar rank.");
         header("Location: " . base_url("success.php?type=solo&game=$game_slug"));
         exit;

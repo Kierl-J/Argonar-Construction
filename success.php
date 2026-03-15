@@ -13,6 +13,8 @@ $type = $_GET['type'] ?? 'team';
 $pageTitle = 'Registration Submitted';
 
 $flash = get_flash();
+$ref_code = $_SESSION['ref_code'] ?? null;
+unset($_SESSION['ref_code']);
 
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -29,9 +31,22 @@ require_once __DIR__ . '/includes/header.php';
         <p>Your team has been registered for <?= htmlspecialchars($game_name) ?>. We'll review your payment and confirm shortly.</p>
     <?php endif; ?>
 
-    <a href="<?= base_url() ?>" class="btn-register" style="width: auto; display: inline-block; padding: 0.75rem 2rem;">
-        <i class="bi bi-arrow-left"></i> Back to Dashboard
-    </a>
+    <?php if ($ref_code): ?>
+        <div class="ref-code-display">
+            <div class="ref-code-label">Your Reference Code</div>
+            <div class="ref-code-value"><?= htmlspecialchars($ref_code) ?></div>
+            <div class="ref-code-hint">Save this code! Use it to check your registration status.</div>
+        </div>
+    <?php endif; ?>
+
+    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+        <a href="<?= base_url('status.php') ?>" class="btn-register" style="width: auto; display: inline-flex; padding: 0.75rem 2rem;">
+            <i class="bi bi-search"></i> Check Status
+        </a>
+        <a href="<?= base_url() ?>" class="btn-solo" style="width: auto; display: inline-flex; padding: 0.75rem 2rem;">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
 </div>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

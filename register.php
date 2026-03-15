@@ -13,9 +13,35 @@ if (!isset($valid_games[$game_slug])) {
     exit;
 }
 
+$game_prefixes = [
+    'valorant'  => 'VAL',
+    'crossfire' => 'CF',
+    'dota2'     => 'DOTA',
+];
+
 $game_name = $valid_games[$game_slug];
 $pageTitle = "Register — $game_name";
 $errors = [];
+
+function generate_ref_code($pdo, $prefix, $type) {
+    $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for ($attempt = 0; $attempt < 20; $attempt++) {
+        $rand = '';
+        for ($i = 0; $i < 4; $i++) {
+            $rand .= $chars[random_int(0, strlen($chars) - 1)];
+        }
+        $code = $prefix . '-' . $type . '-' . $rand;
+        // Check uniqueness in both tables
+        $check1 = $pdo->prepare("SELECT 1 FROM teams WHERE ref_code = ?");
+        $check1->execute([$code]);
+        $check2 = $pdo->prepare("SELECT 1 FROM solo_players WHERE ref_code = ?");
+        $check2->execute([$code]);
+        if (!$check1->fetch() && !$check2->fetch()) {
+            return $code;
+        }
+    }
+    return $prefix . '-' . $type . '-' . strtoupper(bin2hex(random_bytes(2)));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $team_name = trim($_POST['team_name'] ?? '');
@@ -104,15 +130,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, member_1, member_2, member_3, member_4, member_5, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $ref_code = generate_ref_code($pdo, $game_prefixes[$game_slug], 'T');
+
+        $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, member_1, member_2, member_3, member_4, member_5, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $game_slug,
             $team_name,
             $logo_path,
+            $ref_code,
             $members[1], $members[2], $members[3], $members[4], $members[5],
             $upload_path,
         ]);
 
+        $_SESSION['ref_code'] = $ref_code;
         flash('success', "Team \"$team_name\" registered for $game_name! We'll review your payment and confirm shortly.");
         header("Location: " . base_url("success.php?game=$game_slug"));
         exit;

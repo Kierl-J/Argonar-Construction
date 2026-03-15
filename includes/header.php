@@ -14,9 +14,20 @@
 <body>
 
 <nav class="navbar">
-    <div class="container">
+    <div class="container nav-container">
         <a class="navbar-brand" href="<?= base_url() ?>">
             <i class="bi bi-controller"></i> Argonar <span>Tournament</span>
         </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="<?= base_url() ?>#games" class="nav-link">Games</a>
+            <a href="<?= base_url('rules.php') ?>" class="nav-link">Rules</a>
+            <a href="<?= base_url('bracket.php') ?>" class="nav-link">Bracket</a>
+            <a href="<?= base_url('leaderboard.php') ?>" class="nav-link">Leaderboard</a>
+            <a href="<?= base_url('contact.php') ?>" class="nav-link">Contact</a>
+            <a href="<?= base_url('status.php') ?>" class="nav-link">Status Check</a>
+        </div>
     </div>
 </nav>
