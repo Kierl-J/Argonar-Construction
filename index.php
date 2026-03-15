@@ -103,7 +103,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="prize-option">
                 <div class="prize-icon"><i class="bi bi-wind"></i></div>
                 <div class="prize-amount">Paragliding Experience</div>
-                <div class="prize-desc">For the whole team — by OCPD Oslob Cebu</div>
+                <div class="prize-desc">Free tickets for the whole team — by OCPD Oslob Cebu</div>
             </div>
         </div>
         <div class="prize-note">Winners must choose one. You cannot claim both.</div>
