@@ -106,6 +106,7 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
             <h1><i class="bi bi-speedometer2"></i> Admin Dashboard</h1>
         </div>
         <div class="admin-header-actions">
+            <a href="<?= base_url('admin/brackets.php') ?>" class="btn-back-site"><i class="bi bi-diagram-3"></i> Brackets</a>
             <a href="<?= base_url() ?>" class="btn-back-site"><i class="bi bi-arrow-left"></i> Back to Site</a>
             <a href="<?= base_url('admin/logout.php') ?>" class="btn-logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </div>
