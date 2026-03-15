@@ -172,6 +172,22 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
+            <div class="terms-section">
+                <div class="terms-title"><i class="bi bi-shield-check"></i> Terms &amp; Consent</div>
+                <div class="terms-body">
+                    <p>By registering, you agree to the following:</p>
+                    <ul>
+                        <li><strong>Media Release:</strong> You consent to being photographed, filmed, and/or recorded during the tournament. All media may be used for promotional, social media, and public purposes by the organizers.</li>
+                        <li><strong>Fair Play &amp; Integrity:</strong> You commit to playing with honesty and sportsmanship. Any form of cheating, rank manipulation, or unsportsmanlike behavior may result in disqualification.</li>
+                        <li><strong>Build Your Reputation:</strong> This tournament is your stage. Your performance, conduct, and teamwork build your credibility as a player in the community. Play with honor.</li>
+                    </ul>
+                </div>
+                <label class="terms-checkbox">
+                    <input type="checkbox" name="agree_terms" required>
+                    <span>I agree to the terms above and give my consent.</span>
+                </label>
+            </div>
+
             <button type="submit" class="btn-submit">
                 <i class="bi bi-check-circle"></i> Find Me a Team
             </button>

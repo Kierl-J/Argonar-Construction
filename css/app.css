@@ -528,6 +528,66 @@ body {
     line-height: 1.5;
 }
 
+/* Terms & Consent */
+.terms-section {
+    margin-top: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.terms-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent-light);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.terms-body p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.terms-body ul {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding-left: 1.25rem;
+    margin: 0;
+    line-height: 1.7;
+}
+
+.terms-body ul li {
+    margin-bottom: 0.4rem;
+}
+
+.terms-body ul li strong {
+    color: var(--text);
+}
+
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    margin-top: 0.15rem;
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
 .btn-submit {
     width: 100%;
     padding: 0.85rem;
