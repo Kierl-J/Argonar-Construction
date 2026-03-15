@@ -53,6 +53,7 @@ $games = [
         'logo'    => 'images/dota.webp',
         'desc'    => '5v5 MOBA battle. Outplay, outfarm, outdraft.',
         'banner'  => 'dota2',
+        'date'    => '2026-04-15',
     ],
 ];
 
@@ -133,7 +134,11 @@ require_once __DIR__ . '/includes/header.php';
 <?php
 $max_teams = 16;
 // Solo players form teams of 5
-function estimate_date($team_count, $solo_count) {
+function estimate_date($team_count, $solo_count, $fixed_date = null) {
+    if ($fixed_date) {
+        $date = date('F j, Y', strtotime($fixed_date));
+        return "Tournament date: $date";
+    }
     $total = $team_count + floor($solo_count / 5);
     if ($total >= 16) {
         $date = date('F j, Y', strtotime('+1 week'));
@@ -154,10 +159,18 @@ function estimate_date($team_count, $solo_count) {
     return 'Recruiting — date TBA once 8+ teams register';
 }
 
-// Determine countdown: find the game with the most teams
+// Determine countdown: prefer games with fixed dates, then most teams
 $best_game = null;
 $best_total = 0;
+$countdown_target = null;
+$countdown_label = '';
 foreach ($games as $g) {
+    if (!empty($g['date']) && strtotime($g['date']) > time()) {
+        $countdown_target = $g['date'];
+        $countdown_label = $g['name'] . ' tournament starts in';
+        $best_game = $g;
+        break;
+    }
     $tc = $counts[$g['slug']] ?? 0;
     $sc = $solo_counts[$g['slug']] ?? 0;
     $total = $tc + floor($sc / 5);
@@ -166,14 +179,14 @@ foreach ($games as $g) {
         $best_game = $g;
     }
 }
-$countdown_target = null;
-$countdown_label = '';
-if ($best_total >= 16) {
-    $countdown_target = date('Y-m-d', strtotime('+1 week'));
-    $countdown_label = 'Tournament starts in';
-} elseif ($best_total >= 8) {
-    $countdown_target = date('Y-m-d', strtotime('+3 weeks'));
-    $countdown_label = 'Estimated tournament date';
+if (!$countdown_target) {
+    if ($best_total >= 16) {
+        $countdown_target = date('Y-m-d', strtotime('+1 week'));
+        $countdown_label = 'Tournament starts in';
+    } elseif ($best_total >= 8) {
+        $countdown_target = date('Y-m-d', strtotime('+3 weeks'));
+        $countdown_label = 'Estimated tournament date';
+    }
 }
 ?>
 
@@ -227,7 +240,7 @@ if ($best_total >= 16) {
         $effective = $tc + floor($sc / 5);
         $pct = min(100, round(($effective / $max_teams) * 100));
         $slots_left = max(0, $max_teams - $effective);
-        $date_est = estimate_date($tc, $sc);
+        $date_est = estimate_date($tc, $sc, $game['date'] ?? null);
     ?>
         <div class="game-card">
             <div class="game-banner">
