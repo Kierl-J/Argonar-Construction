@@ -20,6 +20,18 @@ $msg_type = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
+    // Delete bracket
+    if ($action === 'delete_bracket') {
+        $del_game = $_POST['game'] ?? '';
+        if (isset($valid_games[$del_game])) {
+            $del = $pdo->prepare("DELETE FROM matches WHERE game = ?");
+            $del->execute([$del_game]);
+            $message = 'Bracket deleted for ' . $valid_games[$del_game] . '. (' . $del->rowCount() . ' matches removed)';
+            $msg_type = 'success';
+            $game_filter = $del_game;
+        }
+    }
+
     // Generate bracket
     if ($action === 'generate') {
         $gen_game = $_POST['game'] ?? '';
@@ -259,13 +271,24 @@ foreach ($valid_games as $slug => $name) {
                     <strong style="color:var(--warning);">Warning: existing bracket will be replaced!</strong>
                 <?php endif; ?>
             </p>
-            <form method="POST" style="display:inline;" onsubmit="return confirm('Generate new bracket? This will delete any existing matches for this game.');">
-                <input type="hidden" name="action" value="generate">
-                <input type="hidden" name="game" value="<?= $game_filter ?>">
-                <button type="submit" class="btn-submit" style="width:auto; padding:0.6rem 1.5rem; margin-top:0;">
-                    <i class="bi bi-shuffle"></i> Generate Bracket
-                </button>
-            </form>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                <form method="POST" style="display:inline;" onsubmit="return confirm('Generate new bracket? This will delete any existing matches for this game.');">
+                    <input type="hidden" name="action" value="generate">
+                    <input type="hidden" name="game" value="<?= $game_filter ?>">
+                    <button type="submit" class="btn-submit" style="width:auto; padding:0.6rem 1.5rem; margin-top:0;">
+                        <i class="bi bi-shuffle"></i> Generate Bracket
+                    </button>
+                </form>
+                <?php if (!empty($bracket_data)): ?>
+                    <form method="POST" style="display:inline;" onsubmit="return confirm('Delete ALL brackets for <?= $valid_games[$game_filter] ?>? This cannot be undone.');">
+                        <input type="hidden" name="action" value="delete_bracket">
+                        <input type="hidden" name="game" value="<?= $game_filter ?>">
+                        <button type="submit" class="btn-delete" style="padding:0.6rem 1.5rem; font-size:0.85rem;">
+                            <i class="bi bi-trash"></i> Delete Bracket
+                        </button>
+                    </form>
+                <?php endif; ?>
+            </div>
         </div>
 
         <!-- Edit Matches -->
