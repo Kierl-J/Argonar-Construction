@@ -10,6 +10,13 @@ while ($row = $stmt->fetch()) {
     $counts[$row['game']] = $row['total'];
 }
 
+// Count solo players waiting per game
+$solo_counts = [];
+$stmt = $pdo->query("SELECT game, COUNT(*) as total FROM solo_players WHERE status = 'pending' GROUP BY game");
+while ($row = $stmt->fetch()) {
+    $solo_counts[$row['game']] = $row['total'];
+}
+
 $games = [
     [
         'slug'    => 'valorant',
@@ -89,6 +96,27 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </a>
     <?php endforeach; ?>
+</div>
+
+<div class="matchmaking-section">
+    <h2>Solo Matchmaking</h2>
+    <p>No team? Register solo and we'll match you with players of similar rank. <strong>&#8369;100</strong> per player.</p>
+
+    <div class="matchmaking-grid">
+        <?php foreach ($games as $game): ?>
+            <a href="<?= base_url('matchmaking.php') ?>?game=<?= $game['slug'] ?>" class="match-card">
+                <img src="<?= base_url($game['logo']) ?>" alt="<?= $game['name'] ?>" class="match-card-img">
+                <div class="match-card-body">
+                    <h3><?= $game['name'] ?></h3>
+                    <span class="solo-count">
+                        <i class="bi bi-person-fill"></i>
+                        <?= $solo_counts[$game['slug']] ?? 0 ?> player(s) waiting
+                    </span>
+                    <span class="btn-register" style="width:auto; padding: 0.5rem 1.25rem; margin-top: 0.75rem; display: inline-block;">Find Team</span>
+                </div>
+            </a>
+        <?php endforeach; ?>
+    </div>
 </div>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

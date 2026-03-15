@@ -14,3 +14,13 @@ CREATE TABLE IF NOT EXISTS teams (
     status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS solo_players (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    game VARCHAR(50) NOT NULL,
+    player_name VARCHAR(100) NOT NULL,
+    rank_tier VARCHAR(50) NOT NULL,
+    payment_proof VARCHAR(255) NOT NULL,
+    status ENUM('pending', 'matched', 'approved') DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
