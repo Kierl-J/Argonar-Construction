@@ -111,6 +111,13 @@ require_once __DIR__ . '/includes/header.php';
                        value="<?= htmlspecialchars($_POST['player_name'] ?? '') ?>" required>
             </div>
 
+            <div class="rank-notice">
+                <div class="rank-notice-title">
+                    <i class="bi bi-shield-check"></i> Keep it real!
+                </div>
+                <p>Be honest about your rank! We'll have experienced players to gauge skill levels during the tournament. Playing fair keeps the matches fun for everyone and protects your rep as a player. Let's keep it real!</p>
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">Rank</label>
                 <select name="rank_tier" class="form-control form-select" required>
@@ -127,7 +134,8 @@ require_once __DIR__ . '/includes/header.php';
             <div class="section-label">Payment</div>
             <div class="payment-info">
                 <div class="fee">&#8369;100.00</div>
-                <p>Entry fee per player. Upload your payment proof below (GCash, bank transfer, etc.)</p>
+                <p>Entry fee per player. Send payment via GCash then upload your proof below.</p>
+                <div class="gcash-number"><i class="bi bi-phone"></i> GCash: <strong>0927 872 8916</strong></div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Payment Proof</label>

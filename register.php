@@ -134,7 +134,8 @@ require_once __DIR__ . '/includes/header.php';
             <div class="section-label">Payment</div>
             <div class="payment-info">
                 <div class="fee">&#8369;500.00</div>
-                <p>Entry fee per team. Upload your payment proof below (GCash, bank transfer, etc.)</p>
+                <p>Entry fee per team. Send payment via GCash then upload your proof below.</p>
+                <div class="gcash-number"><i class="bi bi-phone"></i> GCash: <strong>0927 872 8916</strong></div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Payment Proof</label>
