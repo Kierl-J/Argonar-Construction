@@ -61,7 +61,8 @@ require_once __DIR__ . '/includes/header.php';
             <li class="rule-item"><strong>No cheating or exploits.</strong> Any use of hacks, scripts, macros, or game exploits will result in immediate disqualification and a permanent ban from future events.</li>
             <li class="rule-item"><strong>Admin decisions are final.</strong> All rulings by tournament administrators are binding and non-negotiable.</li>
             <li class="rule-item"><strong>No-shows = forfeit.</strong> If your team fails to show up for a scheduled match, the opposing team advances automatically.</li>
-            <li class="rule-item"><strong>Account sharing is prohibited.</strong> Each player must use their own game account. Substitute players must be declared before the tournament starts.</li>
+            <li class="rule-item"><strong>Account sharing is prohibited.</strong> Each player must use their own game account.</li>
+            <li class="rule-item"><strong>Substitute players:</strong> Each team may declare <strong>1 substitute player</strong> during registration. Substitutes must be declared before the tournament — undeclared substitutes are not allowed to play. Substitutes can only replace a team member, not add a 6th player.</li>
         </ol>
 
         <!-- Match Schedule -->
@@ -88,9 +89,21 @@ require_once __DIR__ . '/includes/header.php';
             <li class="rule-item"><strong>False or dishonest information</strong> — Providing incorrect player names, using someone else's identity, or submitting fraudulent payment proofs will result in disqualification and forfeiture of any prizes.</li>
             <li class="rule-item"><strong>Smurfing</strong> — Using alternate or lower-ranked accounts to bypass fair matchmaking is strictly prohibited.</li>
             <li class="rule-item"><strong>Match fixing</strong> — Any form of intentional losing, score manipulation, or collusion between teams will result in permanent bans for all involved players.</li>
-            <li class="rule-item"><strong>Complaints and reports</strong> — Any complaints from players, audiences, or other participants regarding unfair play, dishonesty, or rule violations will be taken into consideration by the organizers when evaluating penalties.</li>
+            <li class="rule-item"><strong>Lying about skill level</strong> — Intentionally misrepresenting your rank or skill level to gain an unfair advantage in matchmaking or seeding is considered a violation and will be treated the same as rank manipulation.</li>
+            <li class="rule-item"><strong>Complaints and reports</strong> — Any complaints from players, audiences, or other participants regarding unfair play, dishonesty, lying about skill level, or rule violations will be taken into consideration by the organizers when evaluating penalties. <a href="dispute.php" style="color:var(--accent-light);">File a complaint here</a>.</li>
             <li class="rule-item"><strong>Penalties are at the organizer's discretion.</strong> The severity of the penalty — including warnings, disqualification, prize forfeiture, or permanent bans — will be judged by <strong>Argonar Software OPC</strong> and <strong>OCPD</strong> based on the nature and severity of the violation.</li>
             <li class="rule-item"><strong>All decisions are final.</strong> Argonar Software OPC and OCPD, as the official organizers of this event, reserve the right to take any action deemed necessary to maintain the integrity and fairness of the tournament.</li>
+        </ol>
+
+        <!-- Prize Claiming -->
+        <div class="section-label"><i class="bi bi-gift"></i> Prize Claiming</div>
+        <ol class="rules-list">
+            <li class="rule-item"><strong>Choose your prize.</strong> The winning team must choose <strong>one</strong> prize: either the cash prize or the paragliding tickets. Both cannot be claimed.</li>
+            <li class="rule-item"><strong>Claim within 7 days.</strong> Winners must claim their chosen prize within 7 days after the tournament finals. Unclaimed prizes after the deadline may be forfeited.</li>
+            <li class="rule-item"><strong>Cash prize</strong> will be distributed via GCash to the team captain, who is responsible for splitting it among team members.</li>
+            <li class="rule-item"><strong>Paragliding tickets</strong> are courtesy of OCPD Oslob Cebu Paragliding. The prize covers tickets only — transportation, travel, and logistics are the responsibility of the winners.</li>
+            <li class="rule-item"><strong>Verification may be required.</strong> The organizers may request ID or proof of identity when claiming the prize.</li>
+            <li class="rule-item"><strong>Prize is non-transferable.</strong> The prize cannot be transferred to another team or individual.</li>
         </ol>
 
         <div style="margin-top:2rem; text-align:center;">

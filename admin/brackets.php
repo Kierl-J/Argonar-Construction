@@ -173,8 +173,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $winner = $_POST['winner'] ?? '';
         $status = $_POST['status'] ?? 'pending';
 
-        $upd = $pdo->prepare("UPDATE matches SET team1_score = ?, team2_score = ?, winner = ?, status = ? WHERE id = ?");
-        $upd->execute([$team1_score, $team2_score, $winner, $status, $match_id]);
+        $scheduled_at = !empty($_POST['scheduled_at']) ? $_POST['scheduled_at'] : null;
+
+        $upd = $pdo->prepare("UPDATE matches SET team1_score = ?, team2_score = ?, winner = ?, status = ?, scheduled_at = ? WHERE id = ?");
+        $upd->execute([$team1_score, $team2_score, $winner, $status, $scheduled_at, $match_id]);
 
         // If completed, advance winner to next round
         if ($status === 'completed' && $winner) {
@@ -369,6 +371,7 @@ foreach ($valid_games as $slug => $name) {
                                     <th>Team 2</th>
                                     <th>Score</th>
                                     <th>Winner</th>
+                                    <th>Schedule</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -403,6 +406,11 @@ foreach ($valid_games as $slug => $name) {
                                                         </option>
                                                     <?php endif; ?>
                                                 </select>
+                                            </td>
+                                            <td>
+                                                <input type="datetime-local" name="scheduled_at"
+                                                       value="<?= $m['scheduled_at'] ? date('Y-m-d\TH:i', strtotime($m['scheduled_at'])) : '' ?>"
+                                                       class="form-control" style="width:175px; padding:0.3rem 0.5rem; font-size:0.8rem;">
                                             </td>
                                             <td>
                                                 <select name="status" class="form-select" style="width:auto; padding:0.3rem 0.5rem; font-size:0.85rem;">

@@ -136,6 +136,14 @@ if ($game_filter !== 'all' && isset($valid_games[$game_filter])) {
 }
 $solos = $stmt2->fetchAll();
 
+// Check-in counts
+$checkedin_teams = (int)$pdo->query("SELECT COUNT(*) FROM teams WHERE checked_in = 1")->fetchColumn();
+$checkedin_solos = (int)$pdo->query("SELECT COUNT(*) FROM solo_players WHERE checked_in = 1")->fetchColumn();
+
+// Disputes
+$open_disputes = (int)$pdo->query("SELECT COUNT(*) FROM disputes WHERE status = 'open'")->fetchColumn();
+$disputes = $pdo->query("SELECT * FROM disputes ORDER BY created_at DESC LIMIT 10")->fetchAll();
+
 // Recent activity (last 5 registrations)
 $recent = $pdo->query("
     (SELECT 'team' as type, team_name as name, game, status, created_at FROM teams ORDER BY created_at DESC LIMIT 5)
@@ -205,6 +213,22 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
                 <div class="summary-label">Pending</div>
             </div>
         </div>
+        <div class="summary-card">
+            <div class="summary-icon" style="background:rgba(16,185,129,0.15); color:#10b981;"><i class="bi bi-check2-square"></i></div>
+            <div class="summary-info">
+                <div class="summary-number"><?= $checkedin_teams + $checkedin_solos ?></div>
+                <div class="summary-label">Checked In</div>
+            </div>
+        </div>
+        <?php if ($open_disputes > 0): ?>
+        <div class="summary-card" style="border-color:rgba(239,68,68,0.3);">
+            <div class="summary-icon" style="background:rgba(239,68,68,0.15); color:var(--danger);"><i class="bi bi-flag-fill"></i></div>
+            <div class="summary-info">
+                <div class="summary-number"><?= $open_disputes ?></div>
+                <div class="summary-label">Open Disputes</div>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 
     <!-- Per-Game Breakdown -->
@@ -519,6 +543,58 @@ $pageTitle = 'Admin Dashboard — Argonar Tournament';
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Disputes -->
+    <?php if (!empty($disputes)): ?>
+    <div class="admin-section">
+        <div class="admin-section-header">
+            <h2><i class="bi bi-flag-fill" style="color:var(--danger);"></i> Disputes <span class="admin-count"><?= count($disputes) ?></span></h2>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>Ref</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($disputes as $d): ?>
+                        <tr>
+                            <td><strong><?= htmlspecialchars($d['player_name']) ?></strong></td>
+                            <td><code style="font-size:0.7rem;"><?= htmlspecialchars($d['ref_code'] ?: '—') ?></code></td>
+                            <td><?= htmlspecialchars($d['subject']) ?></td>
+                            <td style="max-width:250px; font-size:0.8rem; color:var(--text-muted);" title="<?= htmlspecialchars($d['message']) ?>">
+                                <?= htmlspecialchars(substr($d['message'], 0, 80)) ?><?= strlen($d['message']) > 80 ? '...' : '' ?>
+                            </td>
+                            <td>
+                                <span class="status-badge status-<?= $d['status'] === 'open' ? 'pending' : ($d['status'] === 'reviewed' ? 'approved' : 'rejected') ?>">
+                                    <?= ucfirst($d['status']) ?>
+                                </span>
+                            </td>
+                            <td style="font-size:0.75rem; color:var(--text-muted);"><?= date('M j, g:ia', strtotime($d['created_at'])) ?></td>
+                            <td>
+                                <form method="POST" action="<?= base_url('admin/action.php') ?>" style="display:inline;">
+                                    <input type="hidden" name="type" value="dispute">
+                                    <input type="hidden" name="id" value="<?= $d['id'] ?>">
+                                    <?php if ($d['status'] === 'open'): ?>
+                                        <button name="action" value="review_dispute" class="btn-approve" title="Mark Reviewed"><i class="bi bi-check-lg"></i></button>
+                                    <?php endif; ?>
+                                    <button name="action" value="close_dispute" class="btn-reject" title="Close"><i class="bi bi-x-lg"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php endif; ?>
 </div>
 
 <script>

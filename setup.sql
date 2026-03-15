@@ -11,9 +11,12 @@ CREATE TABLE IF NOT EXISTS teams (
     member_3 VARCHAR(100) NOT NULL,
     member_4 VARCHAR(100) NOT NULL,
     member_5 VARCHAR(100) NOT NULL,
+    substitute VARCHAR(100) DEFAULT '',
     ref_code VARCHAR(20) DEFAULT NULL,
     payment_proof VARCHAR(255) NOT NULL,
     status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    checked_in TINYINT(1) DEFAULT 0,
+    checked_in_at DATETIME DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY (ref_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -28,6 +31,8 @@ CREATE TABLE IF NOT EXISTS solo_players (
     ref_code VARCHAR(20) DEFAULT NULL,
     payment_proof VARCHAR(255) NOT NULL,
     status ENUM('pending', 'matched', 'approved') DEFAULT 'pending',
+    checked_in TINYINT(1) DEFAULT 0,
+    checked_in_at DATETIME DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY (ref_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -45,6 +50,17 @@ CREATE TABLE IF NOT EXISTS matches (
     winner VARCHAR(100) NOT NULL DEFAULT '',
     status ENUM('pending', 'live', 'completed') NOT NULL DEFAULT 'pending',
     scheduled_at DATETIME DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS disputes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ref_code VARCHAR(20) DEFAULT '',
+    player_name VARCHAR(100) NOT NULL,
+    subject VARCHAR(200) NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('open', 'reviewed', 'closed') DEFAULT 'open',
+    admin_notes TEXT DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

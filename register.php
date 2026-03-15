@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $team_name = trim($_POST['team_name'] ?? '');
     $contact_number = trim($_POST['contact_number'] ?? '');
     $facebook_link = trim($_POST['facebook_link'] ?? '');
+    $substitute = trim($_POST['substitute'] ?? '');
     $members = [];
     $member_ranks = [];
     for ($i = 1; $i <= 5; $i++) {
@@ -119,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $members_data .= ($i > 1 ? '|' : '') . $members[$i] . ':' . $member_ranks[$i];
             }
 
-            $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, contact_number, facebook_link, member_1, member_2, member_3, member_4, member_5, members_ranks, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO teams (game, team_name, team_logo, ref_code, contact_number, facebook_link, member_1, member_2, member_3, member_4, member_5, substitute, members_ranks, payment_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $game_slug,
                 $team_name,
@@ -128,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $contact_number,
                 $facebook_link,
                 $members[1], $members[2], $members[3], $members[4], $members[5],
+                $substitute,
                 $members_data,
                 $upload_path,
             ]);
@@ -207,9 +209,21 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             <?php endfor; ?>
 
+            <div class="mb-3" style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem;">
+                <label class="form-label" style="margin-bottom:0.5rem;">
+                    Substitute Player <span style="color:var(--text-muted); font-weight:400;">(optional)</span>
+                </label>
+                <input type="text" name="substitute" class="form-control"
+                       placeholder="Full name or in-game name of substitute"
+                       value="<?= htmlspecialchars($_POST['substitute'] ?? '') ?>">
+                <div class="form-text" style="font-size:0.75rem; color:var(--text-muted); margin-top:0.4rem;">
+                    Each team may declare 1 substitute. Must be registered before the tournament.
+                </div>
+            </div>
+
             <div class="alert-custom alert-danger" style="margin-top:0.5rem; font-size:0.8rem;">
                 <i class="bi bi-exclamation-triangle-fill"></i>
-                <strong>Rank Integrity Warning:</strong> Make sure your submitted rank is genuine and reflects your actual in-game rank. Any form of rank manipulation, smurfing, or dishonesty will result in disqualification and penalties at the discretion of the organizers.
+                <strong>Rank Integrity Warning:</strong> Make sure your submitted rank is genuine and reflects your actual in-game rank. Any form of rank manipulation, smurfing, lying about skill level, or dishonesty will result in disqualification and penalties at the discretion of the organizers.
             </div>
 
             <div class="section-label">Payment</div>

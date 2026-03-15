@@ -41,6 +41,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="<?= base_url('css/app.css') ?>">
+    <?= $extraHead ?? '' ?>
 </head>
 <body>
 
@@ -57,8 +58,9 @@
             <a href="<?= base_url('rules.php') ?>" class="nav-link">Rules</a>
             <a href="<?= base_url('bracket.php') ?>" class="nav-link">Bracket</a>
             <a href="<?= base_url('leaderboard.php') ?>" class="nav-link">Leaderboard</a>
-            <a href="<?= base_url('contact.php') ?>" class="nav-link">Contact</a>
-            <a href="<?= base_url('status.php') ?>" class="nav-link">Status Check</a>
+            <a href="<?= base_url('checkin.php') ?>" class="nav-link">Check-In</a>
+            <a href="<?= base_url('dispute.php') ?>" class="nav-link">Disputes</a>
+            <a href="<?= base_url('status.php') ?>" class="nav-link">Status</a>
         </div>
     </div>
 </nav>

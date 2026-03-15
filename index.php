@@ -106,6 +106,9 @@ require_once __DIR__ . '/includes/header.php';
     <div class="winner-banner">
         <i class="bi bi-trophy-fill"></i> Winner Takes All — One champion per game. No runner-up, no second place.
     </div>
+    <div class="winner-banner" style="margin-top:0.5rem; background:rgba(59,130,246,0.1); border-color:rgba(59,130,246,0.3); color:#60a5fa;">
+        <i class="bi bi-bar-chart-fill"></i> Rank-Based Balancing — Brackets are seeded by average team rank for fair matchups. Your rank matters!
+    </div>
     <div class="winner-banner" style="margin-top:0.5rem; background:rgba(124,58,237,0.1); border-color:rgba(124,58,237,0.3); color:var(--accent-light);">
         <i class="bi bi-diagram-3"></i> Double Elimination — Winners &amp; Losers bracket. You have to lose twice to be out.
     </div>
@@ -258,6 +261,7 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
         $date_est = estimate_date($tc, $sc, $game['date'] ?? null);
         $reg_deadline = $game['reg_deadline'] ?? null;
         $reg_closed = $reg_deadline && strtotime($reg_deadline . ' 23:59:59') < time();
+        $days_left = $reg_deadline ? max(0, (int)ceil((strtotime($reg_deadline . ' 23:59:59') - time()) / 86400)) : null;
     ?>
         <div class="game-card">
             <div class="game-banner">
@@ -285,6 +289,12 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                                 Register by <?= date('F j, Y', strtotime($reg_deadline)) ?>
                             <?php endif; ?>
                         </div>
+                        <?php if (!$reg_closed && $days_left !== null): ?>
+                            <div class="reg-days-left">
+                                <i class="bi bi-hourglass-split"></i>
+                                <strong><?= $days_left ?></strong> day<?= $days_left !== 1 ? 's' : '' ?> left to register
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
@@ -446,8 +456,9 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                 <ul style="margin:0; padding-left:1.25rem; font-size:0.85rem; color:var(--text); line-height:1.7;">
                     <li><strong>Rank manipulation</strong> — Submitting a fake or lower rank will result in immediate disqualification.</li>
                     <li><strong>Dishonesty</strong> — False information, smurfing, or fraudulent submissions will lead to disqualification and prize forfeiture.</li>
+                    <li><strong>Lying about skill level</strong> — Intentionally misrepresenting your rank or skill level is treated the same as rank manipulation.</li>
                     <li><strong>Match fixing</strong> — Intentional losing, score manipulation, or collusion = permanent ban.</li>
-                    <li><strong>Complaints &amp; reports</strong> — Any complaints from players, audiences, or other participants regarding unfair play or rule violations <strong>will be taken into consideration</strong> by the organizers when evaluating penalties.</li>
+                    <li><strong>Complaints &amp; reports</strong> — Any complaints from players, audiences, or other participants regarding unfair play, lying about skill level, or rule violations <strong>will be taken into consideration</strong> by the organizers. <a href="<?= base_url('dispute.php') ?>" style="color:var(--danger); text-decoration:underline;">File a complaint</a>.</li>
                 </ul>
                 <div style="margin-top:0.75rem; padding:0.6rem 0.75rem; background:rgba(239,68,68,0.1); border-radius:8px; font-size:0.8rem; font-weight:700; color:var(--danger); text-align:center;">
                     <i class="bi bi-exclamation-triangle-fill"></i> All penalties — including warnings, disqualification, and prize forfeiture — will be judged by the organizers. All decisions are final.

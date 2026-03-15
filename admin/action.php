@@ -19,6 +19,17 @@ $type   = $_POST['type'] ?? '';
 $id     = (int)($_POST['id'] ?? 0);
 $action = $_POST['action'] ?? '';
 
+// Handle dispute actions (form POST, not AJAX)
+if ($type === 'dispute' && $id > 0) {
+    if ($action === 'review_dispute') {
+        $pdo->prepare("UPDATE disputes SET status = 'reviewed' WHERE id = ?")->execute([$id]);
+    } elseif ($action === 'close_dispute') {
+        $pdo->prepare("UPDATE disputes SET status = 'closed' WHERE id = ?")->execute([$id]);
+    }
+    header('Location: ' . base_url('admin/'));
+    exit;
+}
+
 // Validate inputs
 if (!in_array($type, ['team', 'solo'])) {
     echo json_encode(['success' => false, 'error' => 'Invalid type']);

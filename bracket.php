@@ -18,11 +18,16 @@ $round_labels = [
     4 => 'Finals',
 ];
 
+$autoRefresh = false;
 if ($game && isset($valid_games[$game])) {
     $pageTitle = $valid_games[$game] . ' Bracket — Argonar Tournament';
     $stmt = $pdo->prepare("SELECT * FROM matches WHERE game = ? ORDER BY bracket_side ASC, round ASC, match_order ASC");
     $stmt->execute([$game]);
     $matches = $stmt->fetchAll();
+    // Auto-refresh if any match is live
+    foreach ($matches as $m) {
+        if ($m['status'] === 'live') { $autoRefresh = true; break; }
+    }
 
     // Group by bracket side then round
     $bracket_data = [];
@@ -33,6 +38,9 @@ if ($game && isset($valid_games[$game])) {
     $rounds = $bracket_data; // for empty check
 }
 
+if ($autoRefresh) {
+    $extraHead = '<meta http-equiv="refresh" content="15">';
+}
 include __DIR__ . '/includes/header.php';
 ?>
 
@@ -113,7 +121,11 @@ include __DIR__ . '/includes/header.php';
                                 <span class="team-score"><?= $m['team2_score'] ?></span>
                             </div>
                             <div class="match-footer">
-                                <span class="match-status match-status-<?= $m['status'] ?>"><?= ucfirst($m['status']) ?></span>
+                                <?php if ($m['status'] === 'live'): ?>
+                                    <span class="match-status match-status-live"><span class="live-dot"></span> LIVE</span>
+                                <?php else: ?>
+                                    <span class="match-status match-status-<?= $m['status'] ?>"><?= ucfirst($m['status']) ?></span>
+                                <?php endif; ?>
                                 <?php if ($m['scheduled_at']): ?>
                                     <span class="match-time"><i class="bi bi-clock"></i> <?= date('M j, g:i A', strtotime($m['scheduled_at'])) ?></span>
                                 <?php endif; ?>
@@ -124,6 +136,12 @@ include __DIR__ . '/includes/header.php';
             <?php endforeach; ?>
         </div>
         <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php if ($autoRefresh): ?>
+        <div style="text-align:center; margin-top:1.5rem; font-size:0.75rem; color:var(--text-muted);">
+            <i class="bi bi-arrow-repeat"></i> Auto-refreshing every 15 seconds &middot; Last updated: <?= date('g:i:s A') ?>
+        </div>
     <?php endif; ?>
 
 <?php endif; ?>
