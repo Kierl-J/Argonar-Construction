@@ -1110,6 +1110,38 @@ body {
     font-size: 0.8rem;
 }
 
+/* Team Members List (registered participants) */
+.team-members-list {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.team-member-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.team-member-name {
+    color: var(--text-muted);
+}
+
+.team-member-rank {
+    background: rgba(124, 58, 237, 0.12);
+    color: var(--accent-light);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
 /* ========== Admin Dashboard ========== */
 
 .admin-container {

@@ -20,7 +20,7 @@ while ($row = $stmt->fetch()) {
 
 // Get registered teams per game
 $registered_teams = [];
-$stmt = $pdo->query("SELECT game, team_name, team_logo, status FROM teams ORDER BY created_at DESC");
+$stmt = $pdo->query("SELECT game, team_name, team_logo, status, members_ranks, member_1, member_2, member_3, member_4, member_5 FROM teams ORDER BY created_at DESC");
 while ($row = $stmt->fetch()) {
     $registered_teams[$row['game']][] = $row;
 }
@@ -64,6 +64,14 @@ $games = [
 
 require_once __DIR__ . '/includes/header.php';
 ?>
+
+<div style="max-width:1000px; margin:0 auto 1rem; padding:0 1rem; text-align:center;">
+    <div style="background:rgba(124,58,237,0.08); border:1px solid rgba(124,58,237,0.25); border-radius:10px; padding:0.6rem 1rem; font-size:0.8rem; color:var(--text-muted);">
+        <i class="bi bi-building" style="color:var(--accent-light);"></i>
+        This event is officially organized by <strong style="color:var(--accent-light);">Argonar Software OPC</strong>.
+        All rules, penalties, and final decisions are under the authority of Argonar Software OPC.
+    </div>
+</div>
 
 <div class="sponsors-bar">
     <div class="sponsor-block">
@@ -360,10 +368,42 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                         <?php if (!empty($team['team_logo'])): ?>
                             <img src="<?= base_url($team['team_logo']) ?>" alt="" class="team-logo-img">
                         <?php endif; ?>
-                        <div>
+                        <div style="flex:1; min-width:0;">
                             <div class="team-name"><?= htmlspecialchars($team['team_name']) ?></div>
                             <div class="team-type"><i class="bi bi-people-fill"></i> Team</div>
                             <span class="team-status <?= $team['status'] ?>"><?= $team['status'] ?></span>
+                            <div class="team-members-list">
+                                <?php
+                                // Parse members_ranks (format: name:rank|name:rank|...)
+                                $members_data = !empty($team['members_ranks']) ? explode('|', $team['members_ranks']) : [];
+                                if (!empty($members_data) && $members_data[0] !== ':'):
+                                    foreach ($members_data as $mi => $entry):
+                                        $parts = explode(':', $entry, 2);
+                                        $mname = $parts[0] ?? '';
+                                        $mrank = $parts[1] ?? '';
+                                        if (empty($mname)) continue;
+                                ?>
+                                    <div class="team-member-row">
+                                        <span class="team-member-name"><?= $mi === 0 ? '<i class="bi bi-star-fill" style="color:#fbbf24; font-size:0.6rem;" title="Captain"></i> ' : '' ?><?= htmlspecialchars($mname) ?></span>
+                                        <?php if (!empty($mrank)): ?>
+                                            <span class="team-member-rank"><?= htmlspecialchars($mrank) ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php
+                                    endforeach;
+                                else:
+                                    // Fallback to individual member columns
+                                    for ($mi = 1; $mi <= 5; $mi++):
+                                        if (empty($team["member_$mi"])) continue;
+                                ?>
+                                    <div class="team-member-row">
+                                        <span class="team-member-name"><?= $mi === 1 ? '<i class="bi bi-star-fill" style="color:#fbbf24; font-size:0.6rem;" title="Captain"></i> ' : '' ?><?= htmlspecialchars($team["member_$mi"]) ?></span>
+                                    </div>
+                                <?php
+                                    endfor;
+                                endif;
+                                ?>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
