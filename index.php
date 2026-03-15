@@ -438,6 +438,23 @@ if ($best_game && !empty($best_game['date']) && strtotime($best_game['date']) > 
                 <li><strong>Pay Later Option:</strong> You may register now and pay before the deadline via GCash, InstaPay QR, or on-site at the venue. Unpaid registrations by the deadline may be forfeited.</li>
                 <li><strong>Build Your Reputation:</strong> This tournament is your stage. Your performance, conduct, and teamwork build your credibility as a player in the community. Play with honor.</li>
             </ul>
+            <!-- Violations & Penalties Warning -->
+            <div style="margin-top:1.25rem; padding:1rem 1.25rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:10px;">
+                <div style="font-size:1rem; font-weight:800; color:var(--danger); margin-bottom:0.5rem;">
+                    <i class="bi bi-shield-exclamation"></i> VIOLATIONS &amp; PENALTIES
+                </div>
+                <ul style="margin:0; padding-left:1.25rem; font-size:0.85rem; color:var(--text); line-height:1.7;">
+                    <li><strong>Rank manipulation</strong> — Submitting a fake or lower rank will result in immediate disqualification.</li>
+                    <li><strong>Dishonesty</strong> — False information, smurfing, or fraudulent submissions will lead to disqualification and prize forfeiture.</li>
+                    <li><strong>Match fixing</strong> — Intentional losing, score manipulation, or collusion = permanent ban.</li>
+                    <li><strong>Complaints &amp; reports</strong> — Any complaints from players, audiences, or other participants regarding unfair play or rule violations <strong>will be taken into consideration</strong> by the organizers when evaluating penalties.</li>
+                </ul>
+                <div style="margin-top:0.75rem; padding:0.6rem 0.75rem; background:rgba(239,68,68,0.1); border-radius:8px; font-size:0.8rem; font-weight:700; color:var(--danger); text-align:center;">
+                    <i class="bi bi-exclamation-triangle-fill"></i> All penalties — including warnings, disqualification, and prize forfeiture — will be judged by the organizers. All decisions are final.
+                </div>
+            </div>
+
+            <!-- Organizer -->
             <div style="margin-top:1rem; padding:0.85rem 1rem; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.3); border-radius:10px; text-align:center;">
                 <div style="font-size:0.95rem; font-weight:800; color:var(--accent-light);">
                     <i class="bi bi-building"></i> This event is officially organized by
