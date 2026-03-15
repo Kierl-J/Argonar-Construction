@@ -133,6 +133,9 @@ require_once __DIR__ . '/includes/header.php';
             <i class="bi bi-exclamation-triangle-fill"></i> Winners must choose one. You cannot claim both.
         </div>
         <div class="prize-note">Cash prize is subject to change based on the organizer's decision and the number of registered participants.</div>
+        <div class="prize-note" style="color:var(--danger); font-weight:700; font-style:normal; font-size:0.9rem; margin-top:0.5rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); padding:0.6rem 1rem; border-radius:8px;">
+            <i class="bi bi-x-circle-fill"></i> No refunds. All entry fees are non-refundable once payment is made.
+        </div>
 
         <div class="paraglide-promo">
             <div class="paraglide-heading">This could be YOU and your team!</div>
