@@ -1,6 +1,6 @@
 <footer class="site-footer">
     <div class="container">
-        &copy; <?= date('Y') ?> Argonar Tournament. All rights reserved.
+        &copy; <?= date('Y') ?> Argonar Software OPC. All rights reserved.
     </div>
 </footer>
 

@@ -37,13 +37,26 @@ $games = [
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="presented-by">
-    <span class="presented-label">Presented by</span>
-    <div class="presented-logo">
-        <img src="<?= base_url('images/argonar-logo.svg') ?>" alt="Argonar Software OPC">
-        <div class="presented-text">
-            <strong>ARGONAR</strong>
-            <span>SOFTWARE OPC</span>
+<div class="sponsors-bar">
+    <div class="sponsor-block">
+        <span class="sponsor-label">Presented by</span>
+        <div class="sponsor-logo">
+            <img src="<?= base_url('images/argonar-logo.svg') ?>" alt="Argonar Software OPC">
+            <div class="sponsor-text">
+                <strong>ARGONAR</strong>
+                <span>SOFTWARE OPC</span>
+            </div>
+        </div>
+    </div>
+    <div class="sponsor-divider"></div>
+    <div class="sponsor-block">
+        <span class="sponsor-label">Venue hosted by</span>
+        <div class="sponsor-logo">
+            <img src="<?= base_url('images/hideout.jpg') ?>" alt="Hide Out Cybernet Cafe" class="venue-logo">
+            <div class="sponsor-text">
+                <strong>HIDE OUT</strong>
+                <span>CYBERNET CAFE</span>
+            </div>
         </div>
     </div>
 </div>

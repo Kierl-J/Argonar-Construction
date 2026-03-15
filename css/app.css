@@ -41,22 +41,30 @@ body {
     font-weight: 400;
 }
 
-/* Presented By */
-.presented-by {
-    text-align: center;
+/* Sponsors Bar */
+.sponsors-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
     padding: 2.5rem 1rem 0;
+    flex-wrap: wrap;
 }
 
-.presented-label {
+.sponsor-block {
+    text-align: center;
+}
+
+.sponsor-label {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--text-muted);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
 }
 
-.presented-logo {
+.sponsor-logo {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
@@ -66,29 +74,46 @@ body {
     padding: 0.75rem 1.5rem;
 }
 
-.presented-logo img {
+.sponsor-logo img {
     width: 40px;
     height: 40px;
 }
 
-.presented-text {
+.sponsor-logo img.venue-logo {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.sponsor-text {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
+    text-align: left;
 }
 
-.presented-text strong {
-    font-size: 1.2rem;
+.sponsor-text strong {
+    font-size: 1.1rem;
     font-weight: 800;
     letter-spacing: 2px;
     color: var(--text);
 }
 
-.presented-text span {
-    font-size: 0.65rem;
+.sponsor-text span {
+    font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 3px;
     color: var(--text-muted);
+}
+
+.sponsor-divider {
+    width: 1px;
+    height: 50px;
+    background: var(--border);
+}
+
+@media (max-width: 640px) {
+    .sponsor-divider { display: none; }
+    .sponsors-bar { gap: 1.25rem; }
 }
 
 /* Hero */
