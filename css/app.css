@@ -260,9 +260,50 @@ body {
     font-style: italic;
 }
 
+.paraglide-promo {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.paraglide-heading {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+}
+
+.paraglide-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.paraglide-gallery img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.paraglide-cta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.paraglide-cta i {
+    color: #38bdf8;
+}
+
 @media (max-width: 480px) {
     .prize-options { flex-direction: column; }
     .prize-pick { padding: 1.25rem; }
+    .paraglide-gallery img { height: 100px; }
 }
 
 /* Game Cards */

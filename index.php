@@ -112,6 +112,17 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <div class="prize-note">Winners must choose one. You cannot claim both.</div>
         <div class="prize-note">Cash prize is subject to change based on the organizer's decision and the number of registered participants.</div>
+
+        <div class="paraglide-promo">
+            <div class="paraglide-heading">This could be YOU and your team!</div>
+            <div class="paraglide-gallery">
+                <img src="<?= base_url('images/paragliding1.jpg') ?>" alt="Paragliding in Oslob Cebu">
+                <img src="<?= base_url('images/paragliding2.jpg') ?>" alt="Paragliding experience">
+            </div>
+            <div class="paraglide-cta">
+                <i class="bi bi-wind"></i> Win the tournament and soar above Oslob, Cebu — free paragliding tickets for your whole squad!
+            </div>
+        </div>
     </div>
 </div>
 
